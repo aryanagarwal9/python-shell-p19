@@ -1,4 +1,4 @@
-from applications.application_factory import ApplicationFactory as af
+from applications.application_factory import ApplicationFactory
 
-command = af().app_by_name('pwd')
+command = ApplicationFactory().app_by_name('pwd')
 command.exec()
