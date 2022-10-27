@@ -7,16 +7,4 @@ class Application(ABC):
         pass
 
 
-class Pwd(Application):
-    def __init__(self):
-        pass
 
-    def exec(self):
-        print("hi i am pwd")
-
-class Echo(Application):
-    def __init__(self):
-        pass
-
-    def exec(self):
-        print("hi i am echo")
