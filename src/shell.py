@@ -96,7 +96,7 @@ def eval(cmdline, out):
                                 out.append(line)
         else:
             raise ValueError(f"unsupported application {app}")
-
+        
 
 if __name__ == "__main__":
     args_num = len(sys.argv) - 1
