@@ -1,3 +1,5 @@
+import os
+
 from applications.application import Application
 
 class Pwd(Application):
@@ -5,4 +7,4 @@ class Pwd(Application):
         pass
 
     def exec(self):
-        print("hi i am pwd")
+        return os.getcwd()
