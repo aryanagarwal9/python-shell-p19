@@ -1,8 +1,11 @@
+import os
+from typing import Optional
+from collections import deque
+
 from applications.application import Application
 
 class Pwd(Application):
-    def __init__(self):
+    def exec(self, args: list, stdin: Optional[list], out: deque):
         pass
 
-    def exec(self):
-        print("hi i am pwd")
+

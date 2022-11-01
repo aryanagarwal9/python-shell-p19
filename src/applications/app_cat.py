@@ -1,8 +1,8 @@
+from collections import deque
+from typing import Optional
+
 from applications.application import Application
 
 class Cat(Application):
-    def __init__(self):
-        pass
-
-    def exec(self):
+    def exec(self, args: list, stdin: Optional[list], out: deque):
         print("hi i am echo")
