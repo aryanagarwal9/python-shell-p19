@@ -1,9 +1,10 @@
 from abc import abstractmethod, ABC
-
+from collections import deque
+from typing import Optional
 
 class Application(ABC):
     @abstractmethod
-    def exec(self):
+    def exec(self, args: list, stdin: Optional[list], out: deque):
         pass
 
 

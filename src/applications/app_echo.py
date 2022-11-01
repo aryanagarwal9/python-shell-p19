@@ -1,8 +1,11 @@
+from typing import Optional
+from collections import deque
+
 from applications.application import Application
 
 class Echo(Application):
-    def __init__(self):
-        pass
+    def exec(self, args: list, stdin: Optional[list], out: deque):
+        out.append(" ".join(args)+"\n")
 
-    def exec(self):
-        print("hi i am echo")
+
+
