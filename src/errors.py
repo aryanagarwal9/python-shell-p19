@@ -10,3 +10,11 @@ class ShellErrors(Exception):
 
 class FlagError(ShellErrors):
     pass
+
+
+class ArgumentError(ShellErrors):
+    pass
+
+
+class StandardInputError(ShellErrors):
+    pass
