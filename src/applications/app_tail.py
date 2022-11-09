@@ -104,3 +104,13 @@ class Tail(Application):
 
             for i in range(len(lines) - display_length, len(lines)):
                 out.append(lines[i])
+
+    def get_lines(self, args: list[str], file: str = None, stdin: Optional[list] = None) -> int:
+        if file is not None:
+            with open(file) as f:
+                num_lines = int(args[1])
+                lines = f.readlines()
+                display_length = min(len(lines), num_lines)
+                return lines[]
+        elif stdin:
+            num_lines = int(args[1])
