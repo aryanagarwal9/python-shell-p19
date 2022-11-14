@@ -1,13 +1,10 @@
-<<<<<<< HEAD
 from typing import Optional
 from collections import deque
-=======
 from collections import deque
 from typing import Optional
 
 import errors
 from applications.application import Application
->>>>>>> 9d530b0b1e0e7447b3aa0ec0c6887327625ecb4e
 
 from applications.application import Application
 
@@ -15,10 +12,6 @@ class Tail(Application):
     def exec(self, args: list, stdin: Optional[list], out: deque):
         pass
 
-<<<<<<< HEAD
-
-
-=======
     def exec(self, args: list[str], stdin: Optional[list], out: deque):
         if not len(args):
             raise errors.ArgumentError("No arguments given")
@@ -124,4 +117,3 @@ class Tail(Application):
                 return lines[]
         elif stdin:
             num_lines = int(args[1])
->>>>>>> 9d530b0b1e0e7447b3aa0ec0c6887327625ecb4e
