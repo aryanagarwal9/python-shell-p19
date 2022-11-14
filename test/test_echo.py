@@ -1,11 +1,21 @@
 import unittest
 from collections import deque
 
-from applications.app_echo import Echo
+from applications.application import Echo
 
-# class EchoTest(unittest.TestCase):
-#     def __init__(self):
-#         super().__init__()
+class TestEcho(unittest.TestCase):
+    def __init__(self):
+        super().__init__()
+        self.out = deque()
 
-d = {3:2, 1:1, 10:1,2:2, 4:5, 6:5}
-print(sorted(sorted(list(d.items())), key=lambda x:x[1], reverse=True))
+    def test_argument_without_quotes(self):
+        eval("echo hello", self.out)
+        self.assertEqual(self.out.popleft(), "hello\n")
+
+    def test_argument_joined_with_double_quotes(self):
+        eval('echo "hello world"', self.out)
+        self.assertEqual(self.out.popleft(), "hello world\n")
+
+    def test_argument_joined_with_single_quotes(self):
+        eval("echo 'hello world'", self.out)
+        self.assertEqual(self.out.popleft(), "hello world\n")
