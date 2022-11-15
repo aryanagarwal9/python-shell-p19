@@ -6,13 +6,13 @@ from applications.application import Application
 
 
 class Grep(Application):
-    def exec(self, args: list, stdin: Optional[list], out: deque):
+    def exec(self, args: list, stdin: Optional[str], out: deque):
         if not len(args):
             raise ValueError("No arguments provided")
 
         self.call_required_function(args, stdin, out)
 
-    def call_required_function(self, args: list, stdin: Optional[list], out: deque):
+    def call_required_function(self, args: list, stdin: Optional[str], out: deque):
         pattern = args[0]
         num_args = len(args)
         if num_args > 1:
@@ -20,7 +20,7 @@ class Grep(Application):
         else:
             self.handle_stdin(pattern, stdin, out)
 
-    def handle_stdin(self, pattern: str, stdin: Optional[list], out: deque):
+    def handle_stdin(self, pattern: str, stdin: Optional[str], out: deque):
         for input_string in stdin:
             if re.match(pattern, input_string):
                 out.append(input_string + '\n')

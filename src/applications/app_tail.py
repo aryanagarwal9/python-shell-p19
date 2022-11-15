@@ -9,16 +9,13 @@ from applications.application import Application
 from applications.application import Application
 
 class Tail(Application):
-    def exec(self, args: list, stdin: Optional[list], out: deque):
-        pass
-
-    def exec(self, args: list[str], stdin: Optional[list], out: deque):
+    def exec(self, args: list[str], stdin: Optional[str], out: deque):
         if not len(args):
             raise errors.ArgumentError("No arguments given")
 
         self.call_required_function(args, stdin, out)
 
-    def call_required_function(self, args: list[str], stdin: Optional[list], out: deque):
+    def call_required_function(self, args: list[str], stdin: Optional[str], out: deque):
         """check the number of args given and handle each case
 
         :param args: list of arguments
@@ -51,7 +48,7 @@ class Tail(Application):
 
         self.output_lines_from_file(num_lines, file, out)
 
-    def handle_stdin(self, args: list[str], stdin: Optional[list], out: deque):
+    def handle_stdin(self, args: list[str], stdin: Optional[str], out: deque):
         """If file not given then read from stdin and
         output the specified number of lines
 
@@ -108,7 +105,7 @@ class Tail(Application):
             for i in range(len(lines) - display_length, len(lines)):
                 out.append(lines[i])
 
-    def get_lines(self, args: list[str], file: str = None, stdin: Optional[list] = None) -> int:
+    def get_lines(self, args: list[str], file: str = None, stdin: Optional[str] = None) -> int:
         if file is not None:
             with open(file) as f:
                 num_lines = int(args[1])

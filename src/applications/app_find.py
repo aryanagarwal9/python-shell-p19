@@ -7,7 +7,7 @@ from applications.application import Application
 
 
 class Find(Application):
-    def exec(self, args: list, stdin: Optional[list], out: deque):
+    def exec(self, args: list, stdin: Optional[str], out: deque):
         if len(args) < 2 or len(args) > 3:
             raise ValueError("wrong number of arguments")
 

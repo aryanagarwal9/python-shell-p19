@@ -6,8 +6,6 @@ from applications.app_tail import Tail
 
 
 class TestTail(unittest.TestCase):
-
-
     def setUp(self) -> None:
         self.out = deque()
         self.test_file_name = 'test.txt'
