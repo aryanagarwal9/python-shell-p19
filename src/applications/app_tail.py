@@ -1,12 +1,15 @@
+from typing import Optional
+from collections import deque
 from collections import deque
 from typing import Optional
 
 import errors
 from applications.application import Application
 
+from applications.application import Application
 
 class Tail(Application):
-    def __init__(self):
+    def exec(self, args: list, stdin: Optional[list], out: deque):
         pass
 
     def exec(self, args: list[str], stdin: Optional[list], out: deque):
@@ -140,4 +143,3 @@ def split_stdin_to_lines(stdin):
             start = end
 
     return lines
-

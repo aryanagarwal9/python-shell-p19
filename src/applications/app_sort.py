@@ -1,9 +1,33 @@
+from collections import deque
+from typing import Optional
+
 from applications.application import Application
 
 
 class Sort(Application):
-    def __init__(self):
-        pass
+    def exec(self, args: list, stdin: Optional[list], out: deque):
+        reverse = len(args) and args[0] == '-r'
+        if self.is_file_input_available(args):
+            self.handle_file_input(args, out, reverse=reverse)
 
-    def exec(self):
-        print("hi i am echo")
+        elif self.is_stdin_available(stdin):
+            self.handle_stdin(stdin, out, reverse=reverse)
+
+        else:
+            raise ValueError('no arguments or stdin')
+
+    def is_file_input_available(self, args: list):
+        return len(args) > 1 or (len(args) and args[0] != '-r')
+
+    def is_stdin_available(self, stdin: Optional[list]):
+        return len(stdin)
+
+    def handle_file_input(self, args: list, out: deque, reverse: bool):
+        file_name = args[0] if len(args) == 1 else args[1]
+        with open(file_name,'r') as file:
+            for line in sorted(file.readlines(), reverse=reverse):
+                out.append(line + '\n')
+
+    def handle_stdin(self, stdin: Optional[list], out: deque, reverse: bool):
+        for line in sorted(stdin, reverse=reverse):
+            out.append(line + '\n')
