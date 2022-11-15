@@ -46,7 +46,7 @@ class Tail(Application):
         num_lines = 10
         file = args[0]
 
-        self.output_lines_from_file(num_lines, file, out)
+        out.extend(self.output_lines_from_file(num_lines, file))
 
     def handle_stdin(self, args: list[str], stdin: Optional[list], out: deque):
         """If file not given then read from stdin and
@@ -59,20 +59,20 @@ class Tail(Application):
         """
 
         # validate parameters
-        if stdin is None:
-            raise errors.StandardInputError("No input given")
-        if args[0] != "-n":
-            raise errors.FlagError("Invalid flags given")
+        check_stdin(stdin)
+        check_flag(args[0], '-n')
 
         # add lines to output
         num_lines = int(args[1])
-        display_length = min(len(stdin), num_lines)
+        stdin_lines = split_stdin_to_lines(stdin)
 
-        for i in range(len(stdin) - display_length, len(stdin)):
-            out.append(stdin[i])
+        display_length = min(len(stdin_lines), num_lines)
+
+        for i in range(len(stdin_lines) - display_length, len(stdin_lines)):
+            out.append(stdin_lines[i])
 
     def handle_num_of_lines_and_file(self, args: list[str], out: deque):
-        """If file not given then read from stdin and
+        """If file and num_lines is given then read from file and
         output the specified number of lines
 
         :param args: list of arguments
@@ -81,15 +81,14 @@ class Tail(Application):
         """
 
         # validate parameter
-        if args[0] != "-n":
-            raise errors.FlagError("Invalid flags given")
-        else:
-            num_lines = int(args[1])
-            file = args[2]
+        check_flag(args[0], '-n')
 
-        self.output_lines_from_file(num_lines, file, out)
+        num_lines = int(args[1])
+        file = args[2]
 
-    def output_lines_from_file(self, num_lines: int, file: str, out: deque):
+        out.extend(self.output_lines_from_file(num_lines, file))
+
+    def output_lines_from_file(self, num_lines: int, file: str):
         """Read the text file and add the specified number of lines to output
 
         :param num_lines: number of lines to add to output
@@ -98,19 +97,47 @@ class Tail(Application):
         :return: None
         """
 
+        res = []
+
         with open(file) as f:
             lines = f.readlines()
             display_length = min(len(lines), num_lines)
 
             for i in range(len(lines) - display_length, len(lines)):
-                out.append(lines[i])
+                res.append(lines[i])
 
-    def get_lines(self, args: list[str], file: str = None, stdin: Optional[list] = None) -> int:
-        if file is not None:
-            with open(file) as f:
-                num_lines = int(args[1])
-                lines = f.readlines()
-                display_length = min(len(lines), num_lines)
-                return lines[]
-        elif stdin:
-            num_lines = int(args[1])
+        return res
+
+
+def check_flag(arg: str, flag: str):
+    if arg != "-n":
+        raise errors.FlagError("Invalid flags given")
+
+    return True
+
+
+def check_stdin(stdin: Optional[list]):
+    if stdin is None:
+        raise errors.StandardInputError("No input given")
+
+    return True
+
+
+def split_stdin_to_lines(stdin):
+    lines = []
+    start = 0
+    while True:
+        if start >= len(stdin) - 1:
+            break
+
+        i = stdin.find('\n', start)
+        if i == -1:
+            lines.append(stdin[start:])
+            break
+        else:
+            end = i + 1
+            lines.append(stdin[start: end])
+            start = end
+
+    return lines
+
