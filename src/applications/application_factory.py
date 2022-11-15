@@ -12,6 +12,7 @@ from applications.app_find import Find
 
 class ApplicationFactory:
     def __init__(self):
+
         self.app_types = {'pwd': Pwd,
                           'echo': Echo,
                           'cd': Cd,
