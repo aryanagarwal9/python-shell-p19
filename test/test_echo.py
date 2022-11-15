@@ -3,7 +3,7 @@ from collections import deque
 
 from applications.application import Echo
 
-class EchoTest(unittest.TestCase):
+class TestEcho(unittest.TestCase):
     def __init__(self):
         super().__init__()
         self.out = deque()

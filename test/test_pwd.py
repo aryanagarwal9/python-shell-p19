@@ -4,7 +4,7 @@ from collections import deque
 
 from applications.application import Pwd
 
-class PwdTest(unittest.TestCase):
+class TestPwd(unittest.TestCase):
     def __init__(self):
         super().__init__()
         self.out = deque()
