@@ -1,16 +1,10 @@
-<<<<<<< HEAD
+
 from applications.application_factory import ApplicationFactory
 
+with open('/Users/adityaparashar/UCL/Year2/COMP0010/CW/h2.txt', 'r') as f:
+    print(f.readlines())
 
-
-=======
-import os
-import sys
->>>>>>> c9ca63865e53ae700f368b615b0bc086ec52acbc
-
-command = ApplicationFactory().app_by_name('pwd')
-command.exec()
-
+print(sorted('java\npython\nc++\nc\nhaskell\nruby\nocaml'))
 # Hello
 # Hello
 # Hi

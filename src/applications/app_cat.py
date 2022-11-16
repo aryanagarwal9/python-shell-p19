@@ -12,9 +12,7 @@ class Cat(Application):
             self.handle_stdin_argument(stdin, out)
 
     def handle_stdin_argument(self, stdin: Optional[str], out: deque):
-        stdin_input = stdin.split('\n')
-        for line in stdin_input:
-            out.append(line)
+        out.append(stdin)
 
     def handle_file_arguments(self, args: list, out: deque):
         concatenated_output = ''
