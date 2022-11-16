@@ -7,8 +7,6 @@ from errors import ArgumentError
 
 
 class TestTail(unittest.TestCase):
-
-
     def setUp(self) -> None:
         self.out = deque()
         self.test_file_name = 'test.txt'
@@ -46,9 +44,7 @@ class TestTail(unittest.TestCase):
         ['newLineAtEndOfStr', ['-n', '2'], 'Line 2\nLine 3\n', ['Line 2\n', 'Line 3\n']]
     ])
     def test_tail_command_with_2_args(self, name, args, stdin, result):
-
         Tail().exec(args=args, stdin=stdin, out=self.out)
-
         self.assertEqual(result, list(self.out))
 
     @parameterized.expand([

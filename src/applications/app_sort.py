@@ -5,7 +5,7 @@ from applications.application import Application
 
 
 class Sort(Application):
-    def exec(self, args: list, stdin: Optional[list], out: deque):
+    def exec(self, args: list, stdin: Optional[str], out: deque):
         reverse = len(args) and args[0] == '-r'
         if self.is_file_input_available(args):
             self.handle_file_input(args, out, reverse=reverse)
@@ -19,7 +19,7 @@ class Sort(Application):
     def is_file_input_available(self, args: list):
         return len(args) > 1 or (len(args) and args[0] != '-r')
 
-    def is_stdin_available(self, stdin: Optional[list]):
+    def is_stdin_available(self, stdin: Optional[str]):
         return len(stdin)
 
     def handle_file_input(self, args: list, out: deque, reverse: bool):
@@ -28,6 +28,6 @@ class Sort(Application):
             for line in sorted(file.readlines(), reverse=reverse):
                 out.append(line + '\n')
 
-    def handle_stdin(self, stdin: Optional[list], out: deque, reverse: bool):
+    def handle_stdin(self, stdin: Optional[str], out: deque, reverse: bool):
         for line in sorted(stdin, reverse=reverse):
             out.append(line + '\n')

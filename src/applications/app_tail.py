@@ -9,9 +9,6 @@ from applications.application import Application
 from applications.application import Application
 
 class Tail(Application):
-    def exec(self, args: list, stdin: Optional[list], out: deque):
-        pass
-
     def exec(self, args: list[str], stdin: Optional[list], out: deque):
         if not len(args):
             raise errors.ArgumentError("No arguments given")

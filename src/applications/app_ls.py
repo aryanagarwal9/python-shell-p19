@@ -8,7 +8,6 @@ from applications.application import Application
 
 
 class Ls(Application):
-
     def exec(self, args: list, stdin: Optional[list], out: deque):
         if not len(args):
             self.handle_no_arguments(out=out)
@@ -28,11 +27,6 @@ class Ls(Application):
     def handle_one_argument(self, args: list, out: deque):
         contents = self.get_directory_contents(args[0])
         out.append("\t".join(contents) + '\n')
-
-
-
-
-
 
 
 
