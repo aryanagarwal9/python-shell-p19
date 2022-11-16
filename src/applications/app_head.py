@@ -90,7 +90,6 @@ class Head(Application):
 
         :param num_lines: number of lines to add to output
         :param file: text file to read lines from
-        :param out: output stored in a deque
         :return: None
         """
 
