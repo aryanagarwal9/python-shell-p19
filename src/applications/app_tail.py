@@ -3,6 +3,7 @@ from typing import Optional
 
 import errors
 from applications.application import Application
+from utils import check_flag, check_stdin, split_stdin_to_lines
 
 
 class Tail(Application):
@@ -36,7 +37,7 @@ class Tail(Application):
             raise errors.ArgumentError("Invalid number of arguments")
 
     def handle_only_file_input(self, args: list[str], out: deque):
-        """output the first 10 lines if only file name is given
+        """output the last 10 lines if only file name is given
 
         :param args: list of arguments
         :param out: output stored in a deque
@@ -107,37 +108,3 @@ class Tail(Application):
                 res.append(lines[i])
 
         return res
-
-
-def check_flag(arg: str, flag: str):
-    if arg != "-n":
-        raise errors.FlagError("Invalid flags given")
-
-    return True
-
-
-def check_stdin(stdin: Optional[list]):
-    if stdin is None:
-        raise errors.StandardInputError("No input given")
-
-    return True
-
-
-def split_stdin_to_lines(stdin):
-    lines = []
-    start = 0
-    while True:
-        if start >= len(stdin) - 1:
-            break
-
-        i = stdin.find('\n', start)
-        if i == -1:
-            lines.append(stdin[start:])
-            break
-        else:
-            end = i + 1
-            lines.append(stdin[start: end])
-            start = end
-
-    return lines
-

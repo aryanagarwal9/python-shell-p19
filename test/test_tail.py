@@ -11,18 +11,19 @@ class TestTail(unittest.TestCase):
 
     def setUp(self) -> None:
         self.out = deque()
-        self.test_file_name = 'test.txt'
+        self.test_file = 'test.txt'
         test_str = "Line 1\nLine 2\nLine 3"
-        with open(self.test_file_name, 'w') as f:
+        with open(self.test_file, 'w') as f:
             f.write(test_str)
 
-        self.test_file_with_more_lines_name = 'test_with_more_lines.txt'
+        self.test_file_with_more_lines = 'test_with_more_lines.txt'
         test_str = 'Line 1\nLine 2\nLine 3\nLine 4\nLine 5\nLine 6\nLine 7\nLine 8\nLine 9\nLine 10\nLine 11'
-        with open(self.test_file_with_more_lines_name, 'w') as f:
+        with open(self.test_file_with_more_lines, 'w') as f:
             f.write(test_str)
 
     def tearDown(self) -> None:
-        os.remove(self.test_file_name)
+        os.remove(self.test_file)
+        os.remove(self.test_file_with_more_lines)
 
     def test_call_required_function_with_invalid_args(self):
         app = Tail()
