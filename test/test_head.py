@@ -8,7 +8,6 @@ from errors import ArgumentError
 
 class TestHead(unittest.TestCase):
 
-
     def setUp(self) -> None:
         self.out = deque()
         self.test_file = 'test.txt'
@@ -25,18 +24,16 @@ class TestHead(unittest.TestCase):
         os.remove(self.test_file)
         os.remove(self.test_file_with_more_lines)
 
-    def test_call_required_function_with_invalid_args(self):
+    def test_call_required_function_with_extra_args(self):
         app = Head()
-        self.assertRaises(ArgumentError, app.exec, args=[], stdin=None, out=self.out)
         self.assertRaises(ArgumentError, app.exec, args=[1, 2, 3, 4], stdin=None, out=self.out)
 
-
     @parameterized.expand([
-        ['zero_lines', ['-n', '0', 'test.txt'], None, []],
-        ['one_line', ['-n', '1', 'test.txt'], None, ['Line 1\n']],
-        ['two_lines', ['-n', '2', 'test.txt'], None, ['Line 1\n', 'Line 2\n']]
+        ['zero_lines', ['-n', '0', 'test.txt'], []],
+        ['one_line', ['-n', '1', 'test.txt'], ['Line 1\n']],
+        ['two_lines', ['-n', '2', 'test.txt'], ['Line 1\n', 'Line 2\n']]
     ])
-    def test_head_command_with_3_args(self, name, args, stdin, result):
+    def test_head_with_num_of_lines_and_file_input(self, name, args, result):
         Head().exec(args=args, stdin=None, out=self.out)
         self.assertEqual(result, list(self.out))
 
@@ -47,22 +44,28 @@ class TestHead(unittest.TestCase):
         ['equalLinesInArgs', ['-n', '2'], 'Line 2\nLine 3', ['Line 2\n', 'Line 3']],
         ['newLineAtEndOfStr', ['-n', '2'], 'Line 2\nLine 3\n', ['Line 2\n', 'Line 3\n']]
     ])
-    def test_head_command_with_2_args(self, name, args, stdin, result):
-
+    def test_head_with_num_of_lines_and_stdin(self, name, args, stdin, result):
         Head().exec(args=args, stdin=stdin, out=self.out)
 
         self.assertEqual(result, list(self.out))
 
     @parameterized.expand([
-        ['fileWithMoreThan10Lines', ['test_with_more_lines.txt'], None, ['Line 1\n', 'Line 2\n', 'Line 3\n', 'Line 4\n', 'Line 5\n',
-                                                                         'Line 6\n', 'Line 7\n', 'Line 8\n', 'Line 9\n',
-                                                                         'Line 10\n']],
-        ['fileWithLessThan10Lines', ['test.txt'], None, ['Line 1\n', 'Line 2\n', 'Line 3']]
+        ['fileWithMoreThan10Lines', ['test_with_more_lines.txt'], ['Line 1\n', 'Line 2\n', 'Line 3\n', 'Line 4\n',
+                                                                   'Line 5\n', 'Line 6\n', 'Line 7\n', 'Line 8\n',
+                                                                   'Line 9\n', 'Line 10\n']],
+        ['fileWithLessThan10Lines', ['test.txt'], ['Line 1\n', 'Line 2\n', 'Line 3']]
     ])
-    def test_head_command_with_1_arg(self, name, args, stdin, result):
+    def test_head_with_only_file_input(self, name, args, result):
         Head().exec(args=args, stdin=None, out=self.out)
         self.assertEqual(result, list(self.out))
 
+    @parameterized.expand([
+        ['fileWithMoreThan10Lines', '1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11', ['1\n', '2\n', '3\n', '4\n', '5\n', '6\n',
+                                                                          '7\n', '8\n', '9\n', '10\n']],
+        ['fileWithLessThan10Lines', '1\n2\n3', ['1\n', '2\n', '3']]
+    ])
+    def test_head_with_only_stdin_input(self, name, stdin, result):
+        Head().exec(args=[], stdin=stdin, out=self.out)
+        self.assertEqual(result, list(self.out))
 
-if __name__ == '__main__':
-    unittest.main()
+

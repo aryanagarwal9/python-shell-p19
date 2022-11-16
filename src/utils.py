@@ -1,6 +1,7 @@
 import errors
 from typing import Optional
 
+
 def check_flag(arg: str, flag: str):
     if arg != flag:
         raise errors.FlagError("Invalid flags given")
@@ -19,7 +20,7 @@ def split_stdin_to_lines(stdin):
     lines = []
     start = 0
     while True:
-        if start >= len(stdin) - 1:
+        if start >= len(stdin):
             break
 
         i = stdin.find('\n', start)
