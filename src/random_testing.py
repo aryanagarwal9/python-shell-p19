@@ -1,4 +1,5 @@
-from applications.application_factory import ApplicationFactory
+import os
+import sys
 
 command = ApplicationFactory().app_by_name('pwd')
 command.exec()
@@ -19,3 +20,4 @@ command.exec()
 #         out.append(curr_word+'\n')
 #         curr_word=line
 # out.append(curr_word)
+

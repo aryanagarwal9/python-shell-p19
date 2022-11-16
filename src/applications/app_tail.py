@@ -1,15 +1,11 @@
+import errors
 from collections import deque
 from typing import Optional
-
-import errors
 from applications.application import Application
 from utils import check_flag, check_stdin, split_stdin_to_lines
 
 
 class Tail(Application):
-    def __init__(self):
-        pass
-
     def exec(self, args: list[str], stdin: Optional[list], out: deque):
         if not len(args):
             raise errors.ArgumentError("No arguments given")
@@ -108,3 +104,7 @@ class Tail(Application):
                 res.append(lines[i])
 
         return res
+
+
+
+
