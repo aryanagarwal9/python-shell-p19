@@ -1,4 +1,5 @@
 import os
+import shutil
 import unittest
 from collections import deque
 from parameterized import parameterized
@@ -8,22 +9,23 @@ from errors import ArgumentError
 
 class TestTail(unittest.TestCase):
 
-
     def setUp(self) -> None:
         self.out = deque()
-        self.test_file = 'test.txt'
-        test_str = "Line 1\nLine 2\nLine 3"
-        with open(self.test_file, 'w') as f:
-            f.write(test_str)
+        self.directory = 'resources'
+        os.mkdir(self.directory)
 
-        self.test_file_with_more_lines = 'test_with_more_lines.txt'
-        test_str = 'Line 1\nLine 2\nLine 3\nLine 4\nLine 5\nLine 6\nLine 7\nLine 8\nLine 9\nLine 10\nLine 11'
-        with open(self.test_file_with_more_lines, 'w') as f:
-            f.write(test_str)
+        self.files = {
+            'test1.txt': 'Line 1\nLine 2\nLine 3',
+            'test2.txt': 'Line 1\nLine 2\nLine 3\nLine 4\nLine 5\nLine 6\nLine 7\nLine 8\nLine 9\nLine 10\nLine 11',
+        }
+
+        for file_name in self.files:
+            with open(os.path.join(self.directory, file_name), 'w') as file:
+                file.write(self.files[file_name])
 
     def tearDown(self) -> None:
-        os.remove(self.test_file)
-        os.remove(self.test_file_with_more_lines)
+        shutil.rmtree(self.directory)
+
 
     def test_call_required_function_with_extra_args(self):
         app = Tail()
@@ -31,9 +33,9 @@ class TestTail(unittest.TestCase):
 
 
     @parameterized.expand([
-        ['zero_lines', ['-n', '0', 'test.txt'], []],
-        ['one_line', ['-n', '1', 'test.txt'], ['Line 3']],
-        ['two_lines', ['-n', '2', 'test.txt'], ['Line 2\n', 'Line 3']]
+        ['zero_lines', ['-n', '0', 'resources/test1.txt'], []],
+        ['one_line', ['-n', '1', 'resources/test1.txt'], ['Line 3']],
+        ['two_lines', ['-n', '2', 'resources/test1.txt'], ['Line 2\n', 'Line 3']]
     ])
     def test_tail_with_num_of_lines_and_file_input(self, name, args, result):
         Tail().exec(args=args, stdin=None, out=self.out)
@@ -53,10 +55,10 @@ class TestTail(unittest.TestCase):
         self.assertEqual(result, list(self.out))
 
     @parameterized.expand([
-        ['fileWithMoreThan10Lines', ['test_with_more_lines.txt'], ['Line 2\n', 'Line 3\n', 'Line 4\n', 'Line 5\n',
+        ['fileWithMoreThan10Lines', ['resources/test2.txt'], ['Line 2\n', 'Line 3\n', 'Line 4\n', 'Line 5\n',
                                                                          'Line 6\n', 'Line 7\n', 'Line 8\n', 'Line 9\n',
                                                                          'Line 10\n', 'Line 11']],
-        ['fileWithLessThan10Lines', ['test.txt'], ['Line 1\n', 'Line 2\n', 'Line 3']]
+        ['fileWithLessThan10Lines', ['resources/test1.txt'], ['Line 1\n', 'Line 2\n', 'Line 3']]
     ])
     def test_tail_with_only_file_input(self, name, args, result):
         Tail().exec(args=args, stdin=None, out=self.out)
