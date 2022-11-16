@@ -14,7 +14,7 @@ class TestEcho(unittest.TestCase):
 
     @given(strategies.text())
     def test_echo_arguments_provided(self, text):
-        Echo().exec(text, None, self.out)
+        Echo().exec([text], None, self.out)
         self.assertEqual(self.out.popleft(), text)
         self.assertEqual(len(self.out), 0)
 
