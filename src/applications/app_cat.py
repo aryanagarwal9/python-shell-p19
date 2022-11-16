@@ -5,9 +5,6 @@ from applications.application import Application
 
 class Cat(Application):
     def exec(self, args: list, stdin: Optional[str], out: deque):
-<<<<<<< HEAD
-        print("hi i am echo")
-=======
         if len(args):
             self.handle_file_arguments(args, out)
         else:
@@ -26,4 +23,3 @@ class Cat(Application):
             with open(file_name,'r') as file:
                 concatenated_output+=file.read()
         out.append(concatenated_output+'\n')
->>>>>>> c9ca63865e53ae700f368b615b0bc086ec52acbc
