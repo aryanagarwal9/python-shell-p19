@@ -1,4 +1,5 @@
 import errors
+from typing import Optional
 
 def check_flag(arg: str, flag: str):
     if arg != flag:
