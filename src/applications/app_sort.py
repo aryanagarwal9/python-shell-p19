@@ -20,7 +20,7 @@ class Sort(Application):
         return len(args) > 1 or (len(args) and args[0] != '-r')
 
     def is_stdin_available(self, stdin: Optional[str]):
-        return len(stdin)
+        return stdin is not None
 
     def handle_file_input(self, args: list, out: deque, reverse: bool):
         file_name = args[0] if len(args) == 1 else args[1]

@@ -1,10 +1,7 @@
+import os
 
 from applications.application_factory import ApplicationFactory
 
-with open('/Users/adityaparashar/UCL/Year2/COMP0010/CW/h2.txt', 'r') as f:
-    print(f.readlines())
-
-print(sorted('java\npython\nc++\nc\nhaskell\nruby\nocaml'))
 # Hello
 # Hello
 # Hi
