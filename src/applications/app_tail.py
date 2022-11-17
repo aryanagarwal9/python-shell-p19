@@ -20,7 +20,7 @@ class Tail(Application):
         elif num_args == 1:
             self.handle_only_file_input(args, out)
         elif num_args == 2:
-            self.handle_stdin(args, stdin, out)
+            self.handle_num_of_lines_and_stdin(args, stdin, out)
         elif num_args == 3:
             self.handle_num_of_lines_and_file(args, out)
         else:
@@ -42,7 +42,7 @@ class Tail(Application):
         file = args[0]
         out.extend(self.get_lines(file=file, src='file'))
 
-    def handle_stdin(self, args: list[str], stdin: Optional[list], out: deque):
+    def handle_num_of_lines_and_stdin(self, args: list[str], stdin: Optional[list], out: deque):
         """If file not given then read from stdin and
         output the specified number of lines
         """
