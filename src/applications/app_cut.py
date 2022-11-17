@@ -32,17 +32,10 @@ class Cut(Application):
         check_flag(args[0], '-b')
 
         self.check_byte_order(args)
-
         byte_order = args[1].split(',')
         byte_order.sort()
 
-        if src == 'file':
-            file = args[2]
-            with open(file) as f:
-                lines = f.readlines()
-        elif src == 'stdin':
-            check_stdin(stdin)
-            lines = split_stdin_to_lines(stdin)
+        lines = self.get_lines(args, src, stdin)
 
         for line in lines:
             cut_str = self.get_cut_str(line, byte_order)
@@ -60,6 +53,17 @@ class Cut(Application):
         match = re.match(',,|--|,-|-,|-[0-9]-', byte_order)
         if match is not None:
             raise errors.ArgumentError('illegal list value')
+
+    def get_lines(self, args, src, stdin=None):
+        if src == 'file':
+            file = args[2]
+            with open(file) as f:
+                lines = f.readlines()
+        elif src == 'stdin':
+            check_stdin(stdin)
+            lines = split_stdin_to_lines(stdin)
+
+        return lines
 
     def get_cut_str(self, line, byte_order):
         cut_str = ''
