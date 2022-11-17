@@ -4,7 +4,7 @@ import unittest
 from collections import deque
 from parameterized import parameterized
 from applications.app_sort import Sort
-
+from errors import FlagError
 
 class TestSort(unittest.TestCase):
     def setUp(self) -> None:
@@ -35,7 +35,7 @@ class TestSort(unittest.TestCase):
         self.assertEqual(list(self.out), sorted_list_of_lines_reverse)
 
     @parameterized.expand([
-        ['one_line_input', 'Hello I am Python', ['Hello I am Python\n']],
+        ['single_line_input', 'Hello I am Python', ['Hello I am Python\n']],
         ['multiple_line_input', 'Banana\nNetflix\nPython\nJava\nApple\nGoogle\nAmazon',
          sorted([line + '\n' for line in 'Banana\nNetflix\nPython\nJava\nApple\nGoogle\nAmazon'.split('\n')])]
     ])
@@ -44,7 +44,7 @@ class TestSort(unittest.TestCase):
         self.assertEqual(list(self.out), result)
 
     @parameterized.expand([
-        ['one_line_input', 'Hello I am Python', ['Hello I am Python\n']],
+        ['single_line_input', 'Hello I am Python', ['Hello I am Python\n']],
         ['multiple_line_input', 'Banana\nNetflix\nPython\nJava\nApple\nGoogle\nAmazon',
          sorted([line + '\n' for line in 'Banana\nNetflix\nPython\nJava\nApple\nGoogle\nAmazon'.split('\n')], reverse=True)]
     ])
@@ -60,6 +60,6 @@ class TestSort(unittest.TestCase):
         app = Sort()
         self.assertRaises(ValueError, app.exec, args=['-r'], stdin=None, out=self.out)
 
-
-if __name__ == '__main__':
-    unittest.main()
+    def test_sort_flag_not_present_on_correct_index(self):
+        app = Sort()
+        self.assertRaises(FlagError, app.exec, args=[self.file_path, '-r'], stdin=None, out=self.out)

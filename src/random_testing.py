@@ -2,6 +2,7 @@ import os
 
 from applications.application_factory import ApplicationFactory
 
+print('**abc\n')
 # Hello
 # Hello
 # Hi

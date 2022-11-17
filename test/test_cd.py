@@ -27,6 +27,3 @@ class TestCd(unittest.TestCase):
     def test_cd_multiple_arguments(self):
         app = Cd()
         self.assertRaises(ValueError, app.exec, args=['directory1', 'directory2'], stdin=None, out=self.out)
-
-if __name__=='__main__':
-    unittest.main()

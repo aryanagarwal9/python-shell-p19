@@ -31,7 +31,3 @@ class TestLs(unittest.TestCase):
     def test_ls_multiple_arguments(self):
         app = Ls()
         self.assertRaises(ValueError, app.exec, args=['directory1','directory2'], stdin=None, out=self.out)
-
-
-if __name__=='__main__':
-    unittest.main()

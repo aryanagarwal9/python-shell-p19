@@ -1,6 +1,7 @@
 from collections import deque
 from typing import Optional
-
+from utils import check_flag
+from errors import FlagError
 from applications.application import Application
 
 
@@ -17,7 +18,10 @@ class Sort(Application):
             raise ValueError('no arguments or stdin')
 
     def is_file_input_available(self, args: list):
-        return len(args) > 1 or (len(args) and args[0] != '-r')
+        if len(args) > 1:
+            check_flag(args[0], '-r')
+            return True
+        return len(args) and args[0] != '-r'
 
     def is_stdin_available(self, stdin: Optional[str]):
         return stdin is not None
