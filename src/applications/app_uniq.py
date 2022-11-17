@@ -1,6 +1,7 @@
 from typing import Optional
 from collections import deque
-
+from errors import FlagError
+from utils import check_flag
 from applications.application import Application
 
 
@@ -9,11 +10,19 @@ class Uniq(Application):
         if len(args) > 2:
             raise ValueError("wrong number of arguments")
 
+        if not len(args) and stdin is None:
+            raise ValueError('no arguments or stdin')
+
+        if len(args)==1 and args[0]=='-i' and stdin is None:
+            raise ValueError('no arguments or stdin')
+
         self.call_required_function(args, stdin, out)
 
     def call_required_function(self, args: list[str], stdin: Optional[str], out: deque):
         flag = True if len(args) and args[0] == '-i' else False
         if len(args) > 1 or (len(args) and not flag):
+            if len(args)>1:
+                check_flag(args[0], '-i')
             self.handle_file_input(args, out, flag)
         else:
             self.handle_stdin_input(stdin, out, flag)
@@ -22,13 +31,18 @@ class Uniq(Application):
         file_name = args[0] if not flag else args[1]
         with open(file_name, 'r') as file:
             for line in file.readlines():
-                line = line.lower() if flag else line
-                if not out or out[-1] != line:
+                temp_line, prev_line = self.get_required_lines(line, flag, out)
+                if prev_line is None or prev_line != temp_line:
                     out.append(line)
 
     def handle_stdin_input(self, stdin: Optional[str], out: deque, flag: bool):
         stdin_input = stdin.split('\n')
         for line in stdin_input:
-            line = line.lower() if flag else line
-            if not out or out[-1] != line:
-                out.append(line)
+            if line=='':
+                continue
+            temp_line, prev_line = self.get_required_lines(line, flag, out)
+            if prev_line is None or prev_line.rstrip('\n') != temp_line:
+                out.append(line+'\n')
+
+    def get_required_lines(self, line, flag, out):
+        return line.lower() if flag else line, None if not len(out) else out[-1].lower() if flag else out[-1]
