@@ -8,7 +8,7 @@ from applications.app_grep import Grep
 from applications.app_head import Head
 from applications.app_tail import Tail
 from applications.app_find import Find
-from unsafe_decorator import UnsafeDecorator
+from applications.unsafe_decorator import UnsafeDecorator
 
 
 class ApplicationFactory:
