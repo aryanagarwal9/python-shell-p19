@@ -31,4 +31,4 @@ jobs:
           cache: "pip"
 
       - name: Run Unit Tests
-          run: python -m unittest discover test/
+        run: python -m unittest discover test/
