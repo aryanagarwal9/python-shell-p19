@@ -15,20 +15,20 @@ jobs:
 
   Test-Shell-P19:
     name: Run Tests
-      runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-      steps:
+    steps:
 
-        - name: Checkout P19 repo
-          uses: actions/checkout@v3
-          with:
-            fetch-depth: 0
+      - name: Checkout P19 repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-        - name: Set up Python 3.8
-          uses: actions/setup-python@v3
-          with:
-            python-version: "3.8"
-            cache: "pip"
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.8"
+          cache: "pip"
 
-        - name: Run Unit Tests
-            run: python -m unittest discover test/
+      - name: Run Unit Tests
+          run: python -m unittest discover test/
