@@ -42,3 +42,4 @@ class TestCat(unittest.TestCase):
         Cat().exec([], stdin, self.out)
         self.assertEqual(self.out.popleft(), stdin)
         self.assertEqual(len(self.out), 0)
+
