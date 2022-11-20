@@ -14,6 +14,3 @@ class TestPwd(unittest.TestCase):
         self.assertEqual(len(self.out), 0)
 
 
-
-
-

@@ -1,4 +1,5 @@
 
+
 from applications.application_factory import ApplicationFactory
 import os
 import sys
@@ -6,7 +7,7 @@ import sys
 command = ApplicationFactory().app_by_name('pwd')
 command.exec()
 
-
+print('**abc\n')
 # Hello
 # Hello
 # Hi
