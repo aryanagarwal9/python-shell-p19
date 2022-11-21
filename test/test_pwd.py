@@ -2,7 +2,7 @@ import os
 import unittest
 from collections import deque
 
-from applications.app_pwd import Pwd
+from src.applications.app_pwd import Pwd
 
 class TestPwd(unittest.TestCase):
     def setUp(self) -> None:
