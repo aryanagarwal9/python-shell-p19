@@ -3,8 +3,8 @@ import shutil
 import unittest
 from collections import deque
 from parameterized import parameterized
-from errors import FlagError
-from applications.app_find import Find
+from src.errors import FlagError
+from src.applications.app_find import Find
 
 
 class TestFind(unittest.TestCase):

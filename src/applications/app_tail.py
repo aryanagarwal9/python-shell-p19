@@ -1,8 +1,8 @@
-import errors
+from src.errors import ArgumentError
 from typing import Optional
 from collections import deque
-from applications.application import Application
-from utils import check_flag, check_stdin, split_stdin_to_lines
+from src.applications.application import Application
+from src.utils import check_flag, check_stdin, split_stdin_to_lines
 
 
 class Tail(Application):
@@ -24,7 +24,7 @@ class Tail(Application):
         elif num_args == 3:
             self.handle_num_of_lines_and_file(args, out)
         else:
-            raise errors.ArgumentError("Invalid number of arguments")
+            raise ArgumentError("Invalid number of arguments")
 
     def handle_only_stdin(self, stdin: str, out):
         """output the last 10 lines if only stdin is given

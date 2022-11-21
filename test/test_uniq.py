@@ -4,8 +4,8 @@ import unittest
 from collections import deque
 from parameterized import parameterized
 
-from applications.app_uniq import Uniq
-from errors import FlagError
+from src.applications.app_uniq import Uniq
+from src.errors import FlagError
 
 
 class TestUniq(unittest.TestCase):

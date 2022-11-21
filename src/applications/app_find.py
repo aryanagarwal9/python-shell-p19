@@ -3,9 +3,9 @@ import os
 import re
 from collections import deque
 from typing import Optional
-from errors import FlagError
-from utils import check_flag
-from applications.application import Application
+from src.errors import FlagError
+from src.utils import check_flag
+from src.applications.application import Application
 
 
 class Find(Application):

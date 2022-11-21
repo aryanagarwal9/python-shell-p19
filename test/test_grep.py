@@ -5,7 +5,7 @@ from collections import deque
 from hypothesis import given, strategies
 from parameterized import parameterized
 
-from applications.app_grep import Grep
+from src.applications.app_grep import Grep
 
 
 class TestGrep(unittest.TestCase):

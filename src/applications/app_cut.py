@@ -1,9 +1,9 @@
-import errors
+from src.errors import ArgumentError
 import re
 from typing import Optional
 from collections import deque
-from applications.application import Application
-from utils import check_flag, check_stdin, split_stdin_to_lines
+from src.applications.application import Application
+from src.utils import check_flag, check_stdin, split_stdin_to_lines
 
 
 class Cut(Application):
@@ -21,7 +21,7 @@ class Cut(Application):
         elif num_args == 3:
             self.handle_cut_str(args, out, src='file')
         else:
-            raise errors.ArgumentError("Invalid number of arguments")
+            raise ArgumentError("Invalid number of arguments")
 
     def handle_cut_str(self, args: list[str], out: deque, src: str, stdin: Optional[str] = None):
         """If file and num_lines is given then read from file and
@@ -44,15 +44,15 @@ class Cut(Application):
     def check_byte_order(self, args: list[str]):
         byte_order = args[1]
         if byte_order is None:
-            raise errors.ArgumentError('byte order not given')
+            raise ArgumentError('byte order not given')
 
         match = re.match('(?![0-9]|,|-)', byte_order)
         if match is not None:
-            raise errors.ArgumentError('illegal list value')
+            raise ArgumentError('illegal list value')
 
         match = re.match(',,|--|,-|-,|-[0-9]-', byte_order)
         if match is not None:
-            raise errors.ArgumentError('illegal list value')
+            raise ArgumentError('illegal list value')
 
     def get_lines(self, args, src, stdin=None):
         if src == 'file':

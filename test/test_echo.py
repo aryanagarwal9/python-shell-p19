@@ -1,6 +1,6 @@
 import unittest
 from collections import deque
-from applications.app_echo import Echo
+from src.applications.app_echo import Echo
 from hypothesis import given, strategies
 
 

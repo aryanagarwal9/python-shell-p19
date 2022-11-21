@@ -1,8 +1,8 @@
 from collections import deque
 from typing import Optional
-from utils import check_flag
-from errors import FlagError
-from applications.application import Application
+from src.utils import check_flag
+from src.errors import FlagError
+from src.applications.application import Application
 
 
 class Sort(Application):

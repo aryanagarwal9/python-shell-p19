@@ -2,7 +2,7 @@ import os
 from typing import Optional
 from collections import deque
 
-from applications.application import Application
+from src.applications.application import Application
 
 
 class Ls(Application):

@@ -5,7 +5,7 @@ from collections import deque
 
 from hypothesis import given, strategies
 
-from applications.app_cat import Cat
+from src.applications.app_cat import Cat
 
 
 class TestCat(unittest.TestCase):
@@ -42,3 +42,4 @@ class TestCat(unittest.TestCase):
         Cat().exec([], stdin, self.out)
         self.assertEqual(self.out.popleft(), stdin)
         self.assertEqual(len(self.out), 0)
+

@@ -1,8 +1,8 @@
-import errors
+from src.errors import ArgumentError
 from typing import Optional
 from collections import deque
-from applications.application import Application
-from utils import check_flag, check_stdin, split_stdin_to_lines
+from src.applications.application import Application
+from src.utils import check_flag, check_stdin, split_stdin_to_lines
 
 
 class Head(Application):
@@ -24,7 +24,7 @@ class Head(Application):
         elif num_args == 3:
             self.handle_num_of_lines_and_file(args, out)
         else:
-            raise errors.ArgumentError("Invalid number of arguments")
+            raise ArgumentError("Invalid number of arguments")
 
     def handle_only_stdin(self, stdin: str, out):
         """output the first 10 lines if only stdin is given
@@ -80,7 +80,6 @@ class Head(Application):
 
         elif src == 'stdin':
             lines = split_stdin_to_lines(stdin)
-            print('lines are: ', lines)
             display_length = min(len(lines), num_lines)
 
         for i in range(display_length):
