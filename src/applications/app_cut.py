@@ -3,14 +3,14 @@ import re
 from typing import Optional, List
 from collections import deque
 from src.applications.application import Application
-from src.utils import check_flag, check_stdin, split_stdin_to_lines
+from src.utils import check_flag, check_stdin
 
 
 class Cut(Application):
-    def exec(self, args: List[str], stdin: Optional[list], out: deque):
+    def exec(self, args: List[str], stdin: Optional[str], out: deque):
         self.call_required_function(args, stdin, out)
 
-    def call_required_function(self, args: List[str], stdin: Optional[list], out: deque):
+    def call_required_function(self, args: List[str], stdin: Optional[str], out: deque):
         """check the number of args given and handle each case
         """
 
@@ -61,7 +61,7 @@ class Cut(Application):
                 lines = f.readlines()
         elif src == 'stdin':
             check_stdin(stdin)
-            lines = split_stdin_to_lines(stdin)
+            lines = stdin.rstrip('\n').split('\n')
 
         return lines
 
