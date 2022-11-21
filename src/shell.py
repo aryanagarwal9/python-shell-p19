@@ -26,7 +26,6 @@ def parse(cmdline):
                     tokens.append(m.group(0))
         app = tokens[0]
         args = tokens[1:]
-        print(app, args)
         return app, args
 
 def eval(cmdline, out):
@@ -130,3 +129,4 @@ if __name__ == "__main__":
             eval(cmdline, out)
             while len(out) > 0:
                 print(out.popleft(), end="")
+

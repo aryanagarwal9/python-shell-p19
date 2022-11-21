@@ -86,3 +86,4 @@ class Tail(Application):
             res.append(lines[i])
 
         return res
+
