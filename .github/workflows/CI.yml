@@ -21,8 +21,6 @@ jobs:
 
       - name: Checkout P19 repo
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: Set up Python 3.8
         uses: actions/setup-python@v3
@@ -32,18 +30,9 @@ jobs:
           
       - name: Install Dependencies and Set up Environment
         run: |
-          #pip install -r requirements.txt
           pip install parameterized
           pip install hypothesis
-          pip install typing
-          #echo "PYTHONPATH=/home/runner/work/comp0010/python-shell-p19/src" >> $GITHUB_ENV
-          #echo "/home/runner/work/comp0010/python-shell-p19/src" >> $GITHUB_PATH
-          #export PYTHONPATH="${PYTHONPATH}:/home/runner/work/comp0010/python-shell-p19/src"
-          
 
       - name: Run Unit Tests
         run: |
-          #echo "$PATH"
-          #echo "$PYTHONPATH"
-          #export PYTHONPATH="${PYTHONPATH}:/home/runner/work/comp0010/python-shell-p19/src"
           python -m unittest discover test/
