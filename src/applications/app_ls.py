@@ -6,7 +6,7 @@ from applications.application import Application
 
 
 class Ls(Application):
-    def exec(self, args: list, stdin: Optional[list], out: deque):
+    def exec(self, args: list, stdin: Optional[str], out: deque):
         if not len(args):
             self.handle_no_arguments(out=out)
         elif len(args) == 1:
