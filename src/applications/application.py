@@ -5,5 +5,5 @@ from typing import Optional, List
 
 class Application(ABC):
     @abstractmethod
-    def exec(self, args: list[str], stdin: Optional[str], out: deque):
+    def exec(self, args: List[str], stdin: Optional[str], out: deque):
         pass
