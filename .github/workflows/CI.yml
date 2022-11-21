@@ -36,7 +36,7 @@ jobs:
           pip install parameterized
           pip install hypothesis
           echo "PYTHONPATH=/home/runner/work/comp0010/python-shell-p19/src/" >> $GITHUB_ENV
-          #echo "/home/runner/work/comp0010/python-shell-p19/src" >> $GITHUB_PATH
+          echo "/home/runner/work/comp0010/python-shell-p19/src/" >> $GITHUB_PATH
           #export PYTHONPATH="${PYTHONPATH}:/home/runner/work/comp0010/python-shell-p19/src"
           
 
