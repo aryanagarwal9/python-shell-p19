@@ -35,12 +35,14 @@ jobs:
           #pip install -r requirements.txt
           pip install parameterized
           pip install hypothesis
-          echo "/home/runner/work/comp0010/python-shell-p19/src" >> $GITHUB_PATH
+          echo "PYTHONPATH=/home/runner/work/comp0010/python-shell-p19/src" >> $GITHUB_ENV
+          #echo "/home/runner/work/comp0010/python-shell-p19/src" >> $GITHUB_PATH
           #export PYTHONPATH="${PYTHONPATH}:/home/runner/work/comp0010/python-shell-p19/src"
           
 
       - name: Run Unit Tests
         run: |
           echo "$PATH"
+          echo "$PYTHONPATH"
           #export PYTHONPATH="${PYTHONPATH}:/home/runner/work/comp0010/python-shell-p19/src"
           python -m unittest discover test/
