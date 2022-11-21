@@ -18,3 +18,5 @@ class ArgumentError(ShellErrors):
 
 class StandardInputError(ShellErrors):
     pass
+
+

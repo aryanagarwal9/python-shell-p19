@@ -1,119 +1,88 @@
-from typing import Optional
+from src.errors import ArgumentError
+from typing import Optional, List
 from collections import deque
-from collections import deque
-from typing import Optional
+from src.applications.application import Application
+from src.utils import check_flag, check_stdin, split_stdin_to_lines
 
-import errors
-from applications.application import Application
-
-from applications.application import Application
 
 class Tail(Application):
-    def exec(self, args: list, stdin: Optional[list], out: deque):
-        pass
-
-    def exec(self, args: list[str], stdin: Optional[list], out: deque):
-        if not len(args):
-            raise errors.ArgumentError("No arguments given")
-
+    def exec(self, args: List[str], stdin: Optional[list], out: deque):
         self.call_required_function(args, stdin, out)
 
-    def call_required_function(self, args: list[str], stdin: Optional[list], out: deque):
+    def call_required_function(self, args: List[str], stdin: Optional[list], out: deque):
         """check the number of args given and handle each case
-
-        :param args: list of arguments
-        :param stdin: standard input
-        :param out: output stored in a deque
-        :return: None
         """
 
         num_args = len(args)
 
-        if num_args == 1:
+        if num_args == 0:
+            self.handle_only_stdin(stdin, out)
+        elif num_args == 1:
             self.handle_only_file_input(args, out)
         elif num_args == 2:
-            self.handle_stdin(args, stdin, out)
+            self.handle_num_of_lines_and_stdin(args, stdin, out)
         elif num_args == 3:
             self.handle_num_of_lines_and_file(args, out)
         else:
-            raise errors.ArgumentError("Invalid number of arguments")
+            raise ArgumentError("Invalid number of arguments")
 
-    def handle_only_file_input(self, args: list[str], out: deque):
-        """output the first 10 lines if only file name is given
+    def handle_only_stdin(self, stdin: str, out):
+        """output the last 10 lines if only stdin is given
+         """
+        # validate parameters
+        check_stdin(stdin)
 
-        :param args: list of arguments
-        :param out: output stored in a deque
-        :return: None
+        # add lines to output
+        out.extend(self.get_lines(stdin=stdin, src='stdin'))
+
+    def handle_only_file_input(self, args: List[str], out: deque):
+        """output the last 10 lines if only file name is given
         """
 
-        num_lines = 10
         file = args[0]
+        out.extend(self.get_lines(file=file, src='file'))
 
-        self.output_lines_from_file(num_lines, file, out)
-
-    def handle_stdin(self, args: list[str], stdin: Optional[list], out: deque):
+    def handle_num_of_lines_and_stdin(self, args: List[str], stdin: Optional[list], out: deque):
         """If file not given then read from stdin and
         output the specified number of lines
-
-        :param args: list of arguments
-        :param stdin: standard input
-        :param out: output stored in a deque
-        :return: None
         """
 
         # validate parameters
-        if stdin is None:
-            raise errors.StandardInputError("No input given")
-        if args[0] != "-n":
-            raise errors.FlagError("Invalid flags given")
+        check_stdin(stdin)
+        check_flag(args[0], '-n')
+
+        num_lines = int(args[1])
 
         # add lines to output
-        num_lines = int(args[1])
-        display_length = min(len(stdin), num_lines)
+        out.extend(self.get_lines(num_lines=num_lines, stdin=stdin, src='stdin'))
 
-        for i in range(len(stdin) - display_length, len(stdin)):
-            out.append(stdin[i])
-
-    def handle_num_of_lines_and_file(self, args: list[str], out: deque):
-        """If file not given then read from stdin and
+    def handle_num_of_lines_and_file(self, args: List[str], out: deque):
+        """If file and num_lines is given then read from file and
         output the specified number of lines
-
-        :param args: list of arguments
-        :param out: output stored in a deque
-        :return: None
         """
 
         # validate parameter
-        if args[0] != "-n":
-            raise errors.FlagError("Invalid flags given")
-        else:
-            num_lines = int(args[1])
-            file = args[2]
+        check_flag(args[0], '-n')
 
-        self.output_lines_from_file(num_lines, file, out)
+        num_lines = int(args[1])
+        file = args[2]
 
-    def output_lines_from_file(self, num_lines: int, file: str, out: deque):
-        """Read the text file and add the specified number of lines to output
+        out.extend(self.get_lines(num_lines=num_lines, file=file, src='file'))
 
-        :param num_lines: number of lines to add to output
-        :param file: text file to read lines from
-        :param out: output stored in a deque
-        :return: None
-        """
 
-        with open(file) as f:
-            lines = f.readlines()
-            display_length = min(len(lines), num_lines)
+    def get_lines(self, num_lines: int = 10, file: str = None, stdin: str = None, src: str = 'file') -> List[str]:
+        res = []
 
-            for i in range(len(lines) - display_length, len(lines)):
-                out.append(lines[i])
-
-    def get_lines(self, args: list[str], file: str = None, stdin: Optional[list] = None) -> int:
-        if file is not None:
+        if src == 'file':
             with open(file) as f:
-                num_lines = int(args[1])
                 lines = f.readlines()
                 display_length = min(len(lines), num_lines)
-                return lines[]
-        elif stdin:
-            num_lines = int(args[1])
+
+        elif src == 'stdin':
+            lines = split_stdin_to_lines(stdin)
+            display_length = min(len(lines), num_lines)
+
+        for i in range(len(lines) - display_length, len(lines)):
+            res.append(lines[i])
+
+        return res
