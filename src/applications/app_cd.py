@@ -2,7 +2,7 @@ import os
 from collections import deque
 from typing import Optional
 
-from applications.application import Application
+from src.applications.application import Application
 
 class Cd(Application):
     def exec(self, args: list, stdin: Optional[list], out: deque):

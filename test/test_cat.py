@@ -5,7 +5,7 @@ from collections import deque
 
 from hypothesis import given, strategies
 
-from applications.app_cat import Cat
+from src.applications.app_cat import Cat
 
 
 class TestCat(unittest.TestCase):

@@ -1,8 +1,8 @@
-from typing import Optional
+from typing import Optional, List
 from collections import deque
-from errors import FlagError
-from utils import check_flag
-from applications.application import Application
+from src.errors import FlagError
+from src.utils import check_flag
+from src.applications.application import Application
 
 
 class Uniq(Application):
@@ -18,7 +18,7 @@ class Uniq(Application):
 
         self.call_required_function(args, stdin, out)
 
-    def call_required_function(self, args: list[str], stdin: Optional[str], out: deque):
+    def call_required_function(self, args: List[str], stdin: Optional[str], out: deque):
         flag = True if len(args) and args[0] == '-i' else False
         if len(args) > 1 or (len(args) and not flag):
             if len(args)>1:

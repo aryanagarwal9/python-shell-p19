@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      mainline
+      master
     paths-ignore:
       - '**.md'
 
@@ -15,20 +15,35 @@ jobs:
 
   Test-Shell-P19:
     name: Run Tests
-      runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-      steps:
+    steps:
 
-        - name: Checkout P19 repo
-          uses: actions/checkout@v3
-          with:
-            fetch-depth: 0
+      - name: Checkout P19 repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-        - name: Set up Python 3.8
-          uses: actions/setup-python@v3
-          with:
-            python-version: "3.8"
-            cache: "pip"
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.8"
+          cache: "pip"
+          
+      - name: Install Dependencies and Set up Environment
+        run: |
+          #pip install -r requirements.txt
+          pip install parameterized
+          pip install hypothesis
+          pip install typing
+          #echo "PYTHONPATH=/home/runner/work/comp0010/python-shell-p19/src" >> $GITHUB_ENV
+          #echo "/home/runner/work/comp0010/python-shell-p19/src" >> $GITHUB_PATH
+          #export PYTHONPATH="${PYTHONPATH}:/home/runner/work/comp0010/python-shell-p19/src"
+          
 
-        - name: Run Unit Tests
-            run: python -m unittest discover test/
+      - name: Run Unit Tests
+        run: |
+          #echo "$PATH"
+          #echo "$PYTHONPATH"
+          #export PYTHONPATH="${PYTHONPATH}:/home/runner/work/comp0010/python-shell-p19/src"
+          python -m unittest discover test/
