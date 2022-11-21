@@ -30,11 +30,12 @@ jobs:
           python-version: "3.8"
           cache: "pip"
           
-      - name: Install Dependencies
+      - name: Install Dependencies and Set up Environment
         run: |
           #pip install -r requirements.txt
           pip install parameterized
           pip install hypothesis
+          export PYTHONPATH="${PYTHONPATH}:${{ GITHUB_WORKSPACE }}"
           
 
       - name: Run Unit Tests
