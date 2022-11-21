@@ -1,6 +1,11 @@
-import os
+
 
 from applications.application_factory import ApplicationFactory
+import os
+import sys
+
+command = ApplicationFactory().app_by_name('pwd')
+command.exec()
 
 print('**abc\n')
 
