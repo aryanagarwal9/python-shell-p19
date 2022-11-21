@@ -1,6 +1,6 @@
 from abc import abstractmethod, ABC
 from collections import deque
-from typing import Optional
+from typing import Optional, List
 
 
 class Application(ABC):
