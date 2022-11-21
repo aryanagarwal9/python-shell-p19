@@ -3,8 +3,8 @@ import shutil
 import unittest
 from collections import deque
 from parameterized import parameterized
-from applications.app_sort import Sort
-from errors import FlagError
+from src.applications.app_sort import Sort
+from src.errors import FlagError
 
 class TestSort(unittest.TestCase):
     def setUp(self) -> None:

@@ -3,8 +3,8 @@ import shutil
 import unittest
 from collections import deque
 from parameterized import parameterized
-from applications.app_head import Head
-from errors import ArgumentError, FlagError, StandardInputError
+from src.applications.app_head import Head
+from src.errors import ArgumentError, FlagError, StandardInputError
 
 
 class TestHead(unittest.TestCase):
