@@ -4,8 +4,8 @@ import os
 from os import listdir
 from collections import deque
 from glob import glob
-from applications.application import Application
-from applications.application_factory import ApplicationFactory
+from src.applications.application import Application
+from src.applications.application_factory import ApplicationFactory
 
 def parse(cmdline):
     raw_commands = []

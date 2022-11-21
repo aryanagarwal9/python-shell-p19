@@ -1,4 +1,4 @@
-from applications.application import Application
+from src.applications.application import Application
 from collections import deque
 from typing import Optional
 
