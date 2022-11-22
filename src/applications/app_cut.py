@@ -7,10 +7,10 @@ from utils import check_flag, check_stdin, split_stdin_to_lines
 
 
 class Cut(Application):
-    def exec(self, args: list[str], stdin: Optional[list], out: deque):
+    def exec(self, args: list, stdin: Optional[list], out: deque):
         self.call_required_function(args, stdin, out)
 
-    def call_required_function(self, args: list[str], stdin: Optional[list], out: deque):
+    def call_required_function(self, args: list, stdin: Optional[list], out: deque):
         """check the number of args given and handle each case
         """
 
@@ -23,7 +23,7 @@ class Cut(Application):
         else:
             raise errors.ArgumentError("Invalid number of arguments")
 
-    def handle_cut_str(self, args: list[str], out: deque, src: str, stdin: Optional[str] = None):
+    def handle_cut_str(self, args: list, out: deque, src: str, stdin: Optional[str] = None):
         """If file and num_lines is given then read from file and
         output the specified number of lines
         """
@@ -41,7 +41,7 @@ class Cut(Application):
             cut_str = self.get_cut_str(line, byte_order)
             out.append(cut_str + '\n')
 
-    def check_byte_order(self, args: list[str]):
+    def check_byte_order(self, args: list):
         byte_order = args[1]
         if byte_order is None:
             raise errors.ArgumentError('byte order not given')

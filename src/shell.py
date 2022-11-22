@@ -108,13 +108,10 @@ def eval(cmdline, out):
 
 if __name__ == "__main__":
     args_num = len(sys.argv) - 1
-    print('here1', sys.argv, args_num)
     if args_num > 0:
         if args_num != 2:
-            print('here2')
             raise ValueError("wrong number of command line arguments")
         if sys.argv[1] != "-c":
-            print('here3')
             raise ValueError(f"unexpected command line argument {sys.argv[1]}")
         out = deque()
         eval(sys.argv[2], out)
@@ -124,7 +121,6 @@ if __name__ == "__main__":
         while True:
             print(os.getcwd() + "> ", end="")
             cmdline = input()
-            print('here4', sys.argv, cmdline)
             out = deque()
             eval(cmdline, out)
             while len(out) > 0:

@@ -18,7 +18,7 @@ class Uniq(Application):
 
         self.call_required_function(args, stdin, out)
 
-    def call_required_function(self, args: list[str], stdin: Optional[str], out: deque):
+    def call_required_function(self, args: list, stdin: Optional[str], out: deque):
         flag = True if len(args) and args[0] == '-i' else False
         if len(args) > 1 or (len(args) and not flag):
             if len(args)>1:

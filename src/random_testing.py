@@ -2,10 +2,7 @@ import os
 
 from applications.application_factory import ApplicationFactory
 
-print('**abc\n')
-
-a,b,c = (1,2,3)
-print(a,b,c)
+print(['AAA\n', 'AAA\n', 'BBB\n'])
 # Hello
 # Hello
 # Hi
