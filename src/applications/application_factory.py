@@ -8,11 +8,11 @@ from src.applications.app_grep import Grep
 from src.applications.app_head import Head
 from src.applications.app_tail import Tail
 from src.applications.app_find import Find
+from src.applications.unsafe_decorator import UnsafeDecorator
 
 
 class ApplicationFactory:
     def __init__(self):
-
         self.app_types = {'pwd': Pwd,
                           'echo': Echo,
                           'cd': Cd,
@@ -21,9 +21,14 @@ class ApplicationFactory:
                           'grep': Grep,
                           'head': Head,
                           'tail': Tail,
-                          'find': Find
+                          'find': Find,
+                          'unsafe': UnsafeDecorator,
                           }
 
     def app_by_name(self, name: str) -> Application:
+        if name.startswith('_'):
+            return self.get_unsafe_app_object(name)
         return self.app_types[name]()
 
+    def get_unsafe_app_object(self, name: str) -> Application:
+        return self.app_types['unsafe'](self.app_types[name[1:]]())

@@ -1,6 +1,6 @@
 
 
-from applications.application_factory import ApplicationFactory
+from src.applications.application_factory import ApplicationFactory
 import os
 import sys
 
@@ -8,6 +8,9 @@ command = ApplicationFactory().app_by_name('pwd')
 command.exec()
 
 print('**abc\n')
+
+a,b,c = (1,2,3)
+print(a,b,c)
 # Hello
 # Hello
 # Hi

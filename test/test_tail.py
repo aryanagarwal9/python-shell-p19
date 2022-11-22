@@ -27,8 +27,8 @@ class TestTail(unittest.TestCase):
 
     @parameterized.expand([
         ['zero_lines', ['-n', '0', 'resources/test1.txt'], []],
-        ['one_line', ['-n', '1', 'resources/test1.txt'], ['Line 3']],
-        ['two_lines', ['-n', '2', 'resources/test1.txt'], ['Line 2\n', 'Line 3']]
+        ['one_line', ['-n', '1', 'resources/test1.txt'], ['Line 3\n']],
+        ['two_lines', ['-n', '2', 'resources/test1.txt'], ['Line 2\n', 'Line 3\n']]
     ])
     def test_tail_with_num_of_lines_and_file_input(self, name, args, result):
         Tail().exec(args=args, stdin=None, out=self.out)
@@ -37,8 +37,8 @@ class TestTail(unittest.TestCase):
     @parameterized.expand([
         ['fileWithMoreThan10Lines', ['resources/test2.txt'], ['Line 2\n', 'Line 3\n', 'Line 4\n', 'Line 5\n',
                                                                           'Line 6\n', 'Line 7\n', 'Line 8\n', 'Line 9\n',
-                                                                          'Line 10\n', 'Line 11']],
-        ['fileWithLessThan10Lines', ['resources/test1.txt'], ['Line 1\n', 'Line 2\n', 'Line 3']]
+                                                                          'Line 10\n', 'Line 11\n']],
+        ['fileWithLessThan10Lines', ['resources/test1.txt'], ['Line 1\n', 'Line 2\n', 'Line 3\n']]
     ])
     def test_tail_with_only_file_input(self, name, args, result):
         Tail().exec(args=args, stdin=None, out=self.out)
@@ -47,8 +47,8 @@ class TestTail(unittest.TestCase):
     @parameterized.expand([
         ['zeroLinesInArgs', ['-n', '0'], 'Line 2\nLine 3', []],
         ['lessLinesInArgs', ['-n', '0'], 'Line 2\nLine 3', []],
-        ['moreLinesInArgs', ['-n', '3'], 'Line 2\nLine 3', ['Line 2\n', 'Line 3']],
-        ['equalLinesInArgs', ['-n', '2'], 'Line 2\nLine 3', ['Line 2\n', 'Line 3']],
+        ['moreLinesInArgs', ['-n', '3'], 'Line 2\nLine 3', ['Line 2\n', 'Line 3\n']],
+        ['equalLinesInArgs', ['-n', '2'], 'Line 2\nLine 3', ['Line 2\n', 'Line 3\n']],
         ['newLineAtEndOfStr', ['-n', '2'], 'Line 2\nLine 3\n', ['Line 2\n', 'Line 3\n']]
     ])
     def test_tail_with_num_of_lines_and_stdin(self, name, args, stdin, result):
@@ -57,8 +57,8 @@ class TestTail(unittest.TestCase):
 
     @parameterized.expand([
         ['fileWithMoreThan10Lines', '1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11', ['2\n', '3\n', '4\n', '5\n', '6\n',
-                                                                          '7\n', '8\n', '9\n', '10\n', '11']],
-        ['fileWithLessThan10Lines', '1\n2\n3', ['1\n', '2\n', '3']]
+                                                                          '7\n', '8\n', '9\n', '10\n', '11\n']],
+        ['fileWithLessThan10Lines', '1\n2\n3', ['1\n', '2\n', '3\n']]
     ])
     def test_tail_with_only_stdin(self, name, stdin, result):
         Tail().exec(args=[], stdin=stdin, out=self.out)
