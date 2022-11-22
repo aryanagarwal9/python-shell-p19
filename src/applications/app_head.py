@@ -80,7 +80,6 @@ class Head(Application):
 
         elif src == 'stdin':
             lines = split_stdin_to_lines(stdin)
-            print('lines are: ', lines)
             display_length = min(len(lines), num_lines)
 
         for i in range(display_length):
