@@ -1,6 +1,6 @@
 
 
-from applications.application_factory import ApplicationFactory
+from src.applications.application_factory import ApplicationFactory
 import os
 import sys
 
