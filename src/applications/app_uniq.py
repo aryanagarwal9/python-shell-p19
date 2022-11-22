@@ -13,7 +13,7 @@ class Uniq(Application):
         if not len(args) and stdin is None:
             raise ValueError('no arguments or stdin')
 
-        if len(args)==1 and args[0]=='-i' and stdin is None:
+        if len(args) == 1 and args[0] == '-i' and stdin is None:
             raise ValueError('no arguments or stdin')
 
         self.call_required_function(args, stdin, out)

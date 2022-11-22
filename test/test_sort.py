@@ -13,7 +13,7 @@ class TestSort(unittest.TestCase):
         os.mkdir('resources')
 
         self.files = {
-            'test_sort.txt': 'java\npython\nc++\nc\nhaskell\nruby\nocaml'
+            'test_sort.txt': 'AAA\nBBB\nAAA'
         }
 
         with open(os.path.join(self.directory, 'test_sort.txt'), 'w') as file:
@@ -26,7 +26,7 @@ class TestSort(unittest.TestCase):
     def test_sort_for_file_input(self):
         Sort().exec([self.file_path], None, self.out)
         sorted_list_of_lines = sorted([line + '\n' for line in self.files['test_sort.txt'].split('\n')])
-        self.assertEqual(list(self.out), sorted_list_of_lines)
+        self.assertEqual(list(self.out), ['AAA\n', 'AAA\n', 'BBB\n'])
 
     def test_sort_for_file_input_reverse(self):
         Sort().exec(['-r', self.file_path], None, self.out)
