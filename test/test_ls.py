@@ -3,7 +3,7 @@ import shutil
 import unittest
 from collections import deque
 
-from applications.app_ls import Ls
+from src.applications.app_ls import Ls
 
 class TestLs(unittest.TestCase):
     def setUp(self) -> None:

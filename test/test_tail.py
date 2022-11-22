@@ -3,8 +3,8 @@ import shutil
 import unittest
 from collections import deque
 from parameterized import parameterized
-from applications.app_tail import Tail
-from errors import ArgumentError, FlagError, StandardInputError
+from src.applications.app_tail import Tail
+from src.errors import ArgumentError, FlagError, StandardInputError
 
 
 class TestTail(unittest.TestCase):

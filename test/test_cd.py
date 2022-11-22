@@ -3,7 +3,7 @@ import shutil
 import unittest
 from collections import deque
 
-from applications.app_cd import Cd
+from src.applications.app_cd import Cd
 
 class TestCd(unittest.TestCase):
     def setUp(self) -> None:

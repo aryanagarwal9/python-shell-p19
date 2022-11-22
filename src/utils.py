@@ -1,17 +1,17 @@
-import errors
+from src.errors import *
 from typing import Optional
 
 
 def check_flag(arg: str, flag: str):
     if arg != flag:
-        raise errors.FlagError("Invalid flags given")
+        raise FlagError("Invalid flags given")
 
     return True
 
 
 def check_stdin(stdin: Optional[list]):
     if stdin is None:
-        raise errors.StandardInputError("No input given")
+        raise StandardInputError("No input given")
 
     return True
 
