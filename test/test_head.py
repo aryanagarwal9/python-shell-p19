@@ -66,16 +66,16 @@ class TestHead(unittest.TestCase):
         Head().exec(args=[], stdin=stdin, out=self.out)
         self.assertEqual(result, list(self.out))
 
-    def test_tail_with_num_of_files_and_stdin_without_stdin(self):
+    def test_head_with_num_of_files_and_stdin_without_stdin(self):
         app = Head()
         self.assertRaises(StandardInputError, app.exec, args=[], stdin=None, out=self.out)
 
-    def test_tail_with_num_of_lines_and_stdin_without_num_lines(self):
+    def test_head_with_num_of_lines_and_stdin_without_num_lines(self):
         app = Head()
-        self.assertRaises(FlagError, app.exec, args=['not -n', 5], stdin='random text', out=self.out)
+        self.assertRaises(FlagError, app.exec, args=['not -n', '5'], stdin='random text', out=self.out)
 
     def test_call_required_function_with_extra_args(self):
         app = Head()
-        self.assertRaises(ArgumentError, app.exec, args=[1, 2, 3, 4], stdin=None, out=self.out)
+        self.assertRaises(ArgumentError, app.exec, args=['1', '2', '3', '4'], stdin=None, out=self.out)
 
 
