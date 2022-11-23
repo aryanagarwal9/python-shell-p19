@@ -64,6 +64,7 @@ class TestUniq(unittest.TestCase):
 
     def test_uniq_no_arguments_no_stdin(self):
         app = Uniq()
+        Uniq().exec([], None, self.out)
         self.assertRaises(ValueError, app.exec, args=[],stdin=None, out=self.out)
 
     def test_uniq_flag_given_but_no_stdin(self):
