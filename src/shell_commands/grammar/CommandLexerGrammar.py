@@ -1,4 +1,4 @@
-# Generated from src/Parser/CommandLexerGrammar.g4 by ANTLR 4.11.1
+# Generated from src/shell_commands/CommandLexerGrammar.g4 by ANTLR 4.11.1
 from antlr4 import *
 from io import StringIO
 import sys
