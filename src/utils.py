@@ -14,22 +14,3 @@ def check_stdin(stdin: Optional[list]):
         raise StandardInputError("No input given")
 
     return True
-
-
-def split_stdin_to_lines(stdin):
-    lines = []
-    start = 0
-    while True:
-        if start >= len(stdin):
-            break
-
-        i = stdin.find('\n', start)
-        if i == -1:
-            lines.append(stdin[start:])
-            break
-        else:
-            end = i + 1
-            lines.append(stdin[start: end])
-            start = end
-
-    return lines
