@@ -1,13 +1,13 @@
 
 
-from applications.application_factory import ApplicationFactory
+from src.applications.application_factory import ApplicationFactory
 import os
 import sys
 
 command = ApplicationFactory().app_by_name('pwd')
 command.exec()
 
-print('**abc\n')
+print(['AAA\n', 'AAA\n', 'BBB\n'])
 # Hello
 # Hello
 # Hi

@@ -6,7 +6,7 @@ from src.applications.application import Application
 
 
 class Ls(Application):
-    def exec(self, args: list, stdin: Optional[list], out: deque):
+    def exec(self, args: list, stdin: Optional[str], out: deque):
         if not len(args):
             self.handle_no_arguments(out=out)
         elif len(args) == 1:
@@ -24,3 +24,4 @@ class Ls(Application):
     def handle_one_argument(self, args: list, out: deque):
         contents = self.get_directory_contents(args[0])
         out.append("\t".join(contents) + '\n')
+
