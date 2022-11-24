@@ -4,10 +4,19 @@ from src.applications.application_factory import ApplicationFactory
 import os
 import sys
 
-command = ApplicationFactory().app_by_name('pwd')
-command.exec()
+# command = ApplicationFactory().app_by_name('pwd')
+# command.exec()
 
 print(['AAA\n', 'AAA\n', 'BBB\n'])
+c,d = [],[]
+a,b = c,d
+
+b=[]
+a.append(1)
+b.append(1)
+
+print(a,b)
+print(c,d)
 # Hello
 # Hello
 # Hi
