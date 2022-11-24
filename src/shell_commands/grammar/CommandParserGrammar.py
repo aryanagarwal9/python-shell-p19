@@ -1,4 +1,4 @@
-# Generated from src/Parser/CommandParserGrammar.g4 by ANTLR 4.11.1
+# Generated from src/shell_commands/CommandParserGrammar.g4 by ANTLR 4.11.1
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO

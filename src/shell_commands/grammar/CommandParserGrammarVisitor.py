@@ -1,4 +1,4 @@
-# Generated from src/Parser/CommandParserGrammar.g4 by ANTLR 4.11.1
+# Generated from src/shell_commands/CommandParserGrammar.g4 by ANTLR 4.11.1
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .CommandParserGrammar import CommandParserGrammar
