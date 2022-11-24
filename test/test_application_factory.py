@@ -37,4 +37,3 @@ class TestCat(unittest.TestCase):
         for name in self.app_types:
             received_app = af.app_by_name('_' + name)
             self.assertIsInstance(received_app, UnsafeDecorator)
-
