@@ -5,6 +5,7 @@ from collections import deque
 
 from src.applications.app_cd import Cd
 
+
 class TestCd(unittest.TestCase):
     def setUp(self) -> None:
         self.out = deque()
@@ -22,7 +23,7 @@ class TestCd(unittest.TestCase):
 
     def test_cd_directory_provided(self):
         Cd().exec([self.sub_directory], None, self.out)
-        self.assertEqual(os.getcwd(), os.path.join(self.test_directory,self.sub_directory))
+        self.assertEqual(os.getcwd(), os.path.join(self.test_directory, self.sub_directory))
 
     def test_cd_multiple_arguments(self):
         app = Cd()
