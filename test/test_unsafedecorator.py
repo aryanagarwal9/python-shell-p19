@@ -90,12 +90,12 @@ class TestUnsafeDecorator(unittest.TestCase):
 
     def test_unsafe_cd_multiple_arguments(self):
         UnsafeDecorator(Cd()).exec([os.path.join('resources', 'test_uniq1.txt'), '-i'], None, self.out)
-        self.assertEqual(self.out.popleft(), 'Invalid flags given')
+        self.assertEqual(self.out.popleft(), 'Maximum of one argument expected')
         self.assertEqual(len(self.out), 0)
 
     def test_find_flag_not_provided(self):
         UnsafeDecorator(Cd()).exec([os.path.join('resources', 'test_uniq1.txt'), '-i'], None, self.out)
-        self.assertEqual(self.out.popleft(), 'Invalid flags given')
+        self.assertEqual(self.out.popleft(), 'Maximum of one argument expected')
         self.assertEqual(len(self.out), 0)
 
 
