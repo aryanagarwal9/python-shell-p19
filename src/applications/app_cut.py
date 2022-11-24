@@ -46,11 +46,11 @@ class Cut(Application):
         if byte_order is None:
             raise ArgumentError('byte order not given')
 
-        match = re.match('(?![0-9]|,|-)', byte_order)
-        if match is not None:
-            raise ArgumentError('illegal list value')
+        for b in byte_order:
+            if b not in '0123456789,-':
+                raise ArgumentError('illegal list value')
 
-        match = re.match(',,|--|,-|-,|-[0-9]-', byte_order)
+        match = re.search(',,|--|,-|-,|-[0-9]-', byte_order)
         if match is not None:
             raise ArgumentError('illegal list value')
 

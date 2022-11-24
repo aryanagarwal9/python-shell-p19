@@ -1,5 +1,4 @@
 
-
 from src.applications.application_factory import ApplicationFactory
 import os
 import sys
@@ -17,14 +16,7 @@ b.append(1)
 
 print(a,b)
 print(c,d)
-# Hello
-# Hello
-# Hi
-# Hello
-# Hello
-# Hello
-# Hey
-#
+
 # curr_word = None
 # for line in file:
 #     if curr_word is None:

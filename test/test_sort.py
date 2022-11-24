@@ -6,6 +6,7 @@ from parameterized import parameterized
 from src.applications.app_sort import Sort
 from src.errors import FlagError
 
+
 class TestSort(unittest.TestCase):
     def setUp(self) -> None:
         self.out = deque()
@@ -63,3 +64,7 @@ class TestSort(unittest.TestCase):
     def test_sort_flag_not_present_on_correct_index(self):
         app = Sort()
         self.assertRaises(FlagError, app.exec, args=[self.file_path, '-r'], stdin=None, out=self.out)
+
+    def test_sort_with_extra_arguments_no_stdin(self):
+        app = Sort()
+        self.assertRaises(ValueError, app.exec, args=['arg1', 'arg2', 'arg3'], stdin=None, out=self.out)

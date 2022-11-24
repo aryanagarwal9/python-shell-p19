@@ -24,4 +24,3 @@ class Ls(Application):
     def handle_one_argument(self, args: list, out: deque):
         contents = self.get_directory_contents(args[0])
         out.append("\t".join(contents) + '\n')
-

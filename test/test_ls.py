@@ -5,6 +5,7 @@ from collections import deque
 
 from src.applications.app_ls import Ls
 
+
 class TestLs(unittest.TestCase):
     def setUp(self) -> None:
         self.out = deque()
@@ -30,4 +31,4 @@ class TestLs(unittest.TestCase):
 
     def test_ls_multiple_arguments(self):
         app = Ls()
-        self.assertRaises(ValueError, app.exec, args=['directory1','directory2'], stdin=None, out=self.out)
+        self.assertRaises(ValueError, app.exec, args=['directory1', 'directory2'], stdin=None, out=self.out)

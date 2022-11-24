@@ -26,7 +26,7 @@ class TestHead(unittest.TestCase):
         shutil.rmtree(self.directory)
 
     @parameterized.expand([
-        ['single_byte', ['-b', '0', 'resources/test1.txt'], ['0\n', '4\n']],
+        ['single_byte', ['-b', '1', 'resources/test1.txt'], ['1\n', '5\n']],
         ['multiple_single_bytes', ['-b', '0,2', 'resources/test1.txt'], ['02\n', '46\n']],
         ['out_of_range_bytes', ['-b', '0,2,8', 'resources/test1.txt'], ['02\n', '46\n']],
         ['single_byte_range', ['-b', '0-3', 'resources/test1.txt'], ['0123\n', '4567\n']],
@@ -40,7 +40,6 @@ class TestHead(unittest.TestCase):
     def test_cut_with_file_input(self, name, args, result):
         Cut().exec(args=args, stdin=None, out=self.out)
         self.assertEqual(result, list(self.out))
-
 
     @parameterized.expand([
         ['single_byte', ['-b', '0'], '0123\n4567\n', ['0\n', '4\n']],
@@ -75,4 +74,11 @@ class TestHead(unittest.TestCase):
         app = Cut()
         self.assertRaises(ArgumentError, app.exec, args=[], stdin=None, out=self.out)
 
-
+    @parameterized.expand([
+        ['no_byte_order', ['-b', None, 'resources/test1.txt']],
+        ['char_a_in_byte_order', ['-b', '0,a', 'resources/test1.txt']],
+        ['double_comma', ['-b', '0,,2', 'resources/test1.txt']]
+    ])
+    def test_call_required_function_with_invalid_byte_order(self, name, args):
+        app = Cut()
+        self.assertRaises(ArgumentError, app.exec, args=args, stdin=None, out=self.out)

@@ -34,7 +34,8 @@ class TestFind(unittest.TestCase):
         shutil.rmtree(self.directory)
 
     @parameterized.expand([
-        ['inside_single_directory', ['resources1', '-name', '*rc*'], ['resources1\n', 'resources1/inner_resource\n', 'resources1/src\n']],
+        ['inside_single_directory', ['resources1', '-name', '*rc*'], ['resources1\n', 'resources1/inner_resource\n',
+         'resources1/src\n']],
         ['inside_directory_tree', ['resources2', '-name', '*es*'],
          ['resources2\n', 'resources2/inner_resource\n', 'resources2/test2.txt\n']]
     ])
