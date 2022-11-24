@@ -69,7 +69,6 @@ class Tail(Application):
 
         out.extend(self.get_lines(num_lines=num_lines, file=file, src='file'))
 
-
     def get_lines(self, num_lines: int = 10, file: str = None, stdin: str = None, src: str = 'file') -> List[str]:
         res = []
 

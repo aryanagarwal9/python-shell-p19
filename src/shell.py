@@ -7,6 +7,7 @@ from glob import glob
 from src.applications.application import Application
 from src.applications.application_factory import ApplicationFactory
 
+
 def parse(cmdline):
     raw_commands = []
     for m in re.finditer("([^\"';]+|\"[^\"]*\"|'[^']*')", cmdline):
@@ -28,10 +29,11 @@ def parse(cmdline):
         args = tokens[1:]
         return app, args
 
+
 def eval(cmdline, out):
         app, args = parse(cmdline)
         executable = ApplicationFactory().app_by_name(app)
-        executable.exec(args,None, out)
+        executable.exec(args, None, out)
 
         # if app == "pwd":
         #     out.append(os.getcwd())
@@ -125,4 +127,3 @@ if __name__ == "__main__":
             eval(cmdline, out)
             while len(out) > 0:
                 print(out.popleft(), end="")
-

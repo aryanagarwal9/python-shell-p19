@@ -10,10 +10,6 @@ from src.applications.app_uniq import Uniq
 from src.applications.app_cd import Cd
 
 
-
-
-
-
 class TestUnsafeDecorator(unittest.TestCase):
     def setUp(self) -> None:
         self.out = deque()
@@ -97,12 +93,3 @@ class TestUnsafeDecorator(unittest.TestCase):
         UnsafeDecorator(Cd()).exec([os.path.join('resources', 'test_uniq1.txt'), '-i'], None, self.out)
         self.assertEqual(self.out.popleft(), 'Maximum of one argument expected')
         self.assertEqual(len(self.out), 0)
-
-
-
-
-
-
-
-
-

@@ -20,7 +20,3 @@ class Cat(Application):
             with open(file_name, 'r') as file:
                 concatenated_output += file.read()
         out.append(concatenated_output)
-
-# out = deque()
-# Cat().exec(['/Users/adityaparashar/UCL/Year2/COMP0010/CW/h1.txt', '/Users/adityaparashar/UCL/Year2/COMP0010/CW/h2.txt'], 'hello', out)
-# print(out.popleft())

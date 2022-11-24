@@ -77,5 +77,3 @@ class TestHead(unittest.TestCase):
     def test_call_required_function_with_extra_args(self):
         app = Head()
         self.assertRaises(ArgumentError, app.exec, args=['1', '2', '3', '4'], stdin=None, out=self.out)
-
-
