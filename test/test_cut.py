@@ -76,8 +76,9 @@ class TestHead(unittest.TestCase):
         self.assertRaises(ArgumentError, app.exec, args=[], stdin=None, out=self.out)
 
     @parameterized.expand([
-        ['single_byte', ['-b', '0,a', 'resources/test1.txt']],
-        ['multiple_single_bytes', ['-b', '0,,2', 'resources/test1.txt']]
+        ['no_byte_order', ['-b', None, 'resources/test1.txt']],
+        ['char_a_in_byte_order', ['-b', '0,a', 'resources/test1.txt']],
+        ['double_comma', ['-b', '0,,2', 'resources/test1.txt']]
     ])
     def test_call_required_function_with_invalid_byte_order(self, name, args):
         app = Cut()

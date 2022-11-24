@@ -43,7 +43,6 @@ class Cut(Application):
 
     def check_byte_order(self, args: List[str]):
         byte_order = args[1]
-        print('order is: ', byte_order)
         if byte_order is None:
             raise ArgumentError('byte order not given')
 

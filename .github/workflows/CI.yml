@@ -30,7 +30,15 @@ jobs:
         run: |
           pip install parameterized
           pip install hypothesis
+          pip install coverage
 
       - name: Run Unit Tests
         run: |
           python -m unittest discover test/
+          
+      - name: Check Coverage
+        run: |
+          coverage run  --source=src -m unittest discover
+          coverage report --fail-under=95
+          
+        
