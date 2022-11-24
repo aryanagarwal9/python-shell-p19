@@ -75,5 +75,3 @@ class TestTail(unittest.TestCase):
     def test_call_required_function_with_extra_args(self):
         app = Tail()
         self.assertRaises(ArgumentError, app.exec, args=['a', 'b', 'c', 'd'], stdin=None, out=self.out)
-
-

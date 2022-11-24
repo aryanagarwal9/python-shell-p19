@@ -6,6 +6,7 @@ from parameterized import parameterized
 from src.applications.app_sort import Sort
 from src.errors import FlagError
 
+
 class TestSort(unittest.TestCase):
     def setUp(self) -> None:
         self.out = deque()
