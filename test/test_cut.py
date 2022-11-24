@@ -41,7 +41,6 @@ class TestHead(unittest.TestCase):
         Cut().exec(args=args, stdin=None, out=self.out)
         self.assertEqual(result, list(self.out))
 
-
     @parameterized.expand([
         ['single_byte', ['-b', '0'], '0123\n4567\n', ['0\n', '4\n']],
         ['multiple_single_bytes', ['-b', '0,2'], '0123\n4567\n', ['02\n', '46\n']],
@@ -83,5 +82,3 @@ class TestHead(unittest.TestCase):
     def test_call_required_function_with_invalid_byte_order(self, name, args):
         app = Cut()
         self.assertRaises(ArgumentError, app.exec, args=args, stdin=None, out=self.out)
-
-

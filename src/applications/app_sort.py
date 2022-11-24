@@ -37,4 +37,3 @@ class Sort(Application):
     def handle_stdin(self, stdin: Optional[str], out: deque, reverse: bool):
         for line in sorted(stdin.split('\n'), reverse=reverse):
             out.append(line + '\n')
-

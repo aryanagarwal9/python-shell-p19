@@ -1,6 +1,5 @@
 from typing import Optional, List
 from collections import deque
-from src.errors import FlagError
 from src.utils import check_flag
 from src.applications.application import Application
 
@@ -21,7 +20,7 @@ class Uniq(Application):
     def call_required_function(self, args: List[str], stdin: Optional[str], out: deque):
         flag = True if len(args) and args[0] == '-i' else False
         if len(args) > 1 or (len(args) and not flag):
-            if len(args)>1:
+            if len(args) > 1:
                 check_flag(args[0], '-i')
             self.handle_file_input(args, out, flag)
         else:
@@ -38,11 +37,12 @@ class Uniq(Application):
     def handle_stdin_input(self, stdin: Optional[str], out: deque, flag: bool):
         stdin_input = stdin.split('\n')
         for line in stdin_input:
-            if line=='':
+            if line == '':
                 continue
             temp_line, prev_line = self.get_required_lines(line, flag, out)
             if prev_line is None or prev_line.rstrip('\n') != temp_line:
                 out.append(line+'\n')
 
-    def get_required_lines(self, line, flag, out):
+    @staticmethod
+    def get_required_lines(line, flag, out):
         return line.lower() if flag else line, None if not len(out) else out[-1].lower() if flag else out[-1]
