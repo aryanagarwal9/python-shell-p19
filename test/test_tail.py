@@ -70,12 +70,8 @@ class TestTail(unittest.TestCase):
 
     def test_tail_with_num_of_lines_and_stdin_without_num_lines(self):
         app = Tail()
-        self.assertRaises(FlagError, app.exec, args=['not -n', 5], stdin='random text', out=self.out)
+        self.assertRaises(FlagError, app.exec, args=['not -n', '5'], stdin='random text', out=self.out)
 
     def test_call_required_function_with_extra_args(self):
         app = Tail()
-        self.assertRaises(ArgumentError, app.exec, args=[1, 2, 3, 4], stdin=None, out=self.out)
-
-
-
-
+        self.assertRaises(ArgumentError, app.exec, args=['a', 'b', 'c', 'd'], stdin=None, out=self.out)
