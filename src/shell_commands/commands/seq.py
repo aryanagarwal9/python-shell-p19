@@ -11,4 +11,3 @@ class Seq(Command):
     def eval(self, input_cmd: Optional[str], out: deque):
         self.left.eval(input_cmd, out)
         self.right.eval(None, out)
-

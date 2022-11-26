@@ -1,4 +1,4 @@
-# Generated from src/shell_commands/CommandParserGrammar.g4 by ANTLR 4.11.1
+# Generated from src/shell_commands/grammar/CommandParserGrammar.g4 by ANTLR 4.11.1
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .CommandParserGrammar import CommandParserGrammar
@@ -54,6 +54,11 @@ class CommandParserGrammarVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by CommandParserGrammar#argument_content.
+    def visitArgument_content(self, ctx:CommandParserGrammar.Argument_contentContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by CommandParserGrammar#redirection.
     def visitRedirection(self, ctx:CommandParserGrammar.RedirectionContext):
         return self.visitChildren(ctx)
@@ -87,6 +92,7 @@ class CommandParserGrammarVisitor(ParseTreeVisitor):
     # Visit a parse tree produced by CommandParserGrammar#dq_content.
     def visitDq_content(self, ctx:CommandParserGrammar.Dq_contentContext):
         return self.visitChildren(ctx)
+
 
 
 del CommandParserGrammar

@@ -31,7 +31,7 @@ def parse(cmdline):
 def eval(cmdline, out):
         app, args = parse(cmdline)
         executable = ApplicationFactory().app_by_name(app)
-        executable.exec(args,None, out)
+        executable.exec(args, None, out)
 
         # if app == "pwd":
         #     out.append(os.getcwd())
