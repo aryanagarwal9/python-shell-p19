@@ -6,17 +6,15 @@ import sys
 # command = ApplicationFactory().app_by_name('pwd')
 # command.exec()
 
-print(['AAA\n', 'AAA\n', 'BBB\n'])
-c,d = [],[]
-a,b = c,d
+sei = 2
+ig = [T,F,F]
+se = ['hello1', 'hello1*', 'hello2']
+ve = ['hello1\nhello1*\nhello2', hello5]
+ce = [ArgumentContent(Quoted(DoubleQuoted(UNQUOTED)))]
 
-b=[]
-a.append(1)
-b.append(1)
 
-print(a,b)
-print(c,d)
-
+for x in zip(ce,ve):
+    print(x)
 # curr_word = None
 # for line in file:
 #     if curr_word is None:

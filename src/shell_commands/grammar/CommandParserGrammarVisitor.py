@@ -54,8 +54,13 @@ class CommandParserGrammarVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by CommandParserGrammar#argument_content.
-    def visitArgument_content(self, ctx:CommandParserGrammar.Argument_contentContext):
+    # Visit a parse tree produced by CommandParserGrammar#quoted_arg.
+    def visitQuoted_arg(self, ctx:CommandParserGrammar.Quoted_argContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by CommandParserGrammar#Unquoted.
+    def visitUnquoted(self, ctx:CommandParserGrammar.UnquotedContext):
         return self.visitChildren(ctx)
 
 
