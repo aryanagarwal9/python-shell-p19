@@ -31,6 +31,8 @@ jobs:
           pip install parameterized
           pip install hypothesis
           pip install coverage
+          pip install antlr4-tools
+          pip install antlr4-python3-runtime
 
       - name: Run Unit Tests
         run: |
