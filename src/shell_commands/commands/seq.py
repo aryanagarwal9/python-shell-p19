@@ -3,6 +3,7 @@ from typing import Optional
 
 from src.shell_commands.commands.command import Command
 
+
 class Seq(Command):
     def __init__(self, left: Command, right: Command):
         self.left = left

@@ -1,7 +1,7 @@
 import unittest
+from collections import deque
 
 from src.shell import eval
-from collections import deque
 
 
 class TestShell(unittest.TestCase):
