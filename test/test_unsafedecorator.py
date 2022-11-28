@@ -21,7 +21,7 @@ class TestUnsafeDecorator(unittest.TestCase):
 
     def test_unsafe_tail_with_num_of_files_and_stdin_without_stdin(self):
         UnsafeDecorator(Tail()).exec([], None, self.out)
-        self.assertEqual(self.out.popleft(), 'No input given')
+        self.assertEqual(self.out.popleft(), 'No input given\n')
         self.assertEqual(len(self.out), 0)
 
     def test_unsafe_tail_with_num_of_lines_and_stdin_without_num_lines(self):
