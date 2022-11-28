@@ -36,6 +36,7 @@ class Grep(Application):
                 file_lines = file.readlines()
                 for line in file_lines:
                     if re.search(pattern, line) is not None:
-                        out.append(
-                            f"{file_name}:{line.rstrip()}\n") if num_files > 1 else out.append(
-                            line.rstrip() + '\n')
+                        if num_files > 1:
+                            out.append(f"{file_name}:{line.rstrip()}\n")
+                        else:
+                            out.append(line.rstrip() + '\n')

@@ -15,9 +15,12 @@ class TestGrep(unittest.TestCase):
         os.mkdir(self.directory)
 
         self.files = {
-            'test1.txt': 'hello the app name is grep\ngrep is used to search for a pattern\nUsed in shell',
-            'test2.txt': 'this coursework is about implementing a shell\nI enjoyed the experience',
-            'test3.txt': 'class for testing grep\nmaking unit tests to test app',
+            'test1.txt': 'hello the app name is grep\n'
+                         'grep is used to search for a pattern\nUsed in shell',
+            'test2.txt': 'this coursework is about implementing a shell\n'
+                         'I enjoyed the experience',
+            'test3.txt': 'class for testing grep\n'
+                         'making unit tests to test app',
         }
 
         for file_name in self.files:
@@ -44,8 +47,8 @@ class TestGrep(unittest.TestCase):
     @parameterized.expand([
         ['no_match_present', ['hel'], 'hi\nI hope you have a good day', []],
         ['matches_present', ['hel'],
-         'hello\nI am glad to see you\nLets work on shell\n', ['hello\n'
-             , 'Lets work on shell\n']]
+         'hello\nI am glad to see you\nLets work on shell\n',
+         ['hello\n', 'Lets work on shell\n']]
     ])
     def test_grep_stdin(self, name, args, stdin, result):
         Grep().exec(args, stdin, self.out)

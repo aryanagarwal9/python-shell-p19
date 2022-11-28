@@ -8,4 +8,3 @@
 #
 # for x in zip(ce, ve):
 #     print(x)
-

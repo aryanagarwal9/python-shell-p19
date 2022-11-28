@@ -84,7 +84,7 @@ class CommandsVisitor(CommandParserGrammarVisitor):
         return final_globbed_args
 
     def get_glob_indices(self,
-                         argument_content: CommandParserGrammar.argument_content,
+                         argument_content,
                          visited_args: list, split_args: list):
         glob_indices = [False for i in range(len(split_args))]
         splitting_index = 0
