@@ -41,7 +41,7 @@ jobs:
 
       - name: Run System Tests
         run: |
-#          docker build -t shell .
+          #docker build -t shell .
           docker build -t comp0010-system-test .
           python system_test/tests.py -v
           
