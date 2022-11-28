@@ -3,12 +3,13 @@ from collections import deque
 from typing import Optional
 
 from src.applications.application import Application
+from src.errors import ArgumentError
 
 
 class Grep(Application):
     def exec(self, args: list, stdin: Optional[str], out: deque):
         if not len(args):
-            raise ValueError("No arguments provided")
+            raise ArgumentError("No arguments provided")
 
         self.call_required_function(args, stdin, out)
 
@@ -19,7 +20,7 @@ class Grep(Application):
         if num_args > 1:
             self.handle_file_input(pattern, args, out)
         elif stdin is None:
-            raise ValueError('no arguments or stdin')
+            raise ArgumentError('No arguments or stdin')
         else:
             self.handle_stdin(pattern, stdin, out)
 

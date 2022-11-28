@@ -2,19 +2,20 @@ from collections import deque
 from typing import Optional, List
 
 from src.applications.application import Application
+from src.errors import ArgumentError
 from src.utils import check_flag
 
 
 class Uniq(Application):
     def exec(self, args: list, stdin: Optional[str], out: deque):
         if len(args) > 2:
-            raise ValueError("wrong number of arguments")
+            raise ArgumentError("Wrong number of arguments")
 
         if not len(args) and stdin is None:
-            raise ValueError('no arguments or stdin')
+            raise ArgumentError('No arguments or stdin')
 
         if len(args) == 1 and args[0] == '-i' and stdin is None:
-            raise ValueError('no arguments or stdin')
+            raise ArgumentError('No arguments or stdin')
 
         self.call_required_function(args, stdin, out)
 
