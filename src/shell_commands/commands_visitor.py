@@ -35,14 +35,17 @@ class CommandsVisitor(CommandParserGrammarVisitor):
         return Pipe(self.visit(ctx.left), self.visit(ctx.right))
 
     def get_io_files(self, redirection, input_file, output_file):
-        if redirection.operator.text == '>':
-            if output_file is None:
-                return input_file, self.visit(redirection)
-            raise ValueError('unnecessary output redirections')
+        return self.get_output_file(redirection, input_file, output_file) if redirection.operator.text == '>' else self.get_input_file(redirection, input_file, output_file)
 
+    def get_input_file(self, redirection, input_file, output_file):
         if input_file is None:
             return self.visit(redirection), output_file
         raise ValueError('unnecessary input redirections')
+
+    def get_output_file(self, redirection, input_file, output_file):
+        if output_file is None:
+            return input_file, self.visit(redirection)
+        raise ValueError('unnecessary output redirections')
 
     def visitCall(self, ctx: CommandParserGrammar.CallContext):
         arguments = self.visit(ctx.argument())
@@ -74,7 +77,8 @@ class CommandsVisitor(CommandParserGrammarVisitor):
                 final_globbed_args.append(split_arg)
         return final_globbed_args
 
-    def get_glob_indices(self, argument_content: CommandParserGrammar.argument_content, visited_args: list, split_args: list):
+    @staticmethod
+    def get_glob_indices(argument_content: CommandParserGrammar.argument_content, visited_args: list, split_args: list):
         glob_indices = [False for i in range(len(split_args))]
         splitting_index = 0
         for arg, visited_arg in zip(argument_content, visited_args):
@@ -84,13 +88,14 @@ class CommandsVisitor(CommandParserGrammarVisitor):
                 splitting_index += visited_arg.count('\n')
         return glob_indices
 
-    def glob_expand(self, argument: str):
+    @staticmethod
+    def glob_expand(argument: str):
         files = glob.glob(argument)
         return files if files else [argument]
 
     def visitRedirection(self, ctx: CommandParserGrammar.RedirectionContext):
         files = self.visit(ctx.argument())
-        if len(files)!=1:
+        if len(files) != 1:
             raise ValueError('wrong number of redirections')
         return files[0]
 

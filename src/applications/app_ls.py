@@ -14,9 +14,6 @@ class Ls(Application):
         else:
             raise ValueError("Cannot accept more than one argument")
 
-    def get_directory_contents(self, directory_name: str):
-        return [content for content in os.listdir(directory_name) if not content.startswith('.')]
-
     def handle_no_arguments(self, out: deque):
         contents = self.get_directory_contents(os.getcwd())
         out.append("\t".join(contents) + '\n')
@@ -24,3 +21,7 @@ class Ls(Application):
     def handle_one_argument(self, args: list, out: deque):
         contents = self.get_directory_contents(args[0])
         out.append("\t".join(contents) + '\n')
+
+    @staticmethod
+    def get_directory_contents(directory_name: str):
+        return [content for content in os.listdir(directory_name) if not content.startswith('.')]

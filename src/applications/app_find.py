@@ -31,7 +31,8 @@ class Find(Application):
                                    recursive=True):
             out.append(filename + '\n')
 
-    def match_current_dir(self, path, pattern, out):
+    @staticmethod
+    def match_current_dir(path, pattern, out):
         pattern = pattern.lstrip('*')
         if re.search(pattern, path) is not None:
             out.append(path + '\n')

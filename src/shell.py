@@ -7,9 +7,7 @@ from src.shell_commands.commands_visitor import CommandsVisitor
 def eval(cmdline, out):
     CommandsVisitor().converter(cmdline).eval(None, out)
 
-
-if __name__ == "__main__":
-    args_num = len(sys.argv) - 1
+def run_non_interactive_mode(args_num):
     if args_num > 0:
         if args_num != 2:
             raise ValueError("wrong number of command line arguments")
@@ -19,12 +17,24 @@ if __name__ == "__main__":
         eval(sys.argv[2], out)
         while len(out) > 0:
             print(out.popleft(), end="")
+
+def run_interactive_mode():
+    while True:
+        print(os.getcwd() + "> ", end="")
+        cmdline = input()
+        out = deque()
+        eval(cmdline, out)
+        while len(out) > 0:
+            print(out.popleft(), end="")
+
+def run():
+    args_num = len(sys.argv) - 1
+    if args_num:
+        run_non_interactive_mode(args_num)
     else:
-        while True:
-            print(os.getcwd() + "> ", end="")
-            cmdline = input()
-            out = deque()
-            eval(cmdline, out)
-            while len(out) > 0:
-                print(out.popleft(), end="")
+        run_interactive_mode()
+
+
+if __name__ == "__main__":
+    run()
 

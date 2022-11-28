@@ -41,7 +41,8 @@ class Cut(Application):
             cut_str = self.get_cut_str(line, byte_order)
             out.append(cut_str + '\n')
 
-    def check_byte_order(self, args: List[str]):
+    @staticmethod
+    def check_byte_order(args: List[str]):
         byte_order = args[1]
         if byte_order is None:
             raise ArgumentError('byte order not given')
@@ -54,7 +55,8 @@ class Cut(Application):
         if match is not None:
             raise ArgumentError('illegal list value')
 
-    def get_lines(self, args, src, stdin=None):
+    @staticmethod
+    def get_lines(args, src, stdin=None):
         if src == 'file':
             file = args[2]
             with open(file) as f:
@@ -65,6 +67,7 @@ class Cut(Application):
 
         return lines
 
+    @staticmethod
     def get_cut_str(self, line, byte_order):
         cut_str = ''
         used_bytes = []
@@ -79,7 +82,8 @@ class Cut(Application):
                 cut_str = self.cut_byte_interval(line, cut_str, used_bytes, start=1, end=int(byte[1]))
         return cut_str
 
-    def cut_single_byte(self, byte, line, cut_str, used_bytes):
+    @staticmethod
+    def cut_single_byte(byte, line, cut_str, used_bytes):
         byte = int(byte)
         if byte <= len(line) and line[byte] != '\n' and byte not in used_bytes:
             cut_str += line[byte - 1]
@@ -87,7 +91,8 @@ class Cut(Application):
 
         return cut_str
 
-    def cut_byte_interval(self, line, cut_str, used_bytes, start, end):
+    @staticmethod
+    def cut_byte_interval(line, cut_str, used_bytes, start, end):
         for i in range(start, end + 1):
             if i <= len(line) and line[i - 1] != '\n' and i not in used_bytes:
                 cut_str += line[i - 1]

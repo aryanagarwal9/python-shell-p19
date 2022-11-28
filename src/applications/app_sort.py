@@ -19,22 +19,26 @@ class Sort(Application):
         else:
             raise ValueError('no arguments or stdin')
 
-    def is_file_input_available(self, args: list):
+    @staticmethod
+    def is_file_input_available(args: list):
         if len(args) > 1:
             check_flag(args[0], '-r')
             return True
         return len(args) and args[0] != '-r'
 
-    def is_stdin_available(self, stdin: Optional[str]):
+    @staticmethod
+    def is_stdin_available(stdin: Optional[str]):
         return stdin is not None
 
-    def handle_file_input(self, args: list, out: deque, reverse: bool):
+    @staticmethod
+    def handle_file_input(args: list, out: deque, reverse: bool):
         file_name = args[0] if len(args) == 1 else args[1]
         with open(file_name, 'r') as file:
             for line in sorted(file.readlines(), reverse=reverse):
                 out.append(line) if line.endswith('\n') else out.append(
                     line + '\n')
 
-    def handle_stdin(self, stdin: Optional[str], out: deque, reverse: bool):
+    @staticmethod
+    def handle_stdin(stdin: Optional[str], out: deque, reverse: bool):
         for line in sorted(stdin.split('\n'), reverse=reverse):
             out.append(line + '\n')
