@@ -1,6 +1,6 @@
 import os
-from typing import Optional
 from collections import deque
+from typing import Optional
 
 from src.applications.application import Application
 

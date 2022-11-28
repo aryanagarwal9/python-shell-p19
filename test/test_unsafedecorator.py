@@ -1,13 +1,13 @@
-import unittest
 import os
+import unittest
 from collections import deque
 
-from src.applications.app_tail import Tail
-from src.applications.unsafe_decorator import UnsafeDecorator
-from src.applications.app_head import Head
-from src.applications.app_cut import Cut
-from src.applications.app_uniq import Uniq
 from src.applications.app_cd import Cd
+from src.applications.app_cut import Cut
+from src.applications.app_head import Head
+from src.applications.app_tail import Tail
+from src.applications.app_uniq import Uniq
+from src.applications.unsafe_decorator import UnsafeDecorator
 
 
 class TestUnsafeDecorator(unittest.TestCase):
@@ -29,7 +29,8 @@ class TestUnsafeDecorator(unittest.TestCase):
         self.assertEqual(self.out.popleft(), 'Invalid flags given')
         self.assertEqual(len(self.out), 0)
 
-    def test_unsafe_head_with_num_of_files_and_stdin_without_stdin(self):  # head
+    def test_unsafe_head_with_num_of_files_and_stdin_without_stdin(
+            self):  # head
         UnsafeDecorator(Head()).exec([], None, self.out)
         self.assertEqual(self.out.popleft(), 'No input given')
         self.assertEqual(len(self.out), 0)
@@ -75,21 +76,30 @@ class TestUnsafeDecorator(unittest.TestCase):
         self.assertEqual(len(self.out), 0)
 
     def test_unsafe_uniq_wrong_number_of_arguments(self):
-        UnsafeDecorator(Uniq()).exec(['-i', 'test_uniq1.txt', 'test_uniq2.txt'], None, self.out)
+        UnsafeDecorator(Uniq()).exec(
+            ['-i', 'test_uniq1.txt', 'test_uniq2.txt'], None, self.out)
         self.assertEqual(self.out.popleft(), 'wrong number of arguments')
         self.assertEqual(len(self.out), 0)
 
     def test_unsafe_uniq_flag_at_incorrect_index(self):
-        UnsafeDecorator(Uniq()).exec([os.path.join('resources', 'test_uniq1.txt'), '-i'], None, self.out)
+        UnsafeDecorator(Uniq()).exec(
+            [os.path.join('resources', 'test_uniq1.txt'), '-i'], None,
+            self.out)
         self.assertEqual(self.out.popleft(), 'Invalid flags given')
         self.assertEqual(len(self.out), 0)
 
     def test_unsafe_cd_multiple_arguments(self):
-        UnsafeDecorator(Cd()).exec([os.path.join('resources', 'test_uniq1.txt'), '-i'], None, self.out)
-        self.assertEqual(self.out.popleft(), 'Maximum of one argument expected')
+        UnsafeDecorator(Cd()).exec(
+            [os.path.join('resources', 'test_uniq1.txt'), '-i'], None,
+            self.out)
+        self.assertEqual(self.out.popleft(),
+                         'Maximum of one argument expected')
         self.assertEqual(len(self.out), 0)
 
     def test_find_flag_not_provided(self):
-        UnsafeDecorator(Cd()).exec([os.path.join('resources', 'test_uniq1.txt'), '-i'], None, self.out)
-        self.assertEqual(self.out.popleft(), 'Maximum of one argument expected')
+        UnsafeDecorator(Cd()).exec(
+            [os.path.join('resources', 'test_uniq1.txt'), '-i'], None,
+            self.out)
+        self.assertEqual(self.out.popleft(),
+                         'Maximum of one argument expected')
         self.assertEqual(len(self.out), 0)

@@ -1,14 +1,15 @@
 import unittest
-from src.applications.application_factory import ApplicationFactory
-from src.applications.app_pwd import Pwd
-from src.applications.app_echo import Echo
-from src.applications.app_cd import Cd
-from src.applications.app_ls import Ls
+
 from src.applications.app_cat import Cat
+from src.applications.app_cd import Cd
+from src.applications.app_echo import Echo
+from src.applications.app_find import Find
 from src.applications.app_grep import Grep
 from src.applications.app_head import Head
+from src.applications.app_ls import Ls
+from src.applications.app_pwd import Pwd
 from src.applications.app_tail import Tail
-from src.applications.app_find import Find
+from src.applications.application_factory import ApplicationFactory
 from src.applications.unsafe_decorator import UnsafeDecorator
 
 
@@ -37,4 +38,3 @@ class TestCat(unittest.TestCase):
         for name in self.app_types:
             received_app = af.app_by_name('_' + name)
             self.assertIsInstance(received_app, UnsafeDecorator)
-
