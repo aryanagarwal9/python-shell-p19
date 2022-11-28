@@ -72,8 +72,7 @@ class TestHead(unittest.TestCase):
          ['123\n', '567\n']],
         ['unsorted_byte_intervals', ['-b', '2-3,1-2'], '1234\n5678\n',
          ['123\n', '567\n']],
-        ['reversed_byte_interval', ['-b', '3-1'], '1234\n5678\n',
-         ['\n', '\n']],
+        ['reversed_byte_interval', ['-b', '3-1'], '1234\n5678\n', ['\n', '\n']],
         ['bytes_and_interval', ['-b', '1,2-3'], '1234\n5678\n',
          ['123\n', '567\n']]
     ])

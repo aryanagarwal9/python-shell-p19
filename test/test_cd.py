@@ -23,11 +23,9 @@ class TestCd(unittest.TestCase):
 
     def test_cd_directory_provided(self):
         Cd().exec([self.sub_directory], None, self.out)
-        self.assertEqual(os.getcwd(),
-                         os.path.join(self.test_directory, self.sub_directory))
+        self.assertEqual(os.getcwd(), os.path.join(self.test_directory, self.sub_directory))
 
     def test_cd_multiple_arguments(self):
         app = Cd()
-        self.assertRaises(ValueError, app.exec,
-                          args=['directory1', 'directory2'], stdin=None,
-                          out=self.out)
+        self.assertRaises(ValueError, app.exec, args=['directory1', 'directory2'], stdin=None, out=self.out)
+        

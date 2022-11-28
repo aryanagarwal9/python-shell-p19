@@ -9,7 +9,7 @@ def check_flag(arg: str, flag: str):
     return True
 
 
-def check_stdin(stdin: Optional[str]):
+def check_stdin(stdin: Optional[list]):
     if stdin is None:
         raise StandardInputError("No input given")
 

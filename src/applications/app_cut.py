@@ -1,9 +1,8 @@
-import re
-from collections import deque
-from typing import Optional, List
-
-from src.applications.application import Application
 from src.errors import ArgumentError
+import re
+from typing import Optional, List
+from collections import deque
+from src.applications.application import Application
 from src.utils import check_flag, check_stdin
 
 
@@ -11,8 +10,7 @@ class Cut(Application):
     def exec(self, args: List[str], stdin: Optional[str], out: deque):
         self.call_required_function(args, stdin, out)
 
-    def call_required_function(self, args: List[str], stdin: Optional[str],
-                               out: deque):
+    def call_required_function(self, args: List[str], stdin: Optional[str], out: deque):
         """check the number of args given and handle each case
         """
 
@@ -25,8 +23,7 @@ class Cut(Application):
         else:
             raise ArgumentError("Invalid number of arguments")
 
-    def handle_cut_str(self, args: List[str], out: deque, src: str,
-                       stdin: Optional[str] = None):
+    def handle_cut_str(self, args: List[str], out: deque, src: str, stdin: Optional[str] = None):
         """If file and num_lines is given then read from file and
         output the specified number of lines
         """
@@ -75,16 +72,11 @@ class Cut(Application):
             if byte.isdigit():
                 cut_str = self.cut_single_byte(byte, line, cut_str, used_bytes)
             elif re.match('[0-9]-[0-9]', byte) is not None:
-                cut_str = self.cut_byte_interval(line, cut_str, used_bytes,
-                                                 start=int(byte[0]),
-                                                 end=int(byte[2]))
+                cut_str = self.cut_byte_interval(line, cut_str, used_bytes, start=int(byte[0]), end=int(byte[2]))
             elif re.match('[0-9]-', byte) is not None:
-                cut_str = self.cut_byte_interval(line, cut_str, used_bytes,
-                                                 start=int(byte[0]),
-                                                 end=len(line))
+                cut_str = self.cut_byte_interval(line, cut_str, used_bytes, start=int(byte[0]), end=len(line))
             elif re.match('-[0-9]', byte) is not None:
-                cut_str = self.cut_byte_interval(line, cut_str, used_bytes,
-                                                 start=1, end=int(byte[1]))
+                cut_str = self.cut_byte_interval(line, cut_str, used_bytes, start=1, end=int(byte[1]))
         return cut_str
 
     def cut_single_byte(self, byte, line, cut_str, used_bytes):

@@ -6,13 +6,12 @@ from typing import Optional
 
 from src.applications.application import Application
 from src.utils import check_flag
-from src.errors import ArgumentError
 
 
 class Find(Application):
     def exec(self, args: list, stdin: Optional[str], out: deque):
         if len(args) < 2 or len(args) > 3:
-            raise ArgumentError("Wrong number of arguments")
+            raise ValueError("wrong number of arguments")
 
         if len(args) == 2:
             check_flag(args[0], '-name')

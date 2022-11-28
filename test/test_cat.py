@@ -33,11 +33,8 @@ class TestCat(unittest.TestCase):
         self.assertEqual(len(self.out), 0)
 
     def test_cat_with_multiple_files(self):
-        Cat().exec(
-            [self.directory + '/test1.txt', self.directory + '/test2.txt'],
-            None, self.out)
-        self.assertEqual(self.out.popleft(),
-                         self.files['test1.txt'] + self.files['test2.txt'])
+        Cat().exec([self.directory + '/test1.txt', self.directory + '/test2.txt'], None, self.out)
+        self.assertEqual(self.out.popleft(), self.files['test1.txt'] + self.files['test2.txt'])
         self.assertEqual(len(self.out), 0)
 
     @given(strategies.text())

@@ -1,9 +1,7 @@
 import unittest
 from collections import deque
-
-from hypothesis import given, strategies
-
 from src.applications.app_echo import Echo
+from hypothesis import given, strategies
 
 
 class TestEcho(unittest.TestCase):
@@ -18,5 +16,5 @@ class TestEcho(unittest.TestCase):
     @given(strategies.text())
     def test_echo_arguments_provided(self, text):
         Echo().exec([text], None, self.out)
-        self.assertEqual(self.out.popleft(), text + '\n')
+        self.assertEqual(self.out.popleft(), text+'\n')
         self.assertEqual(len(self.out), 0)

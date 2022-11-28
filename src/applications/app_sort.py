@@ -3,13 +3,12 @@ from typing import Optional
 
 from src.applications.application import Application
 from src.utils import check_flag
-from src.errors import ArgumentError
 
 
 class Sort(Application):
     def exec(self, args: list, stdin: Optional[str], out: deque):
         if len(args) > 2:
-            raise ArgumentError('Wrong number of arguments')
+            raise ValueError('wrong number of arguments')
 
         reverse = len(args) and args[0] == '-r'
 
@@ -18,7 +17,7 @@ class Sort(Application):
         elif self.is_stdin_available(stdin):
             self.handle_stdin(stdin, out, reverse=reverse)
         else:
-            raise ArgumentError('No arguments or stdin')
+            raise ValueError('no arguments or stdin')
 
     def is_file_input_available(self, args: list):
         if len(args) > 1:
