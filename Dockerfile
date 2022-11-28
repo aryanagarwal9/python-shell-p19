@@ -11,6 +11,7 @@ RUN apt-get update \
 RUN /usr/local/bin/python -m pip install --upgrade pip
 
 COPY . /comp0010
+COPY . /comp0010/src
 
 RUN chmod u+x /comp0010/sh
 RUN chmod u+x /comp0010/tools/test
