@@ -45,7 +45,7 @@ jobs:
 
       - name: Check Coverage
         run: |
-          coverage run  --source=src -m unittest discover
+          coverage run  --branch --source=src -m unittest discover
           coverage report --fail-under=95
           
         
