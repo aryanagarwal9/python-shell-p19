@@ -33,16 +33,16 @@ jobs:
       - name: Run Unit Tests
         run: |
           python -m unittest discover test/
-          
-      - name: Check Coverage
-        run: |
-          coverage run  --source=src -m unittest discover
-          coverage report --fail-under=95
 
       - name: Run System Tests
         run: |
           #docker build -t shell .
           docker build -t comp0010-system-test .
           python system_test/tests.py -v
+
+      - name: Check Coverage
+        run: |
+          coverage run  --source=src -m unittest discover
+          coverage report --fail-under=95
           
         
