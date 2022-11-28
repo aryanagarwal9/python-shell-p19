@@ -28,11 +28,7 @@ jobs:
           
       - name: Install Dependencies and Set up Environment
         run: |
-          pip install parameterized
-          pip install hypothesis
-          pip install coverage
-          pip install antlr4-tools
-          pip install antlr4-python3-runtime
+          pip install -r requirements.txt
 
       - name: Run Unit Tests
         run: |
@@ -42,5 +38,11 @@ jobs:
         run: |
           coverage run  --source=src -m unittest discover
           coverage report --fail-under=95
+
+      - name: Run System Tests
+        run: |
+#          docker build -t shell .
+          docker build -t comp0010-system-test .
+          python system_test/tests.py -v
           
         
