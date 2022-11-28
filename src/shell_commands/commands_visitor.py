@@ -35,11 +35,10 @@ class CommandsVisitor(CommandParserGrammarVisitor):
         return Pipe(self.visit(ctx.left), self.visit(ctx.right))
 
     def get_io_files(self, redirection, input_file, output_file):
-        if redirection.operator == '>':
+        if redirection.operator.text == '>':
             if output_file is None:
                 return input_file, self.visit(redirection)
-            else:
-                raise ValueError('unnecessary output redirections')
+            raise ValueError('unnecessary output redirections')
 
         if input_file is None:
             return self.visit(redirection), output_file
@@ -49,15 +48,15 @@ class CommandsVisitor(CommandParserGrammarVisitor):
         arguments = self.visit(ctx.argument())
         input_file, output_file = None, None
 
+        for redirection in ctx.redirection():
+            input_file, output_file = self.get_io_files(redirection, input_file, output_file)
+
         for atom in ctx.atom():
             if atom.redirection() is not None:
                 redirection = atom.redirection()
                 input_file, output_file = self.get_io_files(redirection, input_file, output_file)
             else:
                 arguments.extend(self.visit(atom.argument()))
-
-        for redirection in ctx.redirection():
-            input_file, output_file = self.get_io_files(redirection, input_file, output_file)
 
         return Call(arguments[0], arguments[1:], input_file, output_file)
 
