@@ -84,8 +84,8 @@ class CommandsVisitor(CommandParserGrammarVisitor):
                 final_globbed_args.append(split_arg)
         return final_globbed_args
 
-    def get_glob_indices(self,
-                         argument_content,
+    @staticmethod
+    def get_glob_indices(argument_content,
                          visited_args: list, split_args: list):
         glob_indices = [False for i in range(len(split_args))]
         splitting_index = 0
@@ -96,7 +96,8 @@ class CommandsVisitor(CommandParserGrammarVisitor):
                 splitting_index += visited_arg.count('\n')
         return glob_indices
 
-    def glob_expand(self, argument: str):
+    @staticmethod
+    def glob_expand(argument: str):
         files = glob.glob(argument)
         return files if files else [argument]
 

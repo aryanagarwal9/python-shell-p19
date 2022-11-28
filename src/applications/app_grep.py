@@ -24,12 +24,14 @@ class Grep(Application):
         else:
             self.handle_stdin(pattern, stdin, out)
 
-    def handle_stdin(self, pattern: str, stdin: Optional[str], out: deque):
+    @staticmethod
+    def handle_stdin(pattern: str, stdin: Optional[str], out: deque):
         for input_string in stdin.split('\n'):
             if re.search(pattern, input_string) is not None:
                 out.append(input_string.rstrip() + '\n')
 
-    def handle_file_input(self, pattern: str, args: list, out: deque):
+    @staticmethod
+    def handle_file_input(pattern: str, args: list, out: deque):
         files = args[1:]
         num_files = len(files)
         for file_name in files:
