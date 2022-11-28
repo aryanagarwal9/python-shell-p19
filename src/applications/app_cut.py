@@ -50,7 +50,7 @@ class Cut(Application):
             if b not in '0123456789,-':
                 raise ArgumentError('illegal list value')
 
-        match = re.search(',,|--|,-|-,|-[0-9]-', byte_order)
+        match = re.search(',,|--', byte_order)
         if match is not None:
             raise ArgumentError('illegal list value')
 
@@ -71,25 +71,25 @@ class Cut(Application):
         for byte in byte_order:
             if byte.isdigit():
                 cut_str = self.cut_single_byte(byte, line, cut_str, used_bytes)
-            else:
-                cut_str = self.cut_byte_range(byte, line, cut_str, used_bytes)
+            elif re.match('[0-9]-[0-9]', byte) is not None:
+                cut_str = self.cut_byte_interval(line, cut_str, used_bytes, start=int(byte[0]), end=int(byte[2]))
+            elif re.match('[0-9]-', byte) is not None:
+                cut_str = self.cut_byte_interval(line, cut_str, used_bytes, start=int(byte[0]), end=len(line))
+            elif re.match('-[0-9]', byte) is not None:
+                cut_str = self.cut_byte_interval(line, cut_str, used_bytes, start=1, end=int(byte[1]))
         return cut_str
 
     def cut_single_byte(self, byte, line, cut_str, used_bytes):
         byte = int(byte)
-        if byte < len(line) and line[byte] != '\n' and byte not in used_bytes:
-            cut_str += line[byte]
+        if byte <= len(line) and line[byte] != '\n' and byte not in used_bytes:
+            cut_str += line[byte - 1]
             used_bytes.append(byte)
 
         return cut_str
 
-    def cut_byte_range(self, byte, line, cut_str, used_bytes):
-        start = int(byte[0])
-        end = int(byte[2])
-        match = re.match('[0-9]-[0-9]', byte)
-        if match is not None:
-            for i in range(start, end + 1):
-                if i < len(line) and line[i] != '\n' and i not in used_bytes:
-                    cut_str += line[i]
-                    used_bytes.append(i)
-            return cut_str
+    def cut_byte_interval(self, line, cut_str, used_bytes, start, end):
+        for i in range(start, end + 1):
+            if i <= len(line) and line[i - 1] != '\n' and i not in used_bytes:
+                cut_str += line[i - 1]
+                used_bytes.append(i)
+        return cut_str

@@ -1,4 +1,4 @@
-from src.errors import *
+from src.errors import FlagError, StandardInputError
 from typing import Optional
 
 

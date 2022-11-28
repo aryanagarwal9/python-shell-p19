@@ -1,6 +1,7 @@
 from abc import abstractmethod, ABC
 from collections import deque
-from typing import Optional, List
+from typing import Optional
+
 
 class Command(ABC):
     @abstractmethod
