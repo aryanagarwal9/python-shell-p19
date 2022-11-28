@@ -3,9 +3,9 @@ import os
 import re
 from collections import deque
 from typing import Optional
-from src.errors import FlagError
-from src.utils import check_flag
+
 from src.applications.application import Application
+from src.utils import check_flag
 
 
 class Find(Application):
@@ -27,8 +27,9 @@ class Find(Application):
 
         self.match_current_dir(path, pattern, out)
 
-        for filename in glob.iglob(os.path.join(path, "**", pattern), recursive=True):
-            out.append(filename+'\n')
+        for filename in glob.iglob(os.path.join(path, "**", pattern),
+                                   recursive=True):
+            out.append(filename + '\n')
 
     def match_current_dir(self, path, pattern, out):
         pattern = pattern.lstrip('*')
