@@ -7,7 +7,8 @@ pipe: left=call PIPE right=call #one_pipe | left=pipe PIPE right=call #nested_pi
 
 call: WHITESPACE? (redirection WHITESPACE)* argument (WHITESPACE atom)* WHITESPACE?;
 atom: redirection | argument;
-argument: (quoted | UNQUOTED)+;
+argument: argument_content+;
+argument_content: quoted #quoted_arg | UNQUOTED #Unquoted;
 redirection: operator=LESS_THAN WHITESPACE? argument | operator=GREATER_THAN WHITESPACE? argument;
 
 quoted: singleQuoted | doubleQuoted | backQuoted;
