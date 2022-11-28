@@ -1,10 +1,13 @@
-import sys
 import os
+import sys
 from collections import deque
+
 from src.shell_commands.commands_visitor import CommandsVisitor
+
 
 def eval(cmdline, out):
     CommandsVisitor().converter(cmdline).eval(None, out)
+
 
 if __name__ == "__main__":
     args_num = len(sys.argv) - 1
@@ -25,4 +28,3 @@ if __name__ == "__main__":
             eval(cmdline, out)
             while len(out) > 0:
                 print(out.popleft(), end="")
-

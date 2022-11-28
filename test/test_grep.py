@@ -2,6 +2,7 @@ import os
 import shutil
 import unittest
 from collections import deque
+
 from parameterized import parameterized
 
 from src.applications.app_grep import Grep
@@ -27,11 +28,14 @@ class TestGrep(unittest.TestCase):
         shutil.rmtree(self.directory)
 
     @parameterized.expand([
-        ['one_file_input', ['hel', 'resources/test1.txt'], ['hello the app name is grep\n', 'Used in shell\n']],
-        ['multiple_file_input', ['gre', 'resources/test1.txt', 'resources/test2.txt', 'resources/test3.txt'], [
-            'resources/test1.txt:hello the app name is grep\n',
-            'resources/test1.txt:grep is used to search for a pattern\n',
-            'resources/test3.txt:class for testing grep\n']]
+        ['one_file_input', ['hel', 'resources/test1.txt'],
+         ['hello the app name is grep\n', 'Used in shell\n']],
+        ['multiple_file_input',
+         ['gre', 'resources/test1.txt', 'resources/test2.txt',
+          'resources/test3.txt'], [
+             'resources/test1.txt:hello the app name is grep\n',
+             'resources/test1.txt:grep is used to search for a pattern\n',
+             'resources/test3.txt:class for testing grep\n']]
     ])
     def test_grep_file_input(self, name, args, result):
         Grep().exec(args, None, self.out)
@@ -39,8 +43,9 @@ class TestGrep(unittest.TestCase):
 
     @parameterized.expand([
         ['no_match_present', ['hel'], 'hi\nI hope you have a good day', []],
-        ['matches_present', ['hel'], 'hello\nI am glad to see you\nLets work on shell\n', ['hello\n'
-                                                                                           , 'Lets work on shell\n']]
+        ['matches_present', ['hel'],
+         'hello\nI am glad to see you\nLets work on shell\n', ['hello\n'
+             , 'Lets work on shell\n']]
     ])
     def test_grep_stdin(self, name, args, stdin, result):
         Grep().exec(args, stdin, self.out)

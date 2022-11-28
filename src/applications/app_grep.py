@@ -1,6 +1,6 @@
 import re
-from typing import Optional
 from collections import deque
+from typing import Optional
 
 from src.applications.application import Application
 
@@ -12,7 +12,8 @@ class Grep(Application):
 
         self.call_required_function(args, stdin, out)
 
-    def call_required_function(self, args: list, stdin: Optional[str], out: deque):
+    def call_required_function(self, args: list, stdin: Optional[str],
+                               out: deque):
         pattern = args[0]
         num_args = len(args)
         if num_args > 1:
@@ -35,4 +36,6 @@ class Grep(Application):
                 file_lines = file.readlines()
                 for line in file_lines:
                     if re.search(pattern, line) is not None:
-                        out.append(f"{file_name}:{line.rstrip()}\n") if num_files > 1 else out.append(line.rstrip() + '\n')
+                        out.append(
+                            f"{file_name}:{line.rstrip()}\n") if num_files > 1 else out.append(
+                            line.rstrip() + '\n')
