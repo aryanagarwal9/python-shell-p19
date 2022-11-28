@@ -4,6 +4,7 @@ from typing import Optional, List
 from src.shell_commands.commands.command import Command
 from src.applications.application_factory import ApplicationFactory
 
+
 class Call(Command):
     def __init__(self, app: str, args: List[str], input_file: Optional[str], output_file: Optional[str]):
         self.app = app
