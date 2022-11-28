@@ -85,7 +85,6 @@ class CommandsVisitor(CommandParserGrammarVisitor):
                 splitting_index += visited_arg.count('\n')
         return glob_indices
 
-
     def glob_expand(self, argument: str):
         files = glob.glob(argument)
         return files if files else [argument]

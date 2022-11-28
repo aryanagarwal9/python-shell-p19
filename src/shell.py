@@ -3,8 +3,10 @@ import os
 from collections import deque
 from src.shell_commands.commands_visitor import CommandsVisitor
 
+
 def eval(cmdline, out):
     CommandsVisitor().converter(cmdline).eval(None, out)
+
 
 if __name__ == "__main__":
     args_num = len(sys.argv) - 1
