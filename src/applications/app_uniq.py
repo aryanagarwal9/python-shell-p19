@@ -1,7 +1,8 @@
-from typing import Optional, List
 from collections import deque
-from src.utils import check_flag
+from typing import Optional, List
+
 from src.applications.application import Application
+from src.utils import check_flag
 
 
 class Uniq(Application):
@@ -17,7 +18,8 @@ class Uniq(Application):
 
         self.call_required_function(args, stdin, out)
 
-    def call_required_function(self, args: List[str], stdin: Optional[str], out: deque):
+    def call_required_function(self, args: List[str], stdin: Optional[str],
+                               out: deque):
         flag = True if len(args) and args[0] == '-i' else False
         if len(args) > 1 or (len(args) and not flag):
             if len(args) > 1:
@@ -41,8 +43,9 @@ class Uniq(Application):
                 continue
             temp_line, prev_line = self.get_required_lines(line, flag, out)
             if prev_line is None or prev_line.rstrip('\n') != temp_line:
-                out.append(line+'\n')
+                out.append(line + '\n')
 
     @staticmethod
     def get_required_lines(line, flag, out):
-        return line.lower() if flag else line, None if not len(out) else out[-1].lower() if flag else out[-1]
+        return line.lower() if flag else line, None if not len(out) else out[
+            -1].lower() if flag else out[-1]

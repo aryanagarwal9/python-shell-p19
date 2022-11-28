@@ -1,6 +1,7 @@
-import sys
 import os
+import sys
 from collections import deque
+
 from src.shell_commands.commands_visitor import CommandsVisitor
 
 
@@ -27,4 +28,3 @@ if __name__ == "__main__":
             eval(cmdline, out)
             while len(out) > 0:
                 print(out.popleft(), end="")
-

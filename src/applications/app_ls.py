@@ -1,6 +1,6 @@
 import os
-from typing import Optional
 from collections import deque
+from typing import Optional
 
 from src.applications.application import Application
 
@@ -15,7 +15,8 @@ class Ls(Application):
             raise ValueError("Cannot accept more than one argument")
 
     def get_directory_contents(self, directory_name: str):
-        return [content for content in os.listdir(directory_name) if not content.startswith('.')]
+        return [content for content in os.listdir(directory_name) if
+                not content.startswith('.')]
 
     def handle_no_arguments(self, out: deque):
         contents = self.get_directory_contents(os.getcwd())
