@@ -26,7 +26,7 @@ SQ_MID: ~[\n']+;
 SQ_END: '\'' ->type(SQ), popMode;
 
 mode DQ_MODE;
-DQ_MID: BACKQUOTE | ~[\n"`]+;
+DQ_MID: ~[\n"`]+;
 ENTER_BQ: BACKQUOTE->type(BQ), pushMode(BQ_MODE);
 DQ_END: '"'->type(DQ), popMode;
 
