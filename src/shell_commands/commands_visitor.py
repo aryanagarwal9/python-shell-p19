@@ -4,6 +4,7 @@ from collections import deque
 
 from antlr4 import InputStream, CommonTokenStream
 
+from src.errors import ParseError
 from src.shell_commands.commands.call import Call
 from src.shell_commands.commands.command import Command
 from src.shell_commands.commands.pipe import Pipe
@@ -42,11 +43,11 @@ class CommandsVisitor(CommandParserGrammarVisitor):
         if redirection.operator.text == '>':
             if output_file is None:
                 return input_file, self.visit(redirection)
-            raise ValueError('unnecessary output redirections')
+            raise ParseError('Unnecessary output redirections')
 
         if input_file is None:
             return self.visit(redirection), output_file
-        raise ValueError('unnecessary input redirections')
+        raise ParseError('Unnecessary input redirections')
 
     def visitCall(self, ctx: CommandParserGrammar.CallContext):
         arguments = self.visit(ctx.argument())
@@ -102,7 +103,7 @@ class CommandsVisitor(CommandParserGrammarVisitor):
     def visitRedirection(self, ctx: CommandParserGrammar.RedirectionContext):
         files = self.visit(ctx.argument())
         if len(files) != 1:
-            raise ValueError('wrong number of redirections')
+            raise ParseError('Wrong number of redirections')
         return files[0]
 
     def visitQuoted(self, ctx: CommandParserGrammar.QuotedContext):
