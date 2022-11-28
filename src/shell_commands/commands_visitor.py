@@ -1,19 +1,14 @@
 import glob
 import re
 from collections import deque
-
-from antlr4 import InputStream, CommonTokenStream
-
-from src.errors import ParseError
-from src.shell_commands.commands.call import Call
-from src.shell_commands.commands.command import Command
-from src.shell_commands.commands.pipe import Pipe
-from src.shell_commands.commands.seq import Seq
+from src.shell_commands.grammar.CommandParserGrammar import CommandParserGrammar
+from src.shell_commands.grammar.CommandParserGrammarVisitor import CommandParserGrammarVisitor
 from src.shell_commands.grammar.CommandLexerGrammar import CommandLexerGrammar
-from src.shell_commands.grammar.CommandParserGrammar import \
-    CommandParserGrammar
-from src.shell_commands.grammar.CommandParserGrammarVisitor import \
-    CommandParserGrammarVisitor
+from src.shell_commands.commands.command import Command
+from antlr4 import InputStream, CommonTokenStream
+from src.shell_commands.commands.pipe import Pipe
+from src.shell_commands.commands.call import Call
+from src.shell_commands.commands.seq import Seq
 
 
 class CommandsVisitor(CommandParserGrammarVisitor):
@@ -40,33 +35,28 @@ class CommandsVisitor(CommandParserGrammarVisitor):
         return Pipe(self.visit(ctx.left), self.visit(ctx.right))
 
     def get_io_files(self, redirection, input_file, output_file):
-        if redirection.operator == '>':
+        if redirection.operator.text == '>':
             if output_file is None:
                 return input_file, self.visit(redirection)
-            else:
-                raise ParseError('Unnecessary output redirections')
+            raise ValueError('unnecessary output redirections')
 
         if input_file is None:
             return self.visit(redirection), output_file
-        raise ParseError('Unnecessary input redirections')
+        raise ValueError('unnecessary input redirections')
 
     def visitCall(self, ctx: CommandParserGrammar.CallContext):
         arguments = self.visit(ctx.argument())
         input_file, output_file = None, None
 
+        for redirection in ctx.redirection():
+            input_file, output_file = self.get_io_files(redirection, input_file, output_file)
+
         for atom in ctx.atom():
             if atom.redirection() is not None:
                 redirection = atom.redirection()
-                input_file, output_file = self.get_io_files(redirection,
-                                                            input_file,
-                                                            output_file)
+                input_file, output_file = self.get_io_files(redirection, input_file, output_file)
             else:
                 arguments.extend(self.visit(atom.argument()))
-
-        for redirection in ctx.redirection():
-            input_file, output_file = self.get_io_files(redirection,
-                                                        input_file,
-                                                        output_file)
 
         return Call(arguments[0], arguments[1:], input_file, output_file)
 
@@ -74,8 +64,7 @@ class CommandsVisitor(CommandParserGrammarVisitor):
         visited_args = [self.visit(arg) for arg in ctx.argument_content()]
         final_globbed_args = []
         split_args = "".join(visited_args).split('\n')
-        glob_indices = self.get_glob_indices(ctx.argument_content(),
-                                             visited_args, split_args)
+        glob_indices = self.get_glob_indices(ctx.argument_content(), visited_args, split_args)
 
         for index in range(len(split_args)):
             split_arg = split_args[index]
@@ -85,8 +74,7 @@ class CommandsVisitor(CommandParserGrammarVisitor):
                 final_globbed_args.append(split_arg)
         return final_globbed_args
 
-    def get_glob_indices(self, argument_content, visited_args: list,
-                         split_args: list):
+    def get_glob_indices(self, argument_content: CommandParserGrammar.argument_content, visited_args: list, split_args: list):
         glob_indices = [False for i in range(len(split_args))]
         splitting_index = 0
         for arg, visited_arg in zip(argument_content, visited_args):
@@ -102,8 +90,8 @@ class CommandsVisitor(CommandParserGrammarVisitor):
 
     def visitRedirection(self, ctx: CommandParserGrammar.RedirectionContext):
         files = self.visit(ctx.argument())
-        if len(files) != 1:
-            raise ParseError('Wrong number of redirections')
+        if len(files)!=1:
+            raise ValueError('wrong number of redirections')
         return files[0]
 
     def visitQuoted(self, ctx: CommandParserGrammar.QuotedContext):
@@ -113,19 +101,17 @@ class CommandsVisitor(CommandParserGrammarVisitor):
 
     def visitBackQuoted(self, ctx: CommandParserGrammar.BackQuotedContext):
         temp_deque = deque()
-        CommandsVisitor.converter(ctx.BQ_MID().getText()).eval(None,
-                                                               temp_deque)
+        CommandsVisitor.converter(ctx.BQ_MID().getText()).eval(None, temp_deque)
         return "".join(temp_deque).replace('\n', ' ')
 
     def visitSingleQuoted(self, ctx: CommandParserGrammar.SingleQuotedContext):
         return ctx.SQ_MID().getText()
 
     def visitDoubleQuoted(self, ctx: CommandParserGrammar.DoubleQuotedContext):
-        return "".join(
-            self.visit(element) for element in ctx.doubleQuotedElement())
+        return "".join(self.visit(element) for element in ctx.doubleQuotedElement())
 
     def visitDq_content(self, ctx: CommandParserGrammar.Dq_contentContext):
         return ctx.DQ_MID().getText()
 
-    def visitUnquoted(self, ctx: CommandParserGrammar.UnquotedContext):
+    def visitUnquoted(self, ctx:CommandParserGrammar.UnquotedContext):
         return ctx.getText()
