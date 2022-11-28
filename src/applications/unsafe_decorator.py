@@ -12,4 +12,4 @@ class UnsafeDecorator(Application):
         try:
             self.unsafe_app.exec(args, stdin, out)
         except Exception as exception:
-            out.append(f'{exception}')
+            out.append(f'{exception}\n')
