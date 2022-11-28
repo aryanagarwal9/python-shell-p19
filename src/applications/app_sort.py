@@ -1,8 +1,8 @@
 from collections import deque
 from typing import Optional
-from src.utils import check_flag
-from src.errors import FlagError
+
 from src.applications.application import Application
+from src.utils import check_flag
 
 
 class Sort(Application):
@@ -32,7 +32,8 @@ class Sort(Application):
         file_name = args[0] if len(args) == 1 else args[1]
         with open(file_name, 'r') as file:
             for line in sorted(file.readlines(), reverse=reverse):
-                out.append(line) if line.endswith('\n') else out.append(line+'\n')
+                out.append(line) if line.endswith('\n') else out.append(
+                    line + '\n')
 
     def handle_stdin(self, stdin: Optional[str], out: deque, reverse: bool):
         for line in sorted(stdin.split('\n'), reverse=reverse):
