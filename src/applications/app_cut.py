@@ -79,23 +79,26 @@ class Cut(Application):
         used_bytes = []
         for byte in byte_order:
             if byte.isdigit():
-                cut_str = self.cut_single_byte(byte, line, cut_str, used_bytes)
+                cut_str += self.cut_single_byte(byte, line, used_bytes)
             elif re.match('[0-9]-[0-9]', byte) is not None:
-                cut_str = self.cut_byte_interval(line, cut_str, used_bytes,
-                                                 start=int(byte[0]),
-                                                 end=int(byte[2]))
+                start = int(byte[0])
+                end = int(byte[2])
+                cut_str += self.cut_byte_interval(line, used_bytes, start, end)
             elif re.match('[0-9]-', byte) is not None:
-                cut_str = self.cut_byte_interval(line, cut_str, used_bytes,
-                                                 start=int(byte[0]),
-                                                 end=len(line))
+                start = int(byte[0])
+                end = len(line)
+                cut_str += self.cut_byte_interval(line, used_bytes, start, end)
             elif re.match('-[0-9]', byte) is not None:
-                cut_str = self.cut_byte_interval(line, cut_str, used_bytes,
-                                                 start=1, end=int(byte[1]))
+                start = 1
+                end = int(byte[1])
+                cut_str += self.cut_byte_interval(line, used_bytes, start, end)
+
         return cut_str
 
     @staticmethod
-    def cut_single_byte(byte, line, cut_str, used_bytes) -> str:
+    def cut_single_byte(byte, line, used_bytes) -> str:
         """Returns the cut string for a single byte"""
+        cut_str = ''
         byte = int(byte)
         if byte <= len(line) and line[byte] != '\n' and byte not in used_bytes:
             cut_str += line[byte - 1]
@@ -104,10 +107,12 @@ class Cut(Application):
         return cut_str
 
     @staticmethod
-    def cut_byte_interval(line, cut_str, used_bytes, start, end) -> str:
+    def cut_byte_interval(line, used_bytes, start, end) -> str:
         """Returns cut string for closed or open byte intervals"""
+        cut_str = ''
         for i in range(start, end + 1):
             if i <= len(line) and line[i - 1] != '\n' and i not in used_bytes:
                 cut_str += line[i - 1]
                 used_bytes.append(i)
         return cut_str
+
