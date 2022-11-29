@@ -10,8 +10,20 @@ def check_flag(arg: str, flag: str):
     return True
 
 
-def check_stdin(stdin: Optional[list]):
+def is_stdin_available(stdin: Optional[list]):
     if stdin is None:
         raise StandardInputError("No input given")
 
     return True
+
+
+def get_lines(src, file=None, stdin=None) -> list:
+    """Return a list of lines based on the source"""
+    if src == 'file':
+        with open(file) as f:
+            lines = f.readlines()
+    elif src == 'stdin':
+        is_stdin_available(stdin)
+        lines = stdin.rstrip('\n').split('\n')
+
+    return lines

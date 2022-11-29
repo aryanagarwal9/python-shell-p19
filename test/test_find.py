@@ -6,7 +6,7 @@ from collections import deque
 from parameterized import parameterized
 
 from src.applications.app_find import Find
-from src.errors import FlagError
+from src.errors import FlagError, ArgumentError
 
 
 class TestFind(unittest.TestCase):
@@ -69,9 +69,9 @@ class TestFind(unittest.TestCase):
                           out=self.out)
 
     @parameterized.expand([
-        ['less than 2 arguments', ['-name'], ValueError],
+        ['less than 2 arguments', ['-name'], ArgumentError],
         ['more than 3 arguments',
-         ['resources1', 'resources2', '-name', '*.txt'], ValueError]
+         ['resources1', 'resources2', '-name', '*.txt'], ArgumentError]
     ])
     def test_find_wrong_number_of_arguments(self, name, args, result):
         app = Find()
