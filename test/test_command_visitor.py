@@ -28,24 +28,49 @@ class TestCommandVisitor(unittest.TestCase):
         shutil.rmtree(self.directory)
 
     def test_visitor_one_pipe_command(self):
-        cmdline = f'find {self.directory} -name test* | grep is'
-        shell_command = CommandsVisitor().converter(cmdline)
-        expected_output = Pipe(Call('find', [self.directory, '-name', 'test*'], None, None),
+        cmdline = f'find {self.directory} -name test | grep is'
+        shell_command = CommandsVisitor.converter(cmdline)
+        expected_output = Pipe(Call('find', [self.directory, '-name', 'test'], None, None),
                                Call('grep', ['is'], None, None))
         self.assertEqual(shell_command, expected_output)
 
     def test_visitor_nested_pipe_command(self):
-        cmdline = f'find {self.directory} -name test* | grep is | echo'
-        shell_command = CommandsVisitor().converter(cmdline)
+        cmdline = f'find {self.directory} -name test | grep is | echo'
+        shell_command = CommandsVisitor.converter(cmdline)
         expected_output = Pipe(
-            Pipe(Call('find', [self.directory, '-name', 'test*'], None, None), Call('grep', ['is'], None, None)),
+            Pipe(Call('find', [self.directory, '-name', 'test'], None, None), Call('grep', ['is'], None, None)),
             Call('echo', [], None, None))
         self.assertEqual(shell_command, expected_output)
 
     def test_visitor_seq_command(self):
         cmdline = 'echo hello;echo bye'
-        shell_command = CommandsVisitor().converter(cmdline)
-        expected_output = Seq(Call('echo', ['hello'], None, None), Call('echo', ['hello'], None, None))
+        shell_command = CommandsVisitor.converter(cmdline)
+        expected_output = Seq(Call('echo', ['hello'], None, None), Call('echo', ['bye'], None, None))
         self.assertEqual(shell_command, expected_output)
+
+    def test_visitor_call_command(self):
+        cmdline = f'grep test {self.directory}/test1.txt'
+        shell_command= CommandsVisitor.converter(cmdline)
+        expected_output = Call('grep', ['test', 'resources/test1.txt'], None, None)
+        self.assertEqual(shell_command, expected_output)
+
+    def test_visitor_single_quote(self):
+        cmdline = "echo 'hello world'"
+        shell_command = CommandsVisitor.converter(cmdline)
+        expected_output = Call('echo', ['hello world'], None, None)
+        self.assertEqual(shell_command, expected_output)
+
+    def test_visitor_back_quote_in_double_quote(self):
+        cmdline = f"echo `cat {self.directory}/test1.txt`"
+        shell_command = CommandsVisitor.converter(cmdline)
+        expected_output = Call('echo', ['This', 'is', 'a', 'testing', 'file', 'for', 'command', 'visitor'], None, None)
+        self.assertEqual(shell_command, expected_output)
+
+
+
+
+
+
+
 
     
