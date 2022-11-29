@@ -3,7 +3,7 @@ from typing import Optional, List
 
 from src.applications.application import Application
 from src.errors import ArgumentError
-from src.utils import check_flag, check_stdin
+from src.utils import check_flag, is_stdin_available
 
 
 class Head(Application):
@@ -32,7 +32,7 @@ class Head(Application):
         """output the first 10 lines if only stdin is given
          """
         # validate parameters
-        check_stdin(stdin)
+        is_stdin_available(stdin)
 
         # add lines to output
         out.extend(self.get_lines(stdin=stdin, src='stdin'))
@@ -51,7 +51,7 @@ class Head(Application):
         """
 
         # validate parameters
-        check_stdin(stdin)
+        is_stdin_available(stdin)
         check_flag(args[0], '-n')
 
         num_lines = int(args[1])

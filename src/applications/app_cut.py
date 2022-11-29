@@ -4,7 +4,7 @@ from typing import Optional, List
 
 from src.applications.application import Application
 from src.errors import ArgumentError
-from src.utils import check_flag, check_stdin
+from src.utils import check_flag, is_stdin_available
 
 
 class Cut(Application):
@@ -65,7 +65,7 @@ class Cut(Application):
             with open(file) as f:
                 lines = f.readlines()
         elif src == 'stdin':
-            check_stdin(stdin)
+            is_stdin_available(stdin)
             lines = stdin.rstrip('\n').split('\n')
 
         return lines
