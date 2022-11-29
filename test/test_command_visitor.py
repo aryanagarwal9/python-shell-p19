@@ -66,6 +66,11 @@ class TestCommandVisitor(unittest.TestCase):
         expected_output = Call('echo', ['This', 'is', 'a', 'testing', 'file', 'for', 'command', 'visitor'], None, None)
         self.assertEqual(shell_command, expected_output)
 
+    def test_visitor_nested_seq_command(self):
+        cmdline = "sort test1.txt ; cat test1.txt"
+        shell_command = CommandsVisitor.converter(cmdline)
+        expected_output = Seq(Call('sort', ['test1.txt'], None, None), Call('cat',['test1.txt'], None, None))
+        self.assertEqual(shell_command, expected_output)
 
 
 
