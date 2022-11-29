@@ -4,6 +4,7 @@ import unittest
 from collections import deque
 
 from src.applications.app_cd import Cd
+from src.errors import ArgumentError
 
 
 class TestCd(unittest.TestCase):
@@ -28,6 +29,6 @@ class TestCd(unittest.TestCase):
 
     def test_cd_multiple_arguments(self):
         app = Cd()
-        self.assertRaises(ValueError, app.exec,
+        self.assertRaises(ArgumentError, app.exec,
                           args=['directory1', 'directory2'], stdin=None,
                           out=self.out)

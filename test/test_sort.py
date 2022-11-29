@@ -6,7 +6,7 @@ from collections import deque
 from parameterized import parameterized
 
 from src.applications.app_sort import Sort
-from src.errors import FlagError
+from src.errors import FlagError, ArgumentError
 
 
 class TestSort(unittest.TestCase):
@@ -63,12 +63,12 @@ class TestSort(unittest.TestCase):
 
     def test_sort_with_no_arguments_no_stdin(self):
         app = Sort()
-        self.assertRaises(ValueError, app.exec, args=[], stdin=None,
+        self.assertRaises(ArgumentError, app.exec, args=[], stdin=None,
                           out=self.out)
 
     def test_sort_only_flag_present_no_stdin(self):
         app = Sort()
-        self.assertRaises(ValueError, app.exec, args=['-r'], stdin=None,
+        self.assertRaises(ArgumentError, app.exec, args=['-r'], stdin=None,
                           out=self.out)
 
     def test_sort_flag_not_present_on_correct_index(self):
@@ -78,5 +78,5 @@ class TestSort(unittest.TestCase):
 
     def test_sort_with_extra_arguments_no_stdin(self):
         app = Sort()
-        self.assertRaises(ValueError, app.exec, args=['arg1', 'arg2', 'arg3'],
+        self.assertRaises(ArgumentError, app.exec, args=['arg1', 'arg2', 'arg3'],
                           stdin=None, out=self.out)

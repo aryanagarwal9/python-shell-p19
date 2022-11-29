@@ -25,6 +25,8 @@ class CommandsVisitor(CommandParserGrammarVisitor):
         parser = CommandParserGrammar(stream)
         tree = parser.cmdline()
         command = tree.accept(cls())
+        # lexer.removeErrorListeners()
+        # parser.removeErrorListeners()
         return command
 
     def visitCmdline(self, ctx: CommandParserGrammar.CmdlineContext):

@@ -4,6 +4,7 @@ import unittest
 from collections import deque
 
 from src.applications.app_ls import Ls
+from src.errors import ArgumentError
 
 
 class TestLs(unittest.TestCase):
@@ -37,6 +38,6 @@ class TestLs(unittest.TestCase):
 
     def test_ls_multiple_arguments(self):
         app = Ls()
-        self.assertRaises(ValueError, app.exec,
+        self.assertRaises(ArgumentError, app.exec,
                           args=['directory1', 'directory2'], stdin=None,
                           out=self.out)
