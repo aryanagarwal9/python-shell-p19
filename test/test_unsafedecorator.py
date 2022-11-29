@@ -78,14 +78,7 @@ class TestUnsafeDecorator(unittest.TestCase):
     def test_unsafe_uniq_wrong_number_of_arguments(self):
         UnsafeDecorator(Uniq()).exec(
             ['-i', 'test_uniq1.txt', 'test_uniq2.txt'], None, self.out)
-        self.assertEqual(self.out.popleft(), 'Wrong number of arguments\n')
-        self.assertEqual(len(self.out), 0)
-
-    def test_unsafe_uniq_flag_at_incorrect_index(self):
-        UnsafeDecorator(Uniq()).exec(
-            [os.path.join('resources', 'test_uniq1.txt'), '-i'], None,
-            self.out)
-        self.assertEqual(self.out.popleft(), 'Invalid flags given\n')
+        self.assertEqual(self.out.popleft(), 'Invalid number of arguments\n')
         self.assertEqual(len(self.out), 0)
 
     def test_unsafe_cd_multiple_arguments(self):

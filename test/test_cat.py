@@ -36,12 +36,13 @@ class TestCat(unittest.TestCase):
         Cat().exec(
             [self.directory + '/test1.txt', self.directory + '/test2.txt'],
             None, self.out)
-        self.assertEqual(self.out.popleft(),
-                         self.files['test1.txt'] + self.files['test2.txt'])
-        self.assertEqual(len(self.out), 0)
+        self.assertEqual(list(self.out),
+                         [self.files['test1.txt'], self.files['test2.txt']])
 
     @given(strategies.text())
     def test_cat_with_stdin(self, stdin):
         Cat().exec([], stdin, self.out)
         self.assertEqual(self.out.popleft(), stdin)
         self.assertEqual(len(self.out), 0)
+
+

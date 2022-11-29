@@ -20,7 +20,7 @@ class Mkdir(Application):
 
     def handle_directory_creation(self, args: List[str], out: deque):
         dir_exists, parent_dirs_nonexistent = list(), list()
-        make_dir = self.get_makedir(args)
+        make_dir = self.get_makedir()
         new_dirs = args[list(self.flags.values()).count(True):]
         for new_dir in new_dirs:
             if not os.path.isdir(new_dir):
@@ -36,12 +36,8 @@ class Mkdir(Application):
         if len(dir_exists) or len(parent_dirs_nonexistent):
             self.handle_errors(dir_exists, parent_dirs_nonexistent)
 
-    @staticmethod
-    def get_makedir(args: List[str]):
-        if args[0] == '-p':
-            args.pop(0)
-            return os.makedirs
-        return os.mkdir
+    def get_makedir(self):
+        return os.makedirs if self.flags['-p'] else os.mkdir
 
     @staticmethod
     def handle_errors(dir_exists, parent_dirs_non_existent):
