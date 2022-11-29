@@ -88,9 +88,3 @@ class TestUniq(unittest.TestCase):
         self.assertRaises(ArgumentError, app.exec,
                           args=['-i', 'test_uniq1.txt', 'test_uniq2.txt'],
                           stdin=None, out=self.out)
-
-    def test_uniq_flag_at_incorrect_index(self):
-        app = Uniq()
-        self.assertRaises(FlagError, app.exec,
-                          args=[os.path.join(self.directory, 'test_uniq1.txt'),
-                                '-i'], stdin=None, out=self.out)
