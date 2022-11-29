@@ -6,6 +6,7 @@ from collections import deque
 from parameterized import parameterized
 
 from src.applications.app_grep import Grep
+from src.errors import ArgumentError
 
 
 class TestGrep(unittest.TestCase):
@@ -56,12 +57,12 @@ class TestGrep(unittest.TestCase):
 
     def test_grep_no_files_no_stdin(self):
         app = Grep()
-        self.assertRaises(ValueError, app.exec, ['pattern'], None, self.out)
+        self.assertRaises(ArgumentError, app.exec, ['pattern'], None, self.out)
 
     def test_grep_no_pattern_provided(self):
         app = Grep()
-        self.assertRaises(ValueError, app.exec, [], None, self.out)
+        self.assertRaises(ArgumentError, app.exec, [], None, self.out)
 
     def test_grep_no_pattern_provided_but_stdin_given(self):
         app = Grep()
-        self.assertRaises(ValueError, app.exec, [], 'hello', self.out)
+        self.assertRaises(ArgumentError, app.exec, [], 'hello', self.out)

@@ -67,18 +67,18 @@ class TestUnsafeDecorator(unittest.TestCase):
 
     def test_unsafe_uniq_no_arguments_no_stdin(self):
         UnsafeDecorator(Uniq()).exec([], None, self.out)
-        self.assertEqual(self.out.popleft(), 'no arguments or stdin\n')
+        self.assertEqual(self.out.popleft(), 'No arguments or stdin\n')
         self.assertEqual(len(self.out), 0)
 
     def test_unsafe_uniq_flag_given_but_no_stdin(self):
         UnsafeDecorator(Uniq()).exec(['-i'], None, self.out)
-        self.assertEqual(self.out.popleft(), 'no arguments or stdin\n')
+        self.assertEqual(self.out.popleft(), 'No arguments or stdin\n')
         self.assertEqual(len(self.out), 0)
 
     def test_unsafe_uniq_wrong_number_of_arguments(self):
         UnsafeDecorator(Uniq()).exec(
             ['-i', 'test_uniq1.txt', 'test_uniq2.txt'], None, self.out)
-        self.assertEqual(self.out.popleft(), 'wrong number of arguments\n')
+        self.assertEqual(self.out.popleft(), 'Wrong number of arguments\n')
         self.assertEqual(len(self.out), 0)
 
     def test_unsafe_uniq_flag_at_incorrect_index(self):
