@@ -53,3 +53,4 @@ class Mkdir(Application):
             error_message += f'{directory}: Parent directories not found\n'
 
         raise DirectoryCreationError(error_message)
+
