@@ -2,7 +2,7 @@ from collections import deque
 from typing import Optional, List
 
 from src.applications.application import Application
-from src.errors import ArgumentError
+from src.errors import ArgumentError, SourceError
 from src.utils import check_flag, is_stdin_available, get_lines
 
 
@@ -89,7 +89,10 @@ class Head(Application):
         if src == 'file':
             lines = get_lines(src, file=file)
         elif src == 'stdin':
+            print('at stdin')
             lines = get_lines(src, stdin=stdin)
+        else:
+            raise SourceError("No source given")
 
         display_length = min(len(lines), num_lines)
         for i in range(display_length):

@@ -6,7 +6,8 @@ from collections import deque
 from parameterized import parameterized
 
 from src.applications.app_tail import Tail
-from src.errors import ArgumentError, FlagError, StandardInputError
+from src.errors import (ArgumentError, FlagError, StandardInputError,
+                        SourceError)
 
 
 class TestTail(unittest.TestCase):
@@ -88,3 +89,7 @@ class TestTail(unittest.TestCase):
         app = Tail()
         self.assertRaises(ArgumentError, app.exec, args=['a', 'b', 'c', 'd'],
                           stdin=None, out=self.out)
+
+    def test_get_head_without_src(self):
+        app = Tail()
+        self.assertRaises(SourceError, app.get_tail, src=None)

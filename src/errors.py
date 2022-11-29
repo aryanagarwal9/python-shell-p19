@@ -26,3 +26,7 @@ class ParseError(ShellErrors):
 
 class DirectoryCreationError(ShellErrors):
     pass
+
+
+class SourceError(ShellErrors):
+    pass
