@@ -11,14 +11,14 @@ from src.errors import ArgumentError
 
 class Find(Application):
     def exec(self, args: list, stdin: Optional[str], out: deque):
-        if len(args) < 2 or len(args) > 3:
-            raise ArgumentError("Wrong number of arguments")
-
         if len(args) == 2:
             check_flag(args[0], '-name')
 
         elif len(args) == 3:
             check_flag(args[1], '-name')
+
+        else:
+            raise ArgumentError("Wrong number of arguments")
 
         self.find_files(args, out)
 

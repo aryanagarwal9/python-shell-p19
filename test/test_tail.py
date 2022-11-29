@@ -16,9 +16,9 @@ class TestTail(unittest.TestCase):
         os.mkdir(self.directory)
 
         self.files = {
-            'test1.txt': 'Line 1\nLine 2\nLine 3',
+            'test1.txt': 'Line 1\nLine 2\nLine 3\n',
             'test2.txt': 'Line 1\nLine 2\nLine 3\nLine 4\nLine 5\nLine 6\n'
-                         'Line 7\nLine 8\nLine 9\nLine 10\nLine 11',
+                         'Line 7\nLine 8\nLine 9\nLine 10\nLine 11\n',
         }
 
         for file_name in self.files:
@@ -54,9 +54,9 @@ class TestTail(unittest.TestCase):
         ['zeroLinesInArgs', ['-n', '0'], 'Line 2\nLine 3', []],
         ['lessLinesInArgs', ['-n', '0'], 'Line 2\nLine 3', []],
         ['moreLinesInArgs', ['-n', '3'], 'Line 2\nLine 3',
-         ['Line 2\n', 'Line 3\n']],
+         ['Line 2\n', 'Line 3']],
         ['equalLinesInArgs', ['-n', '2'], 'Line 2\nLine 3',
-         ['Line 2\n', 'Line 3\n']],
+         ['Line 2\n', 'Line 3']],
         ['newLineAtEndOfStr', ['-n', '2'], 'Line 2\nLine 3\n',
          ['Line 2\n', 'Line 3\n']]
     ])
@@ -67,8 +67,8 @@ class TestTail(unittest.TestCase):
     @parameterized.expand([
         ['fileWithMoreThan10Lines', '1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11',
          ['2\n', '3\n', '4\n', '5\n', '6\n',
-          '7\n', '8\n', '9\n', '10\n', '11\n']],
-        ['fileWithLessThan10Lines', '1\n2\n3', ['1\n', '2\n', '3\n']]
+          '7\n', '8\n', '9\n', '10\n', '11']],
+        ['fileWithLessThan10Lines', '1\n2\n3', ['1\n', '2\n', '3']]
     ])
     def test_tail_with_only_stdin(self, name, stdin, result):
         Tail().exec(args=[], stdin=stdin, out=self.out)

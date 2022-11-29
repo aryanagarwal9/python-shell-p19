@@ -136,6 +136,7 @@ class TestShell(unittest.TestCase):
     def test_head_stdin(self):
         cmdline = "head < dir1/longfile.txt"
         stdout = self.eval(cmdline)
+        print(stdout)
         result = stdout.strip().split("\n")
         self.assertEqual(result, [str(i) for i in range(1, 11)])
 

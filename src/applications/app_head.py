@@ -88,17 +88,11 @@ class Head(Application):
 
         if src == 'file':
             lines = get_lines(src, file=file)
-            display_length = min(len(lines), num_lines)
-            for i in range(display_length):
-                if lines[i][-1] == '\n':
-                    res.append(lines[i])
-                else:
-                    res.append(lines[i] + '\n')
-
         elif src == 'stdin':
             lines = get_lines(src, stdin=stdin)
-            display_length = min(len(lines), num_lines)
-            for i in range(display_length):
-                res.append(lines[i] + '\n')
+
+        display_length = min(len(lines), num_lines)
+        for i in range(display_length):
+            res.append(lines[i])
 
         return res

@@ -21,6 +21,7 @@ class Grep(Application):
         num_args = len(args)
         self.flags['-v'] = args[0] == '-v'
         pattern = args[1] if self.flags['-v'] else args[0]
+
         if num_args > 2 or (num_args == 2 and not self.flags['-v']):
             self.handle_file_input(pattern, args, out, self.flags['-v'])
         elif stdin is None:
