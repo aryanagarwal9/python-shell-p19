@@ -20,3 +20,5 @@ class StandardInputError(ShellErrors):
     pass
 
 
+class ParseError(ShellErrors):
+    pass

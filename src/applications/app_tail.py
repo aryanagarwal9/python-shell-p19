@@ -1,7 +1,8 @@
-from src.errors import ArgumentError
-from typing import Optional, List
 from collections import deque
+from typing import Optional, List
+
 from src.applications.application import Application
+from src.errors import ArgumentError
 from src.utils import check_flag, check_stdin
 
 
@@ -9,7 +10,8 @@ class Tail(Application):
     def exec(self, args: List[str], stdin: Optional[str], out: deque):
         self.call_required_function(args, stdin, out)
 
-    def call_required_function(self, args: List[str], stdin: Optional[str], out: deque):
+    def call_required_function(self, args: List[str], stdin: Optional[str],
+                               out: deque):
         """check the number of args given and handle each case
         """
 
@@ -42,7 +44,8 @@ class Tail(Application):
         file = args[0]
         out.extend(self.get_lines(file=file, src='file'))
 
-    def handle_num_of_lines_and_stdin(self, args: List[str], stdin: Optional[str], out: deque):
+    def handle_num_of_lines_and_stdin(self, args: List[str],
+                                      stdin: Optional[str], out: deque):
         """If file not given then read from stdin and
         output the specified number of lines
         """
@@ -54,7 +57,8 @@ class Tail(Application):
         num_lines = int(args[1])
 
         # add lines to output
-        out.extend(self.get_lines(num_lines=num_lines, stdin=stdin, src='stdin'))
+        out.extend(
+            self.get_lines(num_lines=num_lines, stdin=stdin, src='stdin'))
 
     def handle_num_of_lines_and_file(self, args: List[str], out: deque):
         """If file and num_lines is given then read from file and
@@ -69,7 +73,9 @@ class Tail(Application):
 
         out.extend(self.get_lines(num_lines=num_lines, file=file, src='file'))
 
-    def get_lines(self, num_lines: int = 10, file: str = None, stdin: str = None, src: str = 'file') -> List[str]:
+    @staticmethod
+    def get_lines(num_lines: int = 10, file: str = None,
+                  stdin: str = None, src: str = 'file') -> List[str]:
         res = []
 
         if src == 'file':

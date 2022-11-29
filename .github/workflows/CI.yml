@@ -28,17 +28,24 @@ jobs:
           
       - name: Install Dependencies and Set up Environment
         run: |
-          pip install parameterized
-          pip install hypothesis
-          pip install coverage
+          pip install -r requirements.txt
 
       - name: Run Unit Tests
         run: |
           python -m unittest discover test/
-          
+
+      - name: Run System Tests
+        run: |
+          #docker build -t shell .
+          docker build -t comp0010-system-test .
+          python system_test/tests.py -v
+
+      - name: Run Analysis
+        run: flake8 --exclude grammar,system_test
+
       - name: Check Coverage
         run: |
-          coverage run  --source=src -m unittest discover
+          coverage run --branch --omit='src/shell_commands/grammar/*','/opt/*' -m nose2 test
           coverage report --fail-under=95
           
         

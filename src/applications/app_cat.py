@@ -11,10 +11,12 @@ class Cat(Application):
         else:
             self.handle_stdin_argument(stdin, out)
 
-    def handle_stdin_argument(self, stdin: Optional[str], out: deque):
+    @staticmethod
+    def handle_stdin_argument(stdin: Optional[str], out: deque):
         out.append(stdin)
 
-    def handle_file_arguments(self, args: list, out: deque):
+    @staticmethod
+    def handle_file_arguments(args: list, out: deque):
         concatenated_output = ''
         for file_name in args:
             with open(file_name, 'r') as file:
