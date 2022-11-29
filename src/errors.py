@@ -22,3 +22,7 @@ class StandardInputError(ShellErrors):
 
 class ParseError(ShellErrors):
     pass
+
+
+class DirectoryCreationError(ShellErrors):
+    pass

@@ -11,6 +11,7 @@ from src.applications.app_sort import Sort
 from src.applications.app_tail import Tail
 from src.applications.app_uniq import Uniq
 from src.applications.application import Application
+from src.applications.app_mkdir import Mkdir
 from src.applications.unsafe_decorator import UnsafeDecorator
 
 
@@ -28,6 +29,7 @@ class ApplicationFactory:
                           'sort': Sort,
                           'uniq': Uniq,
                           'cut': Cut,
+                          'mkdir': Mkdir
                           }
 
     def app_by_name(self, name: str) -> Application:

@@ -6,7 +6,7 @@ from collections import deque
 from parameterized import parameterized
 
 from src.applications.app_uniq import Uniq
-from src.errors import FlagError
+from src.errors import FlagError, ArgumentError
 
 
 class TestUniq(unittest.TestCase):
@@ -75,17 +75,17 @@ class TestUniq(unittest.TestCase):
 
     def test_uniq_no_arguments_no_stdin(self):
         app = Uniq()
-        self.assertRaises(ValueError, app.exec, args=[], stdin=None,
+        self.assertRaises(ArgumentError, app.exec, args=[], stdin=None,
                           out=self.out)
 
     def test_uniq_flag_given_but_no_stdin(self):
         app = Uniq()
-        self.assertRaises(ValueError, app.exec, args=['-i'], stdin=None,
+        self.assertRaises(ArgumentError, app.exec, args=['-i'], stdin=None,
                           out=self.out)
 
     def test_uniq_wrong_number_of_arguments(self):
         app = Uniq()
-        self.assertRaises(ValueError, app.exec,
+        self.assertRaises(ArgumentError, app.exec,
                           args=['-i', 'test_uniq1.txt', 'test_uniq2.txt'],
                           stdin=None, out=self.out)
 

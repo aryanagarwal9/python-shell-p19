@@ -8,3 +8,12 @@
 #
 # for x in zip(ce, ve):
 #     print(x)
+
+a = [1,2,3]
+
+def b(v):
+    v.pop()
+
+b(a)
+
+print(a)
