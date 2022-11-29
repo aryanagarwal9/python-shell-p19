@@ -72,6 +72,13 @@ class TestCommandVisitor(unittest.TestCase):
         expected_output = Seq(Call('sort', ['test1.txt'], None, None), Call('cat',['test1.txt'], None, None))
         self.assertEqual(shell_command, expected_output)
 
+    def test_visitor_unquote(self):
+        cmdline = "cat test1.txt"
+        shell_command = CommandsVisitor.converter(cmdline)
+        expected_output = Call('cat', ['test1.txt'], None, None)
+        self.assertEqual(shell_command, expected_output)
+        
+
 
 
 
