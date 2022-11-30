@@ -17,15 +17,7 @@ class Uniq(Application):
                                out: deque):
         """check the number of args given and handle each case
         """
-        # Validate args
-        if len(args) > 2:
-            raise ArgumentError("Invalid number of arguments")
-
-        if not len(args) and stdin is None:
-            raise ArgumentError('No arguments or stdin')
-
-        if len(args) == 1 and args[0] == '-i' and stdin is None:
-            raise ArgumentError('No arguments or stdin')
+        self.validate_args(args, stdin)
 
         # Check for flag
         self.flags['-i'] = len(args) and args[0] == '-i'
@@ -36,6 +28,15 @@ class Uniq(Application):
             self.handle_file_input(args, out)
         else:
             self.handle_stdin_input(stdin, out)
+
+    @staticmethod
+    def validate_args(args, stdin):
+        if len(args) > 2:
+            raise ArgumentError("Invalid number of arguments")
+        if not len(args) and stdin is None:
+            raise ArgumentError('No arguments or stdin')
+        if len(args) == 1 and args[0] == '-i' and stdin is None:
+            raise ArgumentError('No arguments or stdin')
 
     def handle_file_input(self, args: list, out: deque):
         """Update out from file input
