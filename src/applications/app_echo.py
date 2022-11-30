@@ -12,5 +12,7 @@ class Echo(Application):
         if len(args) and args[0] == '-n':
             self.flags['-n'] = True
 
-        out.append(" ".join(args[1:])) if self.flags['-n'] else out.append(
-            " ".join(args) + '\n')
+        if self.flags['-n']:
+            out.append(" ".join(args[1:]))
+        else:
+            out.append(" ".join(args) + '\n')

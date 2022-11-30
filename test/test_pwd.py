@@ -11,5 +11,5 @@ class TestPwd(unittest.TestCase):
 
     def test_pwd_command(self):
         Pwd().exec([], None, self.out)
-        self.assertEqual(self.out.popleft(), os.getcwd()+'\n')
+        self.assertEqual(self.out.popleft(), os.getcwd() + '\n')
         self.assertEqual(len(self.out), 0)

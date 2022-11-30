@@ -2,11 +2,13 @@ import os
 import sys
 from collections import deque
 
-from src.shell_commands.commands_visitor import CommandsVisitor
 from src.errors import ArgumentError
+from src.shell_commands.commands_visitor import CommandsVisitor
+
 
 def eval(cmdline, out):
     CommandsVisitor().converter(cmdline).eval(None, out)
+
 
 def run_non_interactive_mode(args_num):
     if args_num != 2:
@@ -18,6 +20,7 @@ def run_non_interactive_mode(args_num):
     while len(out) > 0:
         print(out.popleft(), end="")
 
+
 def run_interactive_mode():
     while True:
         print(os.getcwd() + "> ", end="")
@@ -26,6 +29,7 @@ def run_interactive_mode():
         eval(cmdline, out)
         while len(out) > 0:
             print(out.popleft(), end="")
+
 
 def run():
     args_num = len(sys.argv) - 1

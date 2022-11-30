@@ -52,15 +52,15 @@ class Cut(Application):
         """Validates byte order"""
         byte_order = args[1]
         if byte_order is None:
-            raise ArgumentError('byte order not given')
+            raise ArgumentError('Byte order not given')
 
         for b in byte_order:
             if b not in '0123456789,-':
-                raise ArgumentError('illegal list value')
+                raise ArgumentError('Illegal list value')
 
         match = re.search(',,|--', byte_order)
         if match is not None:
-            raise ArgumentError('illegal list value')
+            raise ArgumentError('Illegal list value')
 
         return True
 

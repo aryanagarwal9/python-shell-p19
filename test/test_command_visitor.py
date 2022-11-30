@@ -34,13 +34,13 @@ class TestCommandVisitor(unittest.TestCase):
 
     def test_visitor_one_pipe_command(self):
         cmdline = 'find -name test | grep is'
-        shell_command = CommandsVisitor.converter(cmdline)
+        shell_command = CommandsVisitor().converter(cmdline)
         expected_output = Pipe(Call('find', ['-name', 'test'], None, None),
                                Call('grep', ['is'], None, None))
         self.assertEqual(shell_command, expected_output)
 
     def test_visitor_nested_pipe_command(self):
-        cmdline = f'find -name test | grep is | echo'
+        cmdline = 'find -name test | grep is | echo'
         shell_command = CommandsVisitor.converter(cmdline)
         expected_output = Pipe(
             Pipe(Call('find', ['-name', 'test'], None, None),
@@ -108,15 +108,9 @@ class TestCommandVisitor(unittest.TestCase):
         self.assertEqual(shell_command, expected_output)
 
     def test_visitor_input_redirection(self):
-        cmdline = "cat < test1.txt"
+        cmdline = 'cat < test1.txt'
         shell_command = CommandsVisitor.converter(cmdline)
-        expected_output = Call('cat', [], "test1.txt", None)
-        self.assertEqual(shell_command, expected_output)
-
-    def test_visitor_output_redirection(self):
-        cmdline = 'echo print > test1.txt'
-        shell_command = CommandsVisitor.converter(cmdline)
-        expected_output = Call('echo', ['print'], None, 'test1.txt')
+        expected_output = Call('cat', [], 'test1.txt', None)
         self.assertEqual(shell_command, expected_output)
 
     def test_visitor_globbing(self):
@@ -126,12 +120,8 @@ class TestCommandVisitor(unittest.TestCase):
                                None)
         self.assertEqual(shell_command, expected_output)
 
-    def test_visitor_parse_cancellation_excetion(self):
-        cmdline = "echo '"
-        with self.assertRaises(ParseCancellationException):
-            CommandsVisitor.converter(cmdline)
-
     def test_visitor_many_inputs_parse_error(self):
         cmdline = 'cat hello > test1.txt > test2.txt '
         with self.assertRaises(ParseError):
             CommandsVisitor.converter(cmdline)
+

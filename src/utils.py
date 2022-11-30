@@ -5,7 +5,7 @@ from src.errors import FlagError, StandardInputError
 
 def check_flag(arg: str, flag: str):
     if arg != flag:
-        raise FlagError(f"Invalid flags given")
+        raise FlagError("Invalid flags given")
 
     return True
 
@@ -24,6 +24,6 @@ def get_lines(src, file=None, stdin=None) -> list:
             lines = f.readlines()
     elif src == 'stdin':
         is_stdin_available(stdin)
-        lines = stdin.rstrip('\n').split('\n')
+        lines = stdin.splitlines(True)
 
     return lines
