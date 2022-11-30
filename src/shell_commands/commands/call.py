@@ -13,6 +13,12 @@ class Call(Command):
         self.input_file = input_file
         self.output_file = output_file
 
+    def __eq__(self, other):
+        return self.app == other.app and \
+               self.args == other.args and \
+               self.input_file == other.input_file and \
+               self.output_file == other.output_file
+
     def eval(self, input_cmd: Optional[str], out: deque):
         std_input = input_cmd
         temp_output = out
