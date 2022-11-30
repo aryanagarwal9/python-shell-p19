@@ -34,8 +34,8 @@ class TestWc(unittest.TestCase):
 
     def test_wc_number_of_lines_in_single_file(self):
         Wc().exec(['-l', 'test1.txt'], None, self.out)
-        result = [
-            f'\t{check_output(["wc", "-l", "test1.txt"]).decode("utf8").split()[0]} test1.txt\n']
+        result = ['\t{} test1.txt\n'.format(
+            check_output(["wc", "-l", "test1.txt"]).decode("utf8").split()[0])]
         self.assertEqual(list(self.out), result)
 
     def test_wc_number_of_lines_in_multiple_files(self):
@@ -47,17 +47,26 @@ class TestWc(unittest.TestCase):
             check_output(["wc", "-l", "test2.txt"]).decode("utf8").split()[
                 0]) + int(
             check_output(["wc", "-l", "test3.txt"]).decode("utf8").split()[0])
+
         result = [
-            f'\t{check_output(["wc", "-l", "test1.txt"]).decode("utf8").split()[0]} test1.txt\n',
-            f'\t{check_output(["wc", "-l", "test2.txt"]).decode("utf8").split()[0]} test2.txt\n',
-            f'\t{check_output(["wc", "-l", "test3.txt"]).decode("utf8").split()[0]} test3.txt\n',
-            f'\t{total} total\n']
+            '\t{} test1.txt\n'.format(
+                check_output(["wc", "-l", "test1.txt"]).decode("utf8").split()[
+                    0]),
+            '\t{} test2.txt\n'.format(
+                check_output(["wc", "-l", "test2.txt"]).decode("utf8").split()[
+                    0]),
+            '\t{} test3.txt\n'.format(
+                check_output(["wc", "-l", "test3.txt"]).decode("utf8").split()[
+                    0]),
+            '\t{} total\n'.format(total)]
         self.assertEqual(list(self.out), result)
 
     def test_wc_number_of_words_in_single_file(self):
         Wc().exec(['-w', 'test1.txt'], None, self.out)
         result = [
-            f'\t{check_output(["wc", "-w", "test1.txt"]).decode("utf8").split()[0]} test1.txt\n']
+            '\t{} test1.txt\n'.format(
+                check_output(["wc", "-w", "test1.txt"]).decode("utf8").split()[
+                    0])]
         self.assertEqual(list(self.out), result)
 
     def test_wc_number_of_words_in_multiple_files(self):
@@ -69,17 +78,26 @@ class TestWc(unittest.TestCase):
             check_output(["wc", "-w", "test2.txt"]).decode("utf8").split()[
                 0]) + int(
             check_output(["wc", "-w", "test3.txt"]).decode("utf8").split()[0])
+
         result = [
-            f'\t{check_output(["wc", "-w", "test1.txt"]).decode("utf8").split()[0]} test1.txt\n',
-            f'\t{check_output(["wc", "-w", "test2.txt"]).decode("utf8").split()[0]} test2.txt\n',
-            f'\t{check_output(["wc", "-w", "test3.txt"]).decode("utf8").split()[0]} test3.txt\n',
-            f'\t{total} total\n']
+            '\t{} test1.txt\n'.format(
+                check_output(["wc", "-w", "test1.txt"]).decode("utf8").split()[
+                    0]),
+            '\t{} test2.txt\n'.format(
+                check_output(["wc", "-w", "test2.txt"]).decode("utf8").split()[
+                    0]),
+            '\t{} test3.txt\n'.format(
+                check_output(["wc", "-w", "test3.txt"]).decode("utf8").split()[
+                    0]),
+            '\t{} total\n'.format(total)]
         self.assertEqual(list(self.out), result)
 
     def test_wc_number_of_bytes_in_single_file(self):
         Wc().exec(['-w', 'test1.txt'], None, self.out)
         result = [
-            f'\t{check_output(["wc", "-w", "test1.txt"]).decode("utf8").split()[0]} test1.txt\n']
+            '\t{} test1.txt\n'.format(
+                check_output(["wc", "-w", "test1.txt"]).decode("utf8").split()[
+                    0])]
         self.assertEqual(list(self.out), result)
 
     def test_wc_number_of_bytes_in_multiple_files(self):
@@ -91,16 +109,23 @@ class TestWc(unittest.TestCase):
             check_output(["wc", "-c", "test2.txt"]).decode("utf8").split()[
                 0]) + int(
             check_output(["wc", "-c", "test3.txt"]).decode("utf8").split()[0])
+
         result = [
-            f'\t{check_output(["wc", "-c", "test1.txt"]).decode("utf8").split()[0]} test1.txt\n',
-            f'\t{check_output(["wc", "-c", "test2.txt"]).decode("utf8").split()[0]} test2.txt\n',
-            f'\t{check_output(["wc", "-c", "test3.txt"]).decode("utf8").split()[0]} test3.txt\n',
-            f'\t{total} total\n']
+            '\t{} test1.txt\n'.format(
+                check_output(["wc", "-c", "test1.txt"]).decode("utf8").split()[
+                    0]),
+            '\t{} test2.txt\n'.format(
+                check_output(["wc", "-c", "test2.txt"]).decode("utf8").split()[
+                    0]),
+            '\t{} test3.txt\n'.format(
+                check_output(["wc", "-c", "test3.txt"]).decode("utf8").split()[
+                    0]),
+            '\t{} total\n'.format(total)]
         self.assertEqual(list(self.out), result)
 
     def test_wc_number_of_lines_stdin(self):
         Wc().exec(['-l'], self.stdin, self.out)
-        self.assertEqual(list(self.out), [f'\t8\n'])
+        self.assertEqual(list(self.out), ['\t8\n'])
 
     def test_wc_number_of_words_stdin(self):
         Wc().exec(['-w'], self.stdin, self.out)

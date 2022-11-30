@@ -1,14 +1,13 @@
 import os
 import shutil
-
-from src.shell_commands.commands_visitor import CommandsVisitor
-from src.shell_commands.commands.pipe import Pipe
-from src.shell_commands.commands.call import Call
-from src.shell_commands.commands.seq import Seq
-from src.errors import ParseError
-
 import unittest
 from collections import deque
+
+from src.errors import ParseError
+from src.shell_commands.commands.call import Call
+from src.shell_commands.commands.pipe import Pipe
+from src.shell_commands.commands.seq import Seq
+from src.shell_commands.commands_visitor import CommandsVisitor
 
 
 class TestCommandVisitor(unittest.TestCase):
@@ -40,7 +39,7 @@ class TestCommandVisitor(unittest.TestCase):
         self.assertEqual(shell_command, expected_output)
 
     def test_visitor_nested_pipe_command(self):
-        cmdline = f'find -name test | grep is | echo'
+        cmdline = 'find -name test | grep is | echo'
         shell_command = CommandsVisitor.converter(cmdline)
         expected_output = Pipe(
             Pipe(Call('find', ['-name', 'test'], None, None),
@@ -96,23 +95,24 @@ class TestCommandVisitor(unittest.TestCase):
         cmdline = 'echo "Hello `cat test1.txt`"'
         shell_command = CommandsVisitor.converter(cmdline)
         expected_output = Call('echo',
-                               ['Hello This is a testing file for command visitor '], None, None)
+                               ['Hello This is a testing file for command '
+                                'visitor '], None, None)
         self.assertEqual(shell_command, expected_output)
 
     def test_visitor_unquoted(self):
-        cmdline = "cat test1.txt"
+        cmdline = 'cat test1.txt'
         shell_command = CommandsVisitor.converter(cmdline)
         expected_output = Call('cat', ['test1.txt'], None, None)
         self.assertEqual(shell_command, expected_output)
 
     def test_visitor_input_redirection(self):
-        cmdline = "cat < test1.txt"
+        cmdline = 'cat < test1.txt'
         shell_command = CommandsVisitor.converter(cmdline)
         expected_output = Call('cat', [], "test1.txt", None)
         self.assertEqual(shell_command, expected_output)
 
     def test_visitor_start_with_redirection(self):
-        cmdline = "< test1.txt sort"
+        cmdline = '< test1.txt sort'
         shell_command = CommandsVisitor.converter(cmdline)
         expected_output = Call('sort', [], "test1.txt", None)
         self.assertEqual(shell_command, expected_output)
@@ -130,10 +130,10 @@ class TestCommandVisitor(unittest.TestCase):
                                None)
         self.assertEqual(shell_command, expected_output)
 
-    #def test_visitor_parse_cancellation_excetion(self):
-       # cmdline = "echo '"
-       # with self.assertRaises(ParseCancellationException):
-         #   CommandsVisitor.converter(cmdline)
+    # def test_visitor_parse_cancellation_excetion(self):
+    # cmdline = "echo '"
+    # with self.assertRaises(ParseCancellationException):
+    #   CommandsVisitor.converter(cmdline)
 
     def test_visitor_multiple_outputs_redirection(self):
         cmdline = 'cat hello > test1.txt > test2.txt '
@@ -144,7 +144,3 @@ class TestCommandVisitor(unittest.TestCase):
         cmdline = 'cat < test1.txt < test2.txt '
         with self.assertRaises(ParseError):
             CommandsVisitor.converter(cmdline)
-
-
-
-
