@@ -34,4 +34,3 @@ class SourceError(ShellErrors):
 
 class ApplicationNotSupportedError(ShellErrors):
     pass
-

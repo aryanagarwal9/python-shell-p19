@@ -5,6 +5,7 @@ from collections import deque
 
 from src.shell_commands.commands_visitor import CommandsVisitor
 
+
 class TestCall(unittest.TestCase):
     def setUp(self) -> None:
         self.out = deque()
@@ -18,7 +19,7 @@ class TestCall(unittest.TestCase):
         shutil.rmtree(self.directory)
 
     def test_call_no_redirections(self):
-        CommandsVisitor.converter(f'cat {self.directory}/test1.txt').\
+        CommandsVisitor.converter(f'cat {self.directory}/test1.txt'). \
             eval(None, self.out)
         self.assertEqual(list(self.out),
                          ['This\nis\na\ntesting\nfile\nfor\ncall\ncommand'])
@@ -31,7 +32,7 @@ class TestCall(unittest.TestCase):
 
     def test_call_output_redirection(self):
         CommandsVisitor.converter(
-            f'cat {self.directory}/test1.txt > {self.directory}/test2.txt').\
+            f'cat {self.directory}/test1.txt > {self.directory}/test2.txt'). \
             eval(None, self.out)
         with open(os.path.join(self.directory, 'test2.txt'), 'r') as file:
             file_content = file.read()

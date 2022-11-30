@@ -94,10 +94,8 @@ class TestCommandVisitor(unittest.TestCase):
     def test_visitor_back_quote_in_double_quote(self):
         cmdline = 'echo "Hello `cat test1.txt`"'
         shell_command = CommandsVisitor.converter(cmdline)
-        expected_output = Call('echo',
-                               [
-                                   'Hello This is a testing file for command visitor '],
-                               None, None)
+        expected_output = Call('echo', [
+            'Hello This is a testing file for command visitor '], None, None)
         self.assertEqual(shell_command, expected_output)
 
     def test_visitor_unquoted(self):
