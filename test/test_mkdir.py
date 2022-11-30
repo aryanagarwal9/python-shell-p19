@@ -6,7 +6,7 @@ from collections import deque
 from parameterized import parameterized
 
 from src.applications.app_mkdir import Mkdir
-from src.errors import DirectoryCreationError
+from src.errors import DirectoryCreationError, ArgumentError
 
 
 class TestMkdir(unittest.TestCase):
@@ -107,3 +107,13 @@ class TestMkdir(unittest.TestCase):
         self.assertRaises(DirectoryCreationError, app.exec,
                           ['dir1', 'dir2/dir3', 'dir2'], None, self.out)
         self.assertEqual(sorted(os.listdir()), ['dir1', 'dir2'])
+
+    @parameterized.expand([
+        ['no arguments', []],
+        ['one flag only', ['-p']],
+        ['two flags only', ['-p', '-v']]
+    ])
+    def test_mkdir_no_directory_name_provided(self, name, args):
+        app = Mkdir()
+        self.assertRaises(ArgumentError, app.exec, args, None, self.out)
+
