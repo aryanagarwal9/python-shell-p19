@@ -3,11 +3,11 @@ import shutil
 import unittest
 from collections import deque
 
-from src.errors import ParseError
-from src.shell_commands.commands.call import Call
-from src.shell_commands.commands.pipe import Pipe
-from src.shell_commands.commands.seq import Seq
-from src.shell_commands.commands_visitor import CommandsVisitor
+from shell.errors import ParseError
+from shell.shell_commands.commands.call import Call
+from shell.shell_commands.commands.pipe import Pipe
+from shell.shell_commands.commands.seq import Seq
+from shell.shell_commands.commands_visitor import CommandsVisitor
 
 
 class TestCommandVisitor(unittest.TestCase):

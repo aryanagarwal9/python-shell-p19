@@ -5,8 +5,8 @@ from collections import deque
 
 from hypothesis import given, strategies
 
-from src.applications.app_cat import Cat
-from src.errors import ArgumentError
+from shell.applications.app_cat import Cat
+from shell.errors import ArgumentError
 
 
 class TestCat(unittest.TestCase):

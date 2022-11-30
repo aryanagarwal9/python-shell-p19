@@ -2,12 +2,12 @@ import os
 import unittest
 from collections import deque
 
-from src.applications.app_cd import Cd
-from src.applications.app_cut import Cut
-from src.applications.app_head import Head
-from src.applications.app_tail import Tail
-from src.applications.app_uniq import Uniq
-from src.applications.unsafe_decorator import UnsafeDecorator
+from shell.applications.app_cd import Cd
+from shell.applications.app_cut import Cut
+from shell.applications.app_head import Head
+from shell.applications.app_tail import Tail
+from shell.applications.app_uniq import Uniq
+from shell.applications.unsafe_decorator import UnsafeDecorator
 
 
 class TestUnsafeDecorator(unittest.TestCase):

@@ -2,8 +2,8 @@ import os
 import sys
 from collections import deque
 
-from src.errors import ArgumentError, FlagError
-from src.shell_commands.commands_visitor import CommandsVisitor
+from shell.errors import ArgumentError, FlagError
+from shell.shell_commands.commands_visitor import CommandsVisitor
 
 
 def eval(cmdline, out):

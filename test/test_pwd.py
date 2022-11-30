@@ -2,7 +2,7 @@ import os
 import unittest
 from collections import deque
 
-from src.applications.app_pwd import Pwd
+from shell.applications.app_pwd import Pwd
 
 
 class TestPwd(unittest.TestCase):

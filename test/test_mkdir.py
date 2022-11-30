@@ -5,8 +5,8 @@ from collections import deque
 
 from parameterized import parameterized
 
-from src.applications.app_mkdir import Mkdir
-from src.errors import DirectoryCreationError, ArgumentError
+from shell.applications.app_mkdir import Mkdir
+from shell.errors import DirectoryCreationError, ArgumentError
 
 
 class TestMkdir(unittest.TestCase):

@@ -4,8 +4,8 @@ from collections import deque
 import contextlib
 from io import StringIO
 
-import src.shell as shell
-from src.errors import ArgumentError, FlagError
+import shell.shell as shell
+from shell.errors import ArgumentError, FlagError
 
 
 class TestShell(unittest.TestCase):

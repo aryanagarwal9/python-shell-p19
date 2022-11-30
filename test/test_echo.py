@@ -3,7 +3,7 @@ from collections import deque
 
 from hypothesis import given, strategies
 
-from src.applications.app_echo import Echo
+from shell.applications.app_echo import Echo
 
 
 class TestEcho(unittest.TestCase):

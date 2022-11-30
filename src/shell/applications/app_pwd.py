@@ -2,7 +2,7 @@ import os
 from collections import deque
 from typing import Optional, List
 
-from src.applications.application import Application
+from shell.applications.application import Application
 
 
 class Pwd(Application):

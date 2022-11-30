@@ -2,8 +2,8 @@ import os
 from collections import deque
 from typing import Optional
 
-from src.applications.application import Application
-from src.errors import ArgumentError
+from shell.applications.application import Application
+from shell.errors import ArgumentError
 
 
 class Ls(Application):

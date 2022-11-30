@@ -5,8 +5,8 @@ from collections import deque
 
 from parameterized import parameterized
 
-from src.applications.app_sort import Sort
-from src.errors import FlagError, ArgumentError
+from shell.applications.app_sort import Sort
+from shell.errors import FlagError, ArgumentError
 
 
 class TestSort(unittest.TestCase):

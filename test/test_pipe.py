@@ -3,7 +3,7 @@ import shutil
 import unittest
 from collections import deque
 
-from src.shell_commands.commands_visitor import CommandsVisitor
+from shell.shell_commands.commands_visitor import CommandsVisitor
 
 
 class TestPipe(unittest.TestCase):

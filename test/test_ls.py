@@ -3,8 +3,8 @@ import shutil
 import unittest
 from collections import deque
 
-from src.applications.app_ls import Ls
-from src.errors import ArgumentError
+from shell.applications.app_ls import Ls
+from shell.errors import ArgumentError
 
 
 class TestLs(unittest.TestCase):

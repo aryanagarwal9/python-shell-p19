@@ -1,9 +1,9 @@
 from collections import deque
 from typing import Optional, List
 
-from src.applications.application import Application
-from src.errors import ArgumentError
-from src.utils import check_flag
+from shell.applications.application import Application
+from shell.errors import ArgumentError
+from shell.utils import check_flag
 
 
 class Sort(Application):

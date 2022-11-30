@@ -4,9 +4,9 @@ import re
 from collections import deque
 from typing import Optional
 
-from src.applications.application import Application
-from src.utils import check_flag
-from src.errors import ArgumentError
+from shell.applications.application import Application
+from shell.utils import check_flag
+from shell.errors import ArgumentError
 
 
 class Find(Application):

@@ -5,8 +5,8 @@ from collections import deque
 
 from parameterized import parameterized
 
-from src.applications.app_tail import Tail
-from src.errors import (ArgumentError, FlagError, StandardInputError)
+from shell.applications.app_tail import Tail
+from shell.errors import (ArgumentError, FlagError, StandardInputError)
 
 
 class TestTail(unittest.TestCase):

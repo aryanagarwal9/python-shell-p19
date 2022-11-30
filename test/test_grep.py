@@ -5,8 +5,8 @@ from collections import deque
 
 from parameterized import parameterized
 
-from src.applications.app_grep import Grep
-from src.errors import ArgumentError
+from shell.applications.app_grep import Grep
+from shell.errors import ArgumentError
 
 
 class TestGrep(unittest.TestCase):

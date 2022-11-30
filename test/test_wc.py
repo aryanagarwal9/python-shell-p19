@@ -4,8 +4,8 @@ import unittest
 from collections import deque
 from subprocess import check_output
 
-from src.applications.app_wc import Wc
-from src.errors import FlagError, ArgumentError
+from shell.applications.app_wc import Wc
+from shell.errors import FlagError, ArgumentError
 
 
 class TestWc(unittest.TestCase):

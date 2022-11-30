@@ -1,6 +1,6 @@
 from typing import Optional
 
-from src.errors import FlagError, StandardInputError
+from shell.errors import FlagError, StandardInputError
 
 
 def check_flag(arg: str, flag: str):

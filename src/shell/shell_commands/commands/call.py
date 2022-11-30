@@ -1,8 +1,8 @@
 from collections import deque
 from typing import Optional, List
 
-from src.applications.application_factory import ApplicationFactory
-from src.shell_commands.commands.command import Command
+from shell.applications.application_factory import ApplicationFactory
+from shell.shell_commands.commands.command import Command
 
 
 class Call(Command):

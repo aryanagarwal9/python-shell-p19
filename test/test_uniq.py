@@ -5,8 +5,8 @@ from collections import deque
 
 from parameterized import parameterized
 
-from src.applications.app_uniq import Uniq
-from src.errors import ArgumentError
+from shell.applications.app_uniq import Uniq
+from shell.errors import ArgumentError
 
 
 class TestUniq(unittest.TestCase):

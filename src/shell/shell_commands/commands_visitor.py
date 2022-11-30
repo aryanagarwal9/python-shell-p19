@@ -4,17 +4,18 @@ from collections import deque
 
 from antlr4 import InputStream, CommonTokenStream
 
-from src.errors import ParseError
-from src.shell_commands.commands.call import Call
-from src.shell_commands.commands.command import Command
-from src.shell_commands.commands.pipe import Pipe
-from src.shell_commands.commands.seq import Seq
-from src.shell_commands.grammar.CommandLexerGrammar import CommandLexerGrammar
-from src.shell_commands.grammar.CommandParserGrammar import \
+from shell.errors import ParseError
+from shell.shell_commands.commands.call import Call
+from shell.shell_commands.commands.command import Command
+from shell.shell_commands.commands.pipe import Pipe
+from shell.shell_commands.commands.seq import Seq
+from shell.shell_commands.grammar.CommandLexerGrammar import \
+    CommandLexerGrammar
+from shell.shell_commands.grammar.CommandParserGrammar import \
     CommandParserGrammar
-from src.shell_commands.grammar.CommandParserGrammarVisitor import \
+from shell.shell_commands.grammar.CommandParserGrammarVisitor import \
     CommandParserGrammarVisitor
-from src.shell_commands.parser_error_listener import ParserErrorListener
+from shell.shell_commands.parser_error_listener import ParserErrorListener
 
 
 class CommandsVisitor(CommandParserGrammarVisitor):

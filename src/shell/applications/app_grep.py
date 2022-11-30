@@ -2,9 +2,9 @@ import re
 from collections import deque
 from typing import Optional
 
-from src.applications.application import Application
-from src.errors import ArgumentError
-from src.utils import get_lines
+from shell.applications.application import Application
+from shell.errors import ArgumentError
+from shell.utils import get_lines
 
 
 class Grep(Application):

@@ -5,8 +5,8 @@ from collections import deque
 
 from parameterized import parameterized
 
-from src.applications.app_head import Head
-from src.errors import ArgumentError, FlagError, StandardInputError
+from shell.applications.app_head import Head
+from shell.errors import ArgumentError, FlagError, StandardInputError
 
 
 class TestHead(unittest.TestCase):

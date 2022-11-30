@@ -2,22 +2,21 @@ import unittest
 
 from parameterized import parameterized
 
-from src.applications.app_cat import Cat
-from src.applications.app_cd import Cd
-from src.applications.app_echo import Echo
-from src.applications.app_find import Find
-from src.applications.app_grep import Grep
-from src.applications.app_head import Head
-from src.applications.app_ls import Ls
-from src.applications.app_pwd import Pwd
-from src.applications.app_tail import Tail
-from src.applications.application_factory import ApplicationFactory
-from src.applications.unsafe_decorator import UnsafeDecorator
-from src.errors import ApplicationNotSupportedError
+from shell.applications.app_cat import Cat
+from shell.applications.app_cd import Cd
+from shell.applications.app_echo import Echo
+from shell.applications.app_find import Find
+from shell.applications.app_grep import Grep
+from shell.applications.app_head import Head
+from shell.applications.app_ls import Ls
+from shell.applications.app_pwd import Pwd
+from shell.applications.app_tail import Tail
+from shell.applications.application_factory import ApplicationFactory
+from shell.applications.unsafe_decorator import UnsafeDecorator
+from shell.errors import ApplicationNotSupportedError
 
 
-class TestCat(unittest.TestCase):
-
+class TestApplicationFactory(unittest.TestCase):
     def setUp(self) -> None:
         self.app_types = {'pwd': Pwd,
                           'echo': Echo,

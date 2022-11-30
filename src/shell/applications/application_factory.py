@@ -1,20 +1,20 @@
-from src.applications.app_cat import Cat
-from src.applications.app_cd import Cd
-from src.applications.app_cut import Cut
-from src.applications.app_echo import Echo
-from src.applications.app_find import Find
-from src.applications.app_grep import Grep
-from src.applications.app_head import Head
-from src.applications.app_ls import Ls
-from src.applications.app_mkdir import Mkdir
-from src.applications.app_pwd import Pwd
-from src.applications.app_sort import Sort
-from src.applications.app_tail import Tail
-from src.applications.app_uniq import Uniq
-from src.applications.application import Application
-from src.applications.app_wc import Wc
-from src.applications.unsafe_decorator import UnsafeDecorator
-from src.errors import ApplicationNotSupportedError
+from shell.applications.app_cat import Cat
+from shell.applications.app_cd import Cd
+from shell.applications.app_cut import Cut
+from shell.applications.app_echo import Echo
+from shell.applications.app_find import Find
+from shell.applications.app_grep import Grep
+from shell.applications.app_head import Head
+from shell.applications.app_ls import Ls
+from shell.applications.app_mkdir import Mkdir
+from shell.applications.app_pwd import Pwd
+from shell.applications.app_sort import Sort
+from shell.applications.app_tail import Tail
+from shell.applications.app_uniq import Uniq
+from shell.applications.application import Application
+from shell.applications.app_wc import Wc
+from shell.applications.unsafe_decorator import UnsafeDecorator
+from shell.errors import ApplicationNotSupportedError
 
 
 class ApplicationFactory:

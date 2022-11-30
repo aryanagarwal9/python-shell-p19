@@ -5,8 +5,8 @@ from collections import deque
 
 from parameterized import parameterized
 
-from src.applications.app_find import Find
-from src.errors import FlagError, ArgumentError
+from shell.applications.app_find import Find
+from shell.errors import FlagError, ArgumentError
 
 
 class TestFind(unittest.TestCase):

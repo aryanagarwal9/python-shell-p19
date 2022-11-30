@@ -2,8 +2,8 @@ import os
 from collections import deque
 from typing import Optional, List
 
-from src.applications.application import Application
-from src.errors import ArgumentError, DirectoryCreationError
+from shell.applications.application import Application
+from shell.errors import ArgumentError, DirectoryCreationError
 
 
 class Mkdir(Application):
