@@ -9,6 +9,10 @@ class Pipe(Command):
         self.left = left
         self.right = right
 
+    def __eq__(self, other):
+        return self.left == other.left and \
+               self.right == other.right
+
     def eval(self, input_cmd: Optional[str], out: deque):
         temp_deque = deque()
         self.left.eval(input_cmd, temp_deque)
