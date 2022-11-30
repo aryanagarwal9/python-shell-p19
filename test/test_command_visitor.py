@@ -38,7 +38,7 @@ class TestCommandVisitor(unittest.TestCase):
         self.assertEqual(shell_command, expected_output)
 
     def test_visitor_nested_pipe_command(self):
-        cmdline = f'find -name test | grep is | echo'
+        cmdline = 'find -name test | grep is | echo'
         shell_command = CommandsVisitor.converter(cmdline)
         expected_output = Pipe(
             Pipe(Call('find', ['-name', 'test'], None, None),
@@ -103,4 +103,3 @@ class TestCommandVisitor(unittest.TestCase):
         shell_command = CommandsVisitor.converter(cmdline)
         expected_output = Call('find', ['-name', 'te*'], None, None)
         self.assertEqual(shell_command, expected_output)
-

@@ -67,7 +67,8 @@ class TestCat(unittest.TestCase):
 
     def test_cat_with_stdin_and_number_flag(self):
         Cat().exec(['-n'], 'how\nare\nyou\ndoing', self.out)
-        self.assertEqual(self.out.popleft(), '\t1 how\n\t2 are\n\t3 you\n\t4 doing')
+        self.assertEqual(self.out.popleft(),
+                         '\t1 how\n\t2 are\n\t3 you\n\t4 doing')
         self.assertEqual(len(self.out), 0)
 
     def test_cat_without_stdin(self):

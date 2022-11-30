@@ -6,7 +6,8 @@ from collections import deque
 from parameterized import parameterized
 
 from src.applications.app_head import Head
-from src.errors import ArgumentError, FlagError, StandardInputError, SourceError
+from src.errors import ArgumentError, FlagError, StandardInputError, \
+    SourceError
 
 
 class TestHead(unittest.TestCase):

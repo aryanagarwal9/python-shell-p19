@@ -5,7 +5,7 @@ from src.errors import FlagError, StandardInputError
 
 def check_flag(arg: str, flag: str):
     if arg != flag:
-        raise FlagError(f"Invalid flags given")
+        raise FlagError("Invalid flags given")
 
     return True
 

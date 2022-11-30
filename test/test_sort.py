@@ -78,5 +78,6 @@ class TestSort(unittest.TestCase):
 
     def test_sort_with_extra_arguments_no_stdin(self):
         app = Sort()
-        self.assertRaises(ArgumentError, app.exec, args=['arg1', 'arg2', 'arg3'],
+        self.assertRaises(ArgumentError, app.exec,
+                          args=['arg1', 'arg2', 'arg3'],
                           stdin=None, out=self.out)

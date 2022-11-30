@@ -116,4 +116,3 @@ class TestMkdir(unittest.TestCase):
     def test_mkdir_no_directory_name_provided(self, name, args):
         app = Mkdir()
         self.assertRaises(ArgumentError, app.exec, args, None, self.out)
-
