@@ -32,14 +32,16 @@ class Cut(Application):
 
         # Validate arguments
         check_flag(args[0], '-b')
-        if self.is_byte_order_valid(args):
-            byte_order = args[1].split(',')
-            byte_order.sort()
+        self.check_byte_order(args)
+
+        # Arrange byte order
+        byte_order = args[1].split(',')
+        byte_order.sort()
 
         # Get lines
         if src == 'file':
             lines = get_lines(src, file=args[2])
-        elif src == 'stdin':
+        else:
             lines = get_lines(src, stdin=stdin)
 
         # Append cut strings from each line
@@ -48,7 +50,7 @@ class Cut(Application):
             out.append(cut_str + '\n')
 
     @staticmethod
-    def is_byte_order_valid(args: List[str]) -> bool:
+    def check_byte_order(args: List[str]) -> None:
         """Validates byte order"""
         byte_order = args[1]
         if byte_order is None:
@@ -61,8 +63,6 @@ class Cut(Application):
         match = re.search(',,|--', byte_order)
         if match is not None:
             raise ArgumentError('Illegal list value')
-
-        return True
 
     def get_cut_str(self, line, byte_order) -> str:
         """Generic function for getting cut string from
@@ -85,6 +85,8 @@ class Cut(Application):
                 start = 1
                 end = int(byte[1])
                 cut_str += self.cut_byte_interval(line, used_bytes, start, end)
+            else:
+                raise ArgumentError('Illegal list value')
 
         return cut_str
 

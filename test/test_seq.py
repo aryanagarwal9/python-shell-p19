@@ -5,6 +5,7 @@ from collections import deque
 
 from src.shell_commands.commands_visitor import CommandsVisitor
 
+
 class TestSeq(unittest.TestCase):
     def setUp(self) -> None:
         self.out = deque()
@@ -18,5 +19,6 @@ class TestSeq(unittest.TestCase):
         shutil.rmtree(self.directory)
 
     def test_seq_command(self):
-        CommandsVisitor.converter(f'echo hello;cat {self.directory}/test1.txt').eval(None, self.out)
+        CommandsVisitor.converter(
+            f'echo hello;cat {self.directory}/test1.txt').eval(None, self.out)
         self.assertEqual(list(self.out), ['hello\n', 'line1\nline2\nline3'])

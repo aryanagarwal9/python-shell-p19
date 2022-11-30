@@ -12,6 +12,7 @@ from src.applications.app_sort import Sort
 from src.applications.app_tail import Tail
 from src.applications.app_uniq import Uniq
 from src.applications.application import Application
+from src.applications.app_wc import Wc
 from src.applications.unsafe_decorator import UnsafeDecorator
 from src.errors import ApplicationNotSupportedError
 

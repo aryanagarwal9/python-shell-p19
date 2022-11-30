@@ -5,6 +5,7 @@ from collections import deque
 
 from src.shell_commands.commands_visitor import CommandsVisitor
 
+
 class TestPipe(unittest.TestCase):
     def setUp(self) -> None:
         self.out = deque()
@@ -18,5 +19,6 @@ class TestPipe(unittest.TestCase):
         shutil.rmtree(self.directory)
 
     def test_pipe_command(self):
-        CommandsVisitor.converter(f'echo {self.directory}/test* | cat').eval(None, self.out)
+        CommandsVisitor.converter(f'echo {self.directory}/test* | cat').eval(
+            None, self.out)
         self.assertEqual(list(self.out), ['resources/test1.txt\n'])
