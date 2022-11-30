@@ -11,7 +11,8 @@ from src.applications.app_pwd import Pwd
 from src.applications.app_tail import Tail
 from src.applications.application_factory import ApplicationFactory
 from src.applications.unsafe_decorator import UnsafeDecorator
-
+from src.errors import ApplicationNotSupportedError
+from parameterized import parameterized
 
 class TestCat(unittest.TestCase):
 
@@ -38,3 +39,11 @@ class TestCat(unittest.TestCase):
         for name in self.app_types:
             received_app = af.app_by_name('_' + name)
             self.assertIsInstance(received_app, UnsafeDecorator)
+
+    @parameterized.expand([
+        ['unsupported app', 'xyz'],
+        ['unsupported unsafe app', '_xyz']
+    ])
+    def test_application_factory_unsupported_application(self, name, app):
+        af = ApplicationFactory()
+        self.assertRaises(ApplicationNotSupportedError, af.app_by_name, app)

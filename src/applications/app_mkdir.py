@@ -1,9 +1,10 @@
 import os
-from typing import Optional, List
 from collections import deque
+from typing import Optional, List
 
 from src.applications.application import Application
 from src.errors import ArgumentError, DirectoryCreationError
+
 
 class Mkdir(Application):
     def __init__(self):
@@ -49,4 +50,3 @@ class Mkdir(Application):
             error_message += f'{directory}: Parent directories not found\n'
 
         raise DirectoryCreationError(error_message)
-
