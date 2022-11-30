@@ -133,7 +133,7 @@ class TestCommandVisitor(unittest.TestCase):
     #def test_visitor_parse_cancellation_excetion(self):
        # cmdline = "echo '"
        # with self.assertRaises(ParseCancellationException):
-        #    CommandsVisitor.converter(cmdline)
+         #   CommandsVisitor.converter(cmdline)
 
     def test_visitor_multiple_outputs_redirection(self):
         cmdline = 'cat hello > test1.txt > test2.txt '
