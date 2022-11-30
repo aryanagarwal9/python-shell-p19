@@ -13,14 +13,25 @@ class Wc(Application):
                              '-l': self.get_line_count}
 
     def exec(self, args: List[str], stdin: Optional[str], out: deque):
+        """
+        -w flag: return the word count
+        -c flag: return the byte count
+        -l flag: return the newline count
+        """
+
+        # Flag should be provided
         if args[0] in self.flags:
             self.flags[args[0]] = True
         else:
             raise FlagError('No flag provided')
 
+        # First few elements can be flags
         file_names = args[list(self.flags.values()).count(True):]
+
+        # Get the flag being used
         flag_name = [flag for flag in self.flags if self.flags[flag]][0]
 
+        # Call required handler
         if len(file_names):
             self.handle_file_input(file_names, flag_name, out)
         elif stdin is not None:
@@ -30,8 +41,12 @@ class Wc(Application):
 
     def handle_file_input(self, file_names: List[str], flag_name: str,
                           out: deque):
+        """Update out from file input.
+        Takes care to include total count for multiple files
+        """
         num_files = len(file_names)
         total_count = 0
+
         for file_name in file_names:
             with open(file_name, 'r') as file:
                 file_data_count = self.flag_connect[flag_name](file.read())

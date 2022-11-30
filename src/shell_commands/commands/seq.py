@@ -14,5 +14,6 @@ class Seq(Command):
                self.right == other.right
 
     def eval(self, input_cmd: Optional[str], out: deque):
+        # Left and right are evaluated separately
         self.left.eval(input_cmd, out)
         self.right.eval(None, out)

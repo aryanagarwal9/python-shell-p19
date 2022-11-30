@@ -42,6 +42,8 @@ class CommandsVisitor(CommandParserGrammarVisitor):
         return Pipe(self.visit(ctx.left), self.visit(ctx.right))
 
     def get_io_files(self, redirection, input_file, output_file):
+        """Returns input and output files based on redirection operator
+        """
         if redirection.operator.text == '>':
             if output_file is None:
                 return input_file, self.visit(redirection)
@@ -52,28 +54,35 @@ class CommandsVisitor(CommandParserGrammarVisitor):
         raise ParseError('Unnecessary input redirections')
 
     def visitCall(self, ctx: CommandParserGrammar.CallContext):
+        """Visits and returns a call command
+        """
         arguments = self.visit(ctx.argument())
         input_file, output_file = None, None
 
+        # Get input and output files from redirection if available
         for redirection in ctx.redirection():
             input_file, output_file = self.get_io_files(redirection,
                                                         input_file,
                                                         output_file)
 
         for atom in ctx.atom():
+            # Get input and output files from redirection if available
             if atom.redirection() is not None:
                 redirection = atom.redirection()
                 input_file, output_file = self.get_io_files(redirection,
                                                             input_file,
                                                             output_file)
             else:
+                # Add the expanded glob arguments
                 arguments.extend(self.visit(atom.argument()))
 
         return Call(arguments[0], arguments[1:], input_file, output_file)
 
     def visitArgument(self, ctx: CommandParserGrammar.ArgumentContext):
+        """Visit an argument and return a list of expanded glob arguments
+        """
         visited_args = [self.visit(arg) for arg in ctx.argument_content()]
-        final_globbed_args = []
+        expanded_args = []
         split_args = "".join(visited_args).split('\n')
         glob_indices = self.get_glob_indices(ctx.argument_content(),
                                              visited_args, split_args)
@@ -81,14 +90,17 @@ class CommandsVisitor(CommandParserGrammarVisitor):
         for index in range(len(split_args)):
             split_arg = split_args[index]
             if glob_indices[index]:
-                final_globbed_args.extend(self.glob_expand(split_arg))
+                expanded_args.extend(self.glob_expand(split_arg))
             else:
-                final_globbed_args.append(split_arg)
-        return final_globbed_args
+                expanded_args.append(split_arg)
+        return expanded_args
 
     @staticmethod
     def get_glob_indices(argument_content,
                          visited_args: list, split_args: list):
+        """Returns a list of indices where arguments that
+        need to be expanded are marked True
+        """
         glob_indices = [False for i in range(len(split_args))]
         splitting_index = 0
         for arg, visited_arg in zip(argument_content, visited_args):
@@ -110,6 +122,9 @@ class CommandsVisitor(CommandParserGrammarVisitor):
         return files[0]
 
     def visitQuoted(self, ctx: CommandParserGrammar.QuotedContext):
+        """Replaces the whitespaces inside backquotes using newline character
+        as it cannot be used inside backquotes. Useful when splitting arguments
+        """
         if ctx.backQuoted() is not None:
             return re.sub('[\t ]+', '\n', self.visit(ctx.backQuoted()).strip())
         return self.visitChildren(ctx)
@@ -124,6 +139,9 @@ class CommandsVisitor(CommandParserGrammarVisitor):
         return ctx.SQ_MID().getText()
 
     def visitDoubleQuoted(self, ctx: CommandParserGrammar.DoubleQuotedContext):
+        """Need to individually visit elements as interpretation of backquotes
+        is not disabled inside double quotes
+        """
         return "".join(
             self.visit(element) for element in ctx.doubleQuotedElement())
 

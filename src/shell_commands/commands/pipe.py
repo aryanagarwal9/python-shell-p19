@@ -15,5 +15,7 @@ class Pipe(Command):
 
     def eval(self, input_cmd: Optional[str], out: deque):
         temp_deque = deque()
+
+        # Output from the left becomes input for the right
         self.left.eval(input_cmd, temp_deque)
         self.right.eval("".join(temp_deque), out)
