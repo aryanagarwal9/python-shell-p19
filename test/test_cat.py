@@ -34,7 +34,7 @@ class TestCat(unittest.TestCase):
         self.assertEqual(self.out.popleft(), self.files['test1.txt'])
         self.assertEqual(len(self.out), 0)
 
-    def test_cat_with_multiple_files_and_number_flag(self):
+    def test_cat_with_single_file_and_number_flag(self):
         Cat().exec(['-n', self.directory + '/test1.txt'], None, self.out)
 
         result = ['\t1 hello\n\t2 nice\n\t3 to\n\t4 meet\n\t5 you']
