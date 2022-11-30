@@ -4,7 +4,12 @@ import unittest
 import src.shell as shell
 from src.errors import ArgumentError, FlagError
 
+
 class TestShell(unittest.TestCase):
+
+    def test_shell_non_interactive_mode(self):
+        sys.argv = ['/comp0010/sh', '-c', 'echo foo']
+
 
     def test_shell_non_interactive_extra_args(self):
         sys.argv = ['/comp0010/sh', '-c', 'echo foo', 'echo bar']
