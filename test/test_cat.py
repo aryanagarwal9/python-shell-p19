@@ -39,8 +39,7 @@ class TestCat(unittest.TestCase):
 
         result = ['\t1 hello\n\t2 nice\n\t3 to\n\t4 meet\n\t5 you']
 
-        self.assertEqual(self.out.popleft(), result)
-        self.assertEqual(len(self.out), 0)
+        self.assertEqual(list(self.out), result)
 
     def test_cat_with_multiple_files(self):
         Cat().exec(
