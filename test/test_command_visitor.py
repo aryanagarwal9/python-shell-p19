@@ -32,7 +32,7 @@ class TestCommandVisitor(unittest.TestCase):
 
     def test_visitor_one_pipe_command(self):
         cmdline = 'find -name test | grep is'
-        shell_command = CommandsVisitor.converter(cmdline)
+        shell_command = CommandsVisitor().converter(cmdline)
         expected_output = Pipe(Call('find', ['-name', 'test'], None, None),
                                Call('grep', ['is'], None, None))
         self.assertEqual(shell_command, expected_output)
@@ -87,19 +87,7 @@ class TestCommandVisitor(unittest.TestCase):
         self.assertEqual(shell_command, expected_output)
 
     def test_visitor_input_redirection(self):
-        cmdline = "cat < test1.txt"
+        cmdline = 'cat < test1.txt'
         shell_command = CommandsVisitor.converter(cmdline)
-        expected_output = Call('cat', [], "test1.txt", None)
-        self.assertEqual(shell_command, expected_output)
-
-    def test_visitor_output_redirection(self):
-        cmdline = 'echo print > test1.txt'
-        shell_command = CommandsVisitor.converter(cmdline)
-        expected_output = Call('echo', ['print'], None, 'text1.txt')
-        self.assertEqual(shell_command, expected_output)
-
-    def test_visitor_globbing(self):
-        cmdline = 'find -name te*'
-        shell_command = CommandsVisitor.converter(cmdline)
-        expected_output = Call('find', ['-name', 'te*'], None, None)
+        expected_output = Call('cat', [], 'test1.txt', None)
         self.assertEqual(shell_command, expected_output)
