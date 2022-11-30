@@ -62,5 +62,5 @@ class Grep(Application):
 
     def should_append_line(self, pattern: str, line: str) -> None:
         # Choose content based on flag
-        return (not self.flags['-v'] and re.search(pattern, line) is not None) \
+        return (not self.flags['-v'] and re.search(pattern, line) is not None)\
                or (self.flags['-v'] and re.search(pattern, line) is None)

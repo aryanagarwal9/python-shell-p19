@@ -48,7 +48,8 @@ class Head(Application):
         out.extend(self.get_head(file=file, src='file'))
 
     def handle_num_of_lines_and_stdin(self, args: List[str],
-                                      stdin: Optional[str], out: deque) -> None:
+                                      stdin: Optional[str],
+                                      out: deque) -> None:
         """If file not given then read from stdin and
         output the specified number of lines
         """
@@ -64,7 +65,8 @@ class Head(Application):
         out.extend(
             self.get_head(num_lines=num_lines, stdin=stdin, src='stdin'))
 
-    def handle_num_of_lines_and_file(self, args: List[str], out: deque) -> None:
+    def handle_num_of_lines_and_file(self, args: List[str],
+                                     out: deque) -> None:
         """If file and num_lines is given then read from file and
         output the specified number of lines
         """
