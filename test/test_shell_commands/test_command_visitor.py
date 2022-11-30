@@ -3,6 +3,8 @@ import shutil
 import unittest
 from collections import deque
 
+from antlr4.error.Errors import ParseCancellationException
+
 from src.errors import ParseError
 from src.shell_commands.commands.call import Call
 from src.shell_commands.commands.pipe import Pipe
@@ -133,10 +135,10 @@ class TestCommandVisitor(unittest.TestCase):
         self.assertTrue(shell_command == expected_output1
                         or shell_command == expected_output2)
 
-    # def test_visitor_parse_cancellation_excetion(self):
-    # cmdline = "echo '"
-    # with self.assertRaises(ParseCancellationException):
-    #   CommandsVisitor.converter(cmdline)
+    def test_visitor_parse_cancellation_exception(self):
+        cmdline = "cat `"
+        self.assertRaises(ParseCancellationException,
+                          CommandsVisitor.converter, cmdline)
 
     def test_visitor_multiple_outputs_redirection(self):
         cmdline = 'cat hello > test1.txt > test2.txt '

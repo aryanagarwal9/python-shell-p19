@@ -30,5 +30,5 @@ class TestShell(unittest.TestCase):
     def test_shell_eval(self):
         out = deque()
         shell.eval('echo foo', out)
-
+        
         self.assertEqual(out.popleft(), 'foo\n')
