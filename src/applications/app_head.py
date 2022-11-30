@@ -89,7 +89,6 @@ class Head(Application):
         if src == 'file':
             lines = get_lines(src, file=file)
         elif src == 'stdin':
-            print('at stdin')
             lines = get_lines(src, stdin=stdin)
         else:
             raise SourceError("No source given")

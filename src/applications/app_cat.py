@@ -24,17 +24,15 @@ class Cat(Application):
         for file_name in args:
             with open(file_name, 'r') as file:
                 file_content = [
-                    f'\t{line_count} {line}' if self.flags['-n'] else line
-                    for line_count, line in
-                    enumerate(file.readlines(), start=1)]
+                    f'\t{line_count} {line}' if self.flags['-n'] else line for
+                    line_count, line in enumerate(file.readlines(), start=1)]
             out.append("".join(file_content))
 
     def handle_stdin_argument(self, stdin: Optional[str], out: deque):
         if stdin is None:
-            raise ArgumentError('no arguments or stdin provided')
+            raise ArgumentError('No arguments or stdin provided')
 
         stdin = stdin.splitlines(True)
-        temp_output = [f'{line_count} {line}' if self.flags['-n'] else line for
-                       line_count, line in enumerate(stdin, start=1)]
+        temp_output = [f'\t{line_count} {line}' if self.flags['-n'] else line
+                       for line_count, line in enumerate(stdin, start=1)]
         out.append("".join(temp_output))
-
