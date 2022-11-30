@@ -30,6 +30,7 @@ class Mkdir(Application):
     def handle_directory_creation(self, args: List[str], out: deque):
         dir_exists, parent_dirs_nonexistent = list(), list()
         make_dir = self.get_makedir()
+
         # First few elements can be flags
         new_dirs = args[list(self.flags.values()).count(True):]
 

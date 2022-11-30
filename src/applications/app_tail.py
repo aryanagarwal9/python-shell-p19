@@ -7,11 +7,11 @@ from src.utils import check_flag, is_stdin_available, get_lines
 
 
 class Tail(Application):
-    def exec(self, args: List[str], stdin: Optional[str], out: deque):
+    def exec(self, args: List[str], stdin: Optional[str], out: deque) -> None:
         self.call_required_function(args, stdin, out)
 
     def call_required_function(self, args: List[str], stdin: Optional[str],
-                               out: deque):
+                               out: deque) -> None:
         """Checks the number of args given and handles each case
         """
 
@@ -28,7 +28,7 @@ class Tail(Application):
         else:
             raise ArgumentError("Invalid number of arguments")
 
-    def handle_only_stdin(self, stdin: str, out):
+    def handle_only_stdin(self, stdin: str, out) -> None:
         """If only stdin is given, output the last 10 lines
          """
         # Validate parameters
@@ -37,7 +37,7 @@ class Tail(Application):
         # Add tail to output
         out.extend(self.get_tail(stdin=stdin, src='stdin'))
 
-    def handle_only_file_input(self, args: List[str], out: deque):
+    def handle_only_file_input(self, args: List[str], out: deque) -> None:
         """If only file name is given, output the last 10 lines
         """
 
@@ -48,7 +48,8 @@ class Tail(Application):
         out.extend(self.get_tail(file=file, src='file'))
 
     def handle_num_of_lines_and_stdin(self, args: List[str],
-                                      stdin: Optional[str], out: deque):
+                                      stdin: Optional[str],
+                                      out: deque) -> None:
         """If file not given then read from stdin and
         output the specified number of lines
         """
@@ -64,7 +65,7 @@ class Tail(Application):
         out.extend(
             self.get_tail(num_lines=num_lines, stdin=stdin, src='stdin'))
 
-    def handle_num_of_lines_and_file(self, args: List[str], out: deque):
+    def handle_num_of_lines_and_file(self, args: List[str], out: deque) -> None:
         """If file and num_lines is given then read from file and
         output the specified number of lines
         """
