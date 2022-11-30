@@ -81,9 +81,9 @@ class TestCommandVisitor(unittest.TestCase):
         self.assertEqual(shell_command, expected_output)
 
     def test_visitor_single_quote_disabled_globbing(self):
-        cmdline = "find -name te*"
+        cmdline = "echo 'tes*'"
         shell_command = CommandsVisitor.converter(cmdline)
-        expected_output = Call("find", ['name', 'te*'], None, None)
+        expected_output = Call("echo", ['tes*'], None, None)
         self.assertEqual(shell_command, expected_output)
 
     def test_visitor_double_quoted(self):
@@ -96,9 +96,7 @@ class TestCommandVisitor(unittest.TestCase):
         cmdline = 'echo "Hello `cat test1.txt`"'
         shell_command = CommandsVisitor.converter(cmdline)
         expected_output = Call('echo',
-                               ['Hello', 'This', 'is', 'a', 'testing', 'file',
-                                'for',
-                                'command', 'visitor'], None, None)
+                               ['Hello This is a testing file for command visitor '], None, None)
         self.assertEqual(shell_command, expected_output)
 
     def test_visitor_unquoted(self):
@@ -119,7 +117,6 @@ class TestCommandVisitor(unittest.TestCase):
         expected_output = Call('sort', [], "test1.txt", None)
         self.assertEqual(shell_command, expected_output)
 
-
     def test_visitor_output_redirection(self):
         cmdline = 'echo print > test1.txt'
         shell_command = CommandsVisitor.converter(cmdline)
@@ -138,7 +135,16 @@ class TestCommandVisitor(unittest.TestCase):
        # with self.assertRaises(ParseCancellationException):
         #    CommandsVisitor.converter(cmdline)
 
-    def test_visitor_many_inputs_parse_error(self):
+    def test_visitor_multiple_outputs_redirection(self):
         cmdline = 'cat hello > test1.txt > test2.txt '
         with self.assertRaises(ParseError):
             CommandsVisitor.converter(cmdline)
+
+    def test_visitor_multiple_inputs_redirection(self):
+        cmdline = 'cat < test1.txt < test2.txt '
+        with self.assertRaises(ParseError):
+            CommandsVisitor.converter(cmdline)
+
+
+
+
