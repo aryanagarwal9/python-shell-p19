@@ -17,7 +17,7 @@ def is_stdin_available(stdin: Optional[str]):
     return True
 
 
-def get_lines(src, file=None, stdin=None) -> list:
+def get_lines(src: str, file=None, stdin=None) -> list:
     """Return a list of lines based on the source"""
     if src == 'file':
         with open(file) as f:

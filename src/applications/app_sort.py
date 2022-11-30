@@ -11,11 +11,16 @@ class Sort(Application):
         self.flags = {'-r': False}
 
     def exec(self, args: list, stdin: Optional[str], out: deque):
+        """
+        -r flag: reverse the result of comparisons
+        """
         if len(args) > 2:
             raise ArgumentError('Wrong number of arguments')
 
+        # Check for flag
         self.flags['-r'] = len(args) and args[0] == '-r'
 
+        # Call required handler
         if self.is_file_input_available(args):
             self.handle_file_input(args, out)
         elif self.is_stdin_available(stdin):
@@ -25,6 +30,7 @@ class Sort(Application):
 
     def handle_file_input(self, args: list, out: deque):
         file_name = args[0] if len(args) == 1 else args[1]
+
         with open(file_name, 'r') as file:
             for line in sorted(file.readlines(), reverse=self.flags['-r']):
                 out.append(line) if line.endswith('\n') else out.append(
@@ -35,9 +41,11 @@ class Sort(Application):
             out.append(line + '\n')
 
     def is_file_input_available(self, args: list):
+        # Flag should be at the right position
         if len(args) > 1:
             check_flag(args[0], '-r')
             return True
+
         return len(args) and not self.flags['-r']
 
     @staticmethod
