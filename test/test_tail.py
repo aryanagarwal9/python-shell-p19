@@ -89,7 +89,3 @@ class TestTail(unittest.TestCase):
         app = Tail()
         self.assertRaises(ArgumentError, app.exec, args=['a', 'b', 'c', 'd'],
                           stdin=None, out=self.out)
-
-    def test_get_head_without_src(self):
-        app = Tail()
-        self.assertRaises(SourceError, app.get_tail, src=None)
