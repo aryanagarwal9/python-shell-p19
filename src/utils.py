@@ -22,7 +22,7 @@ def get_lines(src, file=None, stdin=None) -> list:
     if src == 'file':
         with open(file) as f:
             lines = f.readlines()
-    elif src == 'stdin':
+    else:
         is_stdin_available(stdin)
         lines = stdin.splitlines(True)
 
