@@ -20,3 +20,17 @@ class StandardInputError(ShellErrors):
     pass
 
 
+class ParseError(ShellErrors):
+    pass
+
+
+class DirectoryCreationError(ShellErrors):
+    pass
+
+
+class SourceError(ShellErrors):
+    pass
+
+
+class ApplicationNotSupportedError(ShellErrors):
+    pass

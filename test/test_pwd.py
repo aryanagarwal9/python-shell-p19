@@ -2,7 +2,8 @@ import os
 import unittest
 from collections import deque
 
-from applications.app_pwd import Pwd
+from src.applications.app_pwd import Pwd
+
 
 class TestPwd(unittest.TestCase):
     def setUp(self) -> None:
@@ -10,7 +11,5 @@ class TestPwd(unittest.TestCase):
 
     def test_pwd_command(self):
         Pwd().exec([], None, self.out)
-        self.assertEqual(self.out.popleft(), os.getcwd())
+        self.assertEqual(self.out.popleft(), os.getcwd() + '\n')
         self.assertEqual(len(self.out), 0)
-
-

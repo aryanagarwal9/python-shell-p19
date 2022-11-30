@@ -1,37 +1,56 @@
 from collections import deque
-from typing import Optional
-from utils import check_flag
-from errors import FlagError
-from applications.application import Application
+from typing import Optional, List
+
+from src.applications.application import Application
+from src.errors import ArgumentError
+from src.utils import check_flag
 
 
 class Sort(Application):
-    def exec(self, args: list, stdin: Optional[str], out: deque):
-        reverse = len(args) and args[0] == '-r'
+    def __init__(self):
+        self.flags = {'-r': False}
+
+    def exec(self, args: List[str], stdin: Optional[str], out: deque) -> None:
+        """
+        -r flag: reverse the result of comparisons
+        """
+        if len(args) > 2:
+            raise ArgumentError('Wrong number of arguments')
+
+        # Check for flag
+        self.flags['-r'] = len(args) and args[0] == '-r'
+
+        self.call_required_function(args, stdin, out)
+
+    def call_required_function(self, args: List[str], stdin: Optional[str],
+                               out: deque):
         if self.is_file_input_available(args):
-            self.handle_file_input(args, out, reverse=reverse)
-
+            self.handle_file_input(args, out)
         elif self.is_stdin_available(stdin):
-            self.handle_stdin(stdin, out, reverse=reverse)
-
+            self.handle_stdin(stdin, out)
         else:
-            raise ValueError('no arguments or stdin')
+            raise ArgumentError('No arguments or stdin')
 
-    def is_file_input_available(self, args: list):
+    def handle_file_input(self, args: List[str], out: deque) -> None:
+        file_name = args[0] if len(args) == 1 else args[1]
+
+        with open(file_name, 'r') as file:
+            for line in sorted(file.readlines(), reverse=self.flags['-r']):
+                out.append(line) if line.endswith('\n') else out.append(
+                    line + '\n')
+
+    def handle_stdin(self, stdin: Optional[str], out: deque) -> None:
+        for line in sorted(stdin.splitlines(), reverse=self.flags['-r']):
+            out.append(line + '\n')
+
+    def is_file_input_available(self, args: List[str]) -> bool:
+        # Flag should be at the right position
         if len(args) > 1:
             check_flag(args[0], '-r')
             return True
-        return len(args) and args[0] != '-r'
 
-    def is_stdin_available(self, stdin: Optional[str]):
+        return len(args) and not self.flags['-r']
+
+    @staticmethod
+    def is_stdin_available(stdin: Optional[str]) -> bool:
         return stdin is not None
-
-    def handle_file_input(self, args: list, out: deque, reverse: bool):
-        file_name = args[0] if len(args) == 1 else args[1]
-        with open(file_name,'r') as file:
-            for line in sorted(file.readlines(), reverse=reverse):
-                out.append(line) if line.endswith('\n') else out.append(line+'\n')
-
-    def handle_stdin(self, stdin: Optional[str], out: deque, reverse: bool):
-        for line in sorted(stdin.split('\n'), reverse=reverse):
-            out.append(line + '\n')

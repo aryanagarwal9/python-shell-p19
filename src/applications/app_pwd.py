@@ -1,12 +1,10 @@
 import os
-from typing import Optional
 from collections import deque
+from typing import Optional, List
 
-from applications.application import Application
+from src.applications.application import Application
+
 
 class Pwd(Application):
-    def exec(self, args: list, stdin: Optional[str], out: deque):
-        out.append(os.getcwd())
-
-
-
+    def exec(self, args: List[str], stdin: Optional[str], out: deque) -> None:
+        out.append(os.getcwd()+'\n')
