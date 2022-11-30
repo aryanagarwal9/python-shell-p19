@@ -28,7 +28,7 @@ class Tail(Application):
         else:
             raise ArgumentError("Invalid number of arguments")
 
-    def handle_only_stdin(self, stdin: str, out):
+    def handle_only_stdin(self, stdin: Optional[str], out):
         """If only stdin is given, output the last 10 lines
          """
         # Validate parameters
@@ -81,7 +81,7 @@ class Tail(Application):
 
     @staticmethod
     def get_tail(num_lines: int = 10, file: str = None,
-                 stdin: str = None, src: str = 'file') -> List[str]:
+                 stdin: Optional[str] = None, src: str = 'file') -> List[str]:
         """Returns tail based on src and number of lines"""
 
         res = []

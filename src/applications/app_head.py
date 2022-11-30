@@ -7,11 +7,11 @@ from src.utils import check_flag, is_stdin_available, get_lines
 
 
 class Head(Application):
-    def exec(self, args: List[str], stdin: Optional[str], out: deque):
+    def exec(self, args: List[str], stdin: Optional[str], out: deque) -> None:
         self.call_required_function(args, stdin, out)
 
     def call_required_function(self, args: List[str], stdin: Optional[str],
-                               out: deque):
+                               out: deque) -> None:
         """Checks the number of args given and handles each case
         """
 
@@ -28,7 +28,7 @@ class Head(Application):
         else:
             raise ArgumentError("Invalid number of arguments")
 
-    def handle_only_stdin(self, stdin: str, out):
+    def handle_only_stdin(self, stdin: Optional[str], out) -> None:
         """If only stdin is given, output the first 10 lines
          """
         # Validate parameters
@@ -37,7 +37,7 @@ class Head(Application):
         # Add head to output
         out.extend(self.get_head(stdin=stdin, src='stdin'))
 
-    def handle_only_file_input(self, args: List[str], out: deque):
+    def handle_only_file_input(self, args: List[str], out: deque) -> None:
         """If only file name is given, output the first 10 lines
         """
 
@@ -48,7 +48,7 @@ class Head(Application):
         out.extend(self.get_head(file=file, src='file'))
 
     def handle_num_of_lines_and_stdin(self, args: List[str],
-                                      stdin: Optional[str], out: deque):
+                                      stdin: Optional[str], out: deque) -> None:
         """If file not given then read from stdin and
         output the specified number of lines
         """
@@ -64,7 +64,7 @@ class Head(Application):
         out.extend(
             self.get_head(num_lines=num_lines, stdin=stdin, src='stdin'))
 
-    def handle_num_of_lines_and_file(self, args: List[str], out: deque):
+    def handle_num_of_lines_and_file(self, args: List[str], out: deque) -> None:
         """If file and num_lines is given then read from file and
         output the specified number of lines
         """
@@ -81,7 +81,7 @@ class Head(Application):
 
     @staticmethod
     def get_head(num_lines: int = 10, file: str = None,
-                 stdin: str = None, src: str = 'file') -> List[str]:
+                 stdin: Optional[str] = None, src: str = 'file') -> List[str]:
         """Returns head based on src and number of lines"""
 
         res = []

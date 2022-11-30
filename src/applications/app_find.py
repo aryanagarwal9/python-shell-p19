@@ -10,7 +10,7 @@ from src.errors import ArgumentError
 
 
 class Find(Application):
-    def exec(self, args: list, stdin: Optional[str], out: deque):
+    def exec(self, args: list, stdin: Optional[str], out: deque) -> None:
         # If no path is provided
         if len(args) == 2:
             check_flag(args[0], '-name')
@@ -24,7 +24,7 @@ class Find(Application):
 
         self.find_files(args, out)
 
-    def find_files(self, args: list, out: deque):
+    def find_files(self, args: list, out: deque) -> None:
         """Output the files inside the directory whose name matches the pattern
         """
         path = '.' if args[0] == '-name' else args[0]
@@ -38,7 +38,7 @@ class Find(Application):
             out.append(filename + '\n')
 
     @staticmethod
-    def match_current_dir(path, pattern, out):
+    def match_current_dir(path: str, pattern: str, out: deque) -> None:
         """Check if the current directory matches the given pattern
         """
         pattern = pattern.lstrip('*')

@@ -8,7 +8,7 @@ class Echo(Application):
     def __init__(self):
         self.flags = {'-n': False}
 
-    def exec(self, args: list, stdin: Optional[str], out: deque):
+    def exec(self, args: list, stdin: Optional[str], out: deque) -> None:
         """
         -n flag: do not output the trailing newline
         """

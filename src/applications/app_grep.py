@@ -6,11 +6,12 @@ from src.applications.application import Application
 from src.errors import ArgumentError
 from src.utils import get_lines
 
+
 class Grep(Application):
     def __init__(self):
         self.flags = {'-v': False}
 
-    def exec(self, args: list, stdin: Optional[str], out: deque):
+    def exec(self, args: list, stdin: Optional[str], out: deque) -> None:
         """
         -v flag: Invert the sense of matching, to select non-matching lines.
         """
@@ -20,7 +21,7 @@ class Grep(Application):
         self.call_required_function(args, stdin, out)
 
     def call_required_function(self, args: list, stdin: Optional[str],
-                               out: deque):
+                               out: deque) -> None:
         """check the number of args given and handle each case
         """
 
@@ -36,7 +37,8 @@ class Grep(Application):
         else:
             raise ArgumentError('No arguments or stdin')
 
-    def handle_stdin(self, pattern: str, stdin: Optional[str], out: deque):
+    def handle_stdin(self, pattern: str, stdin: Optional[str],
+                     out: deque) -> None:
         """If file not given then read from stdin and
         output the lines matching the pattern
         """
@@ -44,7 +46,7 @@ class Grep(Application):
             if self.should_append_line(pattern, input_string):
                 out.append(input_string + '\n')
 
-    def handle_file_input(self, pattern: str, args: list, out: deque):
+    def handle_file_input(self, pattern: str, args: list, out: deque) -> None:
         """If file given, then output lines matching the pattern grouped by
         files
         """
@@ -58,7 +60,7 @@ class Grep(Application):
                     else:
                         out.append(line.rstrip() + '\n')
 
-    def should_append_line(self, pattern: str, line: str):
+    def should_append_line(self, pattern: str, line: str) -> None:
         # Choose content based on flag
-        return (not self.flags['-v'] and re.search(pattern, line) is not None)\
+        return (not self.flags['-v'] and re.search(pattern, line) is not None) \
                or (self.flags['-v'] and re.search(pattern, line) is None)

@@ -9,7 +9,7 @@ class Cat(Application):
     def __init__(self):
         self.flags = {'-n': False}
 
-    def exec(self, args: List[str], stdin: Optional[str], out: deque):
+    def exec(self, args: List[str], stdin: Optional[str], out: deque) -> None:
         """
         -n flag: number all the output lines
         """
@@ -23,7 +23,7 @@ class Cat(Application):
         else:
             self.handle_stdin_argument(stdin, out)
 
-    def handle_file_arguments(self, args: List[str], out: deque):
+    def handle_file_arguments(self, args: List[str], out: deque) -> None:
         """If file name is given, concatenate all the files and output
         """
 
@@ -38,7 +38,7 @@ class Cat(Application):
                     line_count, line in enumerate(file.readlines(), start=1)]
             out.append("".join(file_content))
 
-    def handle_stdin_argument(self, stdin: Optional[str], out: deque):
+    def handle_stdin_argument(self, stdin: Optional[str], out: deque) -> None:
         """If file not given then read from stdin and
         output the lines
         """

@@ -57,7 +57,7 @@ class Wc(Application):
         if num_files > 1:
             out.append(f'\t{total_count} total\n')
 
-    def handle_stdin(self, stdin: str, flag_name: str, out: deque):
+    def handle_stdin(self, stdin: Optional[str], flag_name: str, out: deque):
         out.append(f'\t{self.flag_connect[flag_name](stdin)}\n')
 
     @staticmethod

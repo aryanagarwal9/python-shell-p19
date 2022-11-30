@@ -8,11 +8,11 @@ from src.utils import check_flag, get_lines
 
 
 class Cut(Application):
-    def exec(self, args: List[str], stdin: Optional[str], out: deque):
+    def exec(self, args: List[str], stdin: Optional[str], out: deque) -> None:
         self.call_required_function(args, stdin, out)
 
     def call_required_function(self, args: List[str], stdin: Optional[str],
-                               out: deque):
+                               out: deque) -> None:
         """check the number of args given and handle each case
         """
 
@@ -26,7 +26,7 @@ class Cut(Application):
             raise ArgumentError("Invalid number of arguments")
 
     def handle_cut_str(self, args: List[str], out: deque, src: str,
-                       stdin: Optional[str] = None):
+                       stdin: Optional[str] = None) -> None:
         """Validate the arguments and output the specified number of lines
         """
 
@@ -64,7 +64,7 @@ class Cut(Application):
         if match is not None:
             raise ArgumentError('Illegal list value')
 
-    def get_cut_str(self, line, byte_order) -> str:
+    def get_cut_str(self, line: str, byte_order: list) -> str:
         """Generic function for getting cut string from
         single byte, open interval, or closed interval"""
         cut_str = ''
@@ -91,7 +91,7 @@ class Cut(Application):
         return cut_str
 
     @staticmethod
-    def cut_single_byte(byte, line, used_bytes) -> str:
+    def cut_single_byte(byte, line: str, used_bytes: list) -> str:
         """Returns the cut string for a single byte"""
         cut_str = ''
         byte = int(byte)
@@ -103,7 +103,8 @@ class Cut(Application):
         return cut_str
 
     @staticmethod
-    def cut_byte_interval(line, used_bytes, start, end) -> str:
+    def cut_byte_interval(line: str, used_bytes: list, start: int,
+                          end: int) -> str:
         """Returns cut string for closed or open byte intervals"""
         cut_str = ''
 

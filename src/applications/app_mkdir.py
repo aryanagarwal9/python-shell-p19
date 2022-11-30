@@ -1,6 +1,6 @@
 import os
 from collections import deque
-from typing import Optional, List
+from typing import Optional, List, Callable
 
 from src.applications.application import Application
 from src.errors import ArgumentError, DirectoryCreationError
@@ -10,7 +10,7 @@ class Mkdir(Application):
     def __init__(self):
         self.flags = {'-p': False, '-v': False}
 
-    def exec(self, args: List[str], stdin: Optional[str], out: deque):
+    def exec(self, args: List[str], stdin: Optional[str], out: deque) -> None:
         """
         -p flag: no error if directory exists, make parent directories as
         needed
@@ -27,7 +27,7 @@ class Mkdir(Application):
 
         self.handle_directory_creation(args, out)
 
-    def handle_directory_creation(self, args: List[str], out: deque):
+    def handle_directory_creation(self, args: List[str], out: deque) -> None:
         dir_exists, parent_dirs_nonexistent = list(), list()
         make_dir = self.get_makedir()
         # First few elements can be flags
@@ -47,12 +47,14 @@ class Mkdir(Application):
         if len(dir_exists) or len(parent_dirs_nonexistent):
             self.handle_errors(dir_exists, parent_dirs_nonexistent)
 
-    def get_makedir(self):
-        # Choose function based on the flag
+    def get_makedir(self) -> Callable:
+        """Choose function based on the flag
+        """
         return os.makedirs if self.flags['-p'] else os.mkdir
 
     @staticmethod
-    def handle_errors(dir_exists, parent_dirs_non_existent):
+    def handle_errors(dir_exists: List[str],
+                      parent_dirs_non_existent: List[str]) -> None:
         """Raises exception and provides appropriate error messages
         """
         error_message = ''
