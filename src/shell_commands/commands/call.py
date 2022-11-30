@@ -12,7 +12,6 @@ class Call(Command):
         self.args = args
         self.input_file = input_file
         self.output_file = output_file
-        print(app, args, input_file, output_file)
 
     def __eq__(self, other):
         return self.app == other.app and \
