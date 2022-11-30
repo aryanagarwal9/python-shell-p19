@@ -31,7 +31,6 @@ class ApplicationFactory:
                           'uniq': Uniq,
                           'cut': Cut,
                           'mkdir': Mkdir,
-                          'wc': Wc
                           }
 
     def app_by_name(self, name: str) -> Application:
