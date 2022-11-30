@@ -36,7 +36,7 @@ jobs:
 
       - name: Run System Tests
         run: |
-          #docker build -t shell .
+          docker build -t shell .
           docker build -t comp0010-system-test .
           python system_test/tests.py -v
 
@@ -45,7 +45,7 @@ jobs:
 
       - name: Check Coverage
         run: |
-          coverage run --branch --omit='src/shell_commands/grammar/*','/opt/*' -m nose2 test
+          coverage run --branch --omit='src/src/shell_commands/grammar/*','/opt/*' -m nose2 test
           coverage report --fail-under=95
           
         
