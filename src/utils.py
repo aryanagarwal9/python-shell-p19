@@ -10,7 +10,7 @@ def check_flag(arg: str, flag: str):
     return True
 
 
-def is_stdin_available(stdin: Optional[list]):
+def is_stdin_available(stdin: Optional[str]):
     if stdin is None:
         raise StandardInputError("No input given")
 
