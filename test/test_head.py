@@ -6,7 +6,8 @@ from collections import deque
 from parameterized import parameterized
 
 from src.applications.app_head import Head
-from src.errors import ArgumentError, FlagError, StandardInputError
+from src.errors import ArgumentError, FlagError, StandardInputError, \
+    SourceError
 
 
 class TestHead(unittest.TestCase):
@@ -17,9 +18,9 @@ class TestHead(unittest.TestCase):
         os.mkdir(self.directory)
 
         self.files = {
-            'test1.txt': 'Line 1\nLine 2\nLine 3',
+            'test1.txt': 'Line 1\nLine 2\nLine 3\n',
             'test2.txt': 'Line 1\nLine 2\nLine 3\nLine 4\nLine 5\nLine 6\n'
-                         'Line 7\nLine 8\nLine 9\nLine 10\nLine 11',
+                         'Line 7\nLine 8\nLine 9\nLine 10\nLine 11\n',
         }
 
         for file_name in self.files:
@@ -54,10 +55,10 @@ class TestHead(unittest.TestCase):
     @parameterized.expand([
         ['zeroLinesInArgs', ['-n', '0'], 'Line 2\nLine 3', []],
         ['lessLinesInArgs', ['-n', '1'], 'Line 2\nLine 3', ['Line 2\n']],
-        ['moreLinesInArgs', ['-n', '3'], 'Line 2\nLine 3',
+        ['moreLinesInArgs', ['-n', '3'], 'Line 2\nLine 3\n',
          ['Line 2\n', 'Line 3\n']],
         ['equalLinesInArgs', ['-n', '2'], 'Line 2\nLine 3',
-         ['Line 2\n', 'Line 3\n']],
+         ['Line 2\n', 'Line 3']],
         ['newLineAtEndOfStr', ['-n', '2'], 'Line 2\nLine 3\n',
          ['Line 2\n', 'Line 3\n']]
     ])
@@ -70,7 +71,7 @@ class TestHead(unittest.TestCase):
         ['fileWithMoreThan10Lines', '1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11',
          ['1\n', '2\n', '3\n', '4\n', '5\n', '6\n',
           '7\n', '8\n', '9\n', '10\n']],
-        ['fileWithLessThan10Lines', '1\n2\n3', ['1\n', '2\n', '3\n']]
+        ['fileWithLessThan10Lines', '1\n2\n3\n', ['1\n', '2\n', '3\n']]
     ])
     def test_head_with_only_stdin(self, name, stdin, result):
         Head().exec(args=[], stdin=stdin, out=self.out)
@@ -90,3 +91,7 @@ class TestHead(unittest.TestCase):
         app = Head()
         self.assertRaises(ArgumentError, app.exec, args=['1', '2', '3', '4'],
                           stdin=None, out=self.out)
+
+    def test_get_head_without_src(self):
+        app = Head()
+        self.assertRaises(SourceError, app.get_head, src=None)

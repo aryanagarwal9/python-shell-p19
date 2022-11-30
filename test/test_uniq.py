@@ -6,7 +6,7 @@ from collections import deque
 from parameterized import parameterized
 
 from src.applications.app_uniq import Uniq
-from src.errors import FlagError, ArgumentError
+from src.errors import ArgumentError
 
 
 class TestUniq(unittest.TestCase):
