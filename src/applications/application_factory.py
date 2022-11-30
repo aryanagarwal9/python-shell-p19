@@ -36,11 +36,16 @@ class ApplicationFactory:
                           }
 
     def app_by_name(self, name: str) -> Application:
+        """Returns the corresponding object using application name
+        """
+
+        # Check if name is a supported application
         if (name.startswith('_') and name[1:] not in self.app_types) or (
                 not name.startswith('_') and name not in self.app_types):
             raise ApplicationNotSupportedError(
                 'Application currently not supported by the shell')
 
+        # Unsafe application version
         if name.startswith('_'):
             return self.get_unsafe_app_object(name)
         return self.app_types[name]()

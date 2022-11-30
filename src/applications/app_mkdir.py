@@ -11,9 +11,17 @@ class Mkdir(Application):
         self.flags = {'-p': False, '-v': False}
 
     def exec(self, args: List[str], stdin: Optional[str], out: deque):
+        """
+        -p flag: no error if directory exists, make parent directories as
+        needed
+        -v flag: print a message for each created directory
+        """
+
+        # Either no argument or everything is a flag
         if not len(args) or all(arg in self.flags for arg in args):
             raise ArgumentError('No directory names provided')
 
+        # Check for flags
         self.flags['-p'] = '-p' in args[:2]
         self.flags['-v'] = '-v' in args[:2]
 
@@ -22,7 +30,10 @@ class Mkdir(Application):
     def handle_directory_creation(self, args: List[str], out: deque):
         dir_exists, parent_dirs_nonexistent = list(), list()
         make_dir = self.get_makedir()
+
+        # First few elements can be flags
         new_dirs = args[list(self.flags.values()).count(True):]
+
         for new_dir in new_dirs:
             if not os.path.isdir(new_dir):
                 try:
@@ -38,10 +49,13 @@ class Mkdir(Application):
             self.handle_errors(dir_exists, parent_dirs_nonexistent)
 
     def get_makedir(self):
+        # Choose function based on the flag
         return os.makedirs if self.flags['-p'] else os.mkdir
 
     @staticmethod
     def handle_errors(dir_exists, parent_dirs_non_existent):
+        """Raises exception and provides appropriate error messages
+        """
         error_message = ''
         for directory in dir_exists:
             error_message += f'{directory}: Directory already exists\n'

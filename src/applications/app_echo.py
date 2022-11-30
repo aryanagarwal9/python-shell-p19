@@ -9,8 +9,12 @@ class Echo(Application):
         self.flags = {'-n': False}
 
     def exec(self, args: list, stdin: Optional[str], out: deque):
-        if len(args) and args[0] == '-n':
-            self.flags['-n'] = True
+        """
+        -n flag: do not output the trailing newline
+        """
+
+        # Check for flag
+        self.flags['-n'] = len(args) and args[0] == '-n'
 
         if self.flags['-n']:
             out.append(" ".join(args[1:]))

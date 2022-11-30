@@ -9,7 +9,7 @@ class Uniq(Application):
     def __init__(self):
         self.flags = {'-i': False}
 
-    def exec(self, args: list, stdin: Optional[str], out: deque):
+    def exec(self, args: List[str], stdin: Optional[str], out: deque) -> None:
         if len(args) > 2:
             raise ArgumentError("Invalid number of arguments")
 
@@ -22,7 +22,7 @@ class Uniq(Application):
         self.call_required_function(args, stdin, out)
 
     def call_required_function(self, args: List[str], stdin: Optional[str],
-                               out: deque):
+                               out: deque) -> None:
         self.flags['-i'] = len(args) and args[0] == '-i'
         if (len(args) > 1 and self.flags['-i']) or (
                 len(args) and not self.flags['-i']):
@@ -30,7 +30,7 @@ class Uniq(Application):
         else:
             self.handle_stdin_input(stdin, out)
 
-    def handle_file_input(self, args: list, out: deque):
+    def handle_file_input(self, args: List[str], out: deque) -> None:
         file_name = args[0] if not self.flags['-i'] else args[1]
         with open(file_name, 'r') as file:
             for line in file.readlines():
@@ -38,7 +38,7 @@ class Uniq(Application):
                 if prev_line is None or prev_line != temp_line:
                     out.append(line)
 
-    def handle_stdin_input(self, stdin: Optional[str], out: deque):
+    def handle_stdin_input(self, stdin: Optional[str], out: deque) -> None:
         stdin_input = stdin.splitlines()
         for line in stdin_input:
             temp_line, prev_line = self.get_required_lines(line, out)
