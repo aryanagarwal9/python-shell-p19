@@ -5,6 +5,7 @@ from src.shell_commands.commands_visitor import CommandsVisitor
 from src.shell_commands.commands.pipe import Pipe
 from src.shell_commands.commands.call import Call
 from src.shell_commands.commands.seq import Seq
+from src.errors import ParseError
 
 import unittest
 from collections import deque
@@ -19,7 +20,8 @@ class TestCommandVisitor(unittest.TestCase):
         os.chdir(self.directory)
 
         self.files = {
-            'test1.txt': 'This\nis\na\ntesting\nfile\nfor\ncommand\nvisitor\n'
+            'test1.txt': 'This\nis\na\ntesting\nfile\nfor\ncommand\nvisitor\n',
+            'test2.txt': 'This\nis\ntesting\nfile2\nfor\ncommand\nvisitor\n'
         }
 
         for file_name in self.files:
@@ -66,17 +68,36 @@ class TestCommandVisitor(unittest.TestCase):
                               Call('cat', ['test1.txt'], None, None))
         self.assertEqual(shell_command, expected_output)
 
-    def test_visitor_single_quote(self):
+    def test_visitor_single_quoted(self):
         cmdline = "echo 'hello world'"
         shell_command = CommandsVisitor.converter(cmdline)
         expected_output = Call('echo', ['hello world'], None, None)
         self.assertEqual(shell_command, expected_output)
 
+    def test_visitor_back_quote_in_single_quote(self):
+        cmdline = "echo 'Hello `cat test1.txt`'"
+        shell_command = CommandsVisitor.converter(cmdline)
+        expected_output = Call('echo', ['Hello `cat test1.txt`'], None, None)
+        self.assertEqual(shell_command, expected_output)
+
+    def test_visitor_single_quote_disabled_globbing(self):
+        cmdline = "find -name te*"
+        shell_command = CommandsVisitor.converter(cmdline)
+        expected_output = Call("find", ['name', 'te*'], None, None)
+        self.assertEqual(shell_command, expected_output)
+
+    def test_visitor_double_quoted(self):
+        cmdline = 'grep test "text1.txt"'
+        shell_command = CommandsVisitor.converter(cmdline)
+        expected_output = Call('grep', ['test', "text1.txt"], None, None)
+        self.assertEqual(shell_command, expected_output)
+
     def test_visitor_back_quote_in_double_quote(self):
-        cmdline = "echo `cat test1.txt`"
+        cmdline = 'echo "Hello `cat test1.txt`"'
         shell_command = CommandsVisitor.converter(cmdline)
         expected_output = Call('echo',
-                               ['This', 'is', 'a', 'testing', 'file', 'for',
+                               ['Hello', 'This', 'is', 'a', 'testing', 'file',
+                                'for',
                                 'command', 'visitor'], None, None)
         self.assertEqual(shell_command, expected_output)
 
@@ -91,3 +112,16 @@ class TestCommandVisitor(unittest.TestCase):
         shell_command = CommandsVisitor.converter(cmdline)
         expected_output = Call('cat', [], 'test1.txt', None)
         self.assertEqual(shell_command, expected_output)
+
+    def test_visitor_globbing(self):
+        cmdline = 'cat ./*'
+        shell_command = CommandsVisitor.converter(cmdline)
+        expected_output = Call('cat', ['./test1.txt', './test2.txt'], None,
+                               None)
+        self.assertEqual(shell_command, expected_output)
+
+    def test_visitor_many_inputs_parse_error(self):
+        cmdline = 'cat hello > test1.txt > test2.txt '
+        with self.assertRaises(ParseError):
+            CommandsVisitor.converter(cmdline)
+
