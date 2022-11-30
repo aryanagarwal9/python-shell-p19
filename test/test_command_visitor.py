@@ -126,9 +126,12 @@ class TestCommandVisitor(unittest.TestCase):
     def test_visitor_globbing(self):
         cmdline = 'cat ./*'
         shell_command = CommandsVisitor.converter(cmdline)
-        expected_output = Call('cat', ['./test1.txt', './test2.txt'], None,
-                               None)
-        self.assertEqual(shell_command, expected_output)
+        expected_output1 = Call('cat', ['./test1.txt', './test2.txt'], None,
+                                None)
+        expected_output2 = Call('cat', ['./test2.txt', './test1.txt'], None,
+                                None)
+        self.assertTrue(shell_command == expected_output1
+                        or shell_command == expected_output2)
 
     # def test_visitor_parse_cancellation_excetion(self):
     # cmdline = "echo '"
@@ -137,10 +140,8 @@ class TestCommandVisitor(unittest.TestCase):
 
     def test_visitor_multiple_outputs_redirection(self):
         cmdline = 'cat hello > test1.txt > test2.txt '
-        with self.assertRaises(ParseError):
-            CommandsVisitor.converter(cmdline)
+        self.assertRaises(ParseError, CommandsVisitor.converter, cmdline)
 
     def test_visitor_multiple_inputs_redirection(self):
         cmdline = 'cat < test1.txt < test2.txt '
-        with self.assertRaises(ParseError):
-            CommandsVisitor.converter(cmdline)
+        self.assertRaises(ParseError, CommandsVisitor.converter, cmdline)

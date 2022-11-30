@@ -45,7 +45,7 @@ jobs:
 
       - name: Check Coverage
         run: |
-          coverage run --branch --omit='src/src/shell_commands/grammar/*','/opt/*' -m nose2 test
+          coverage run --branch --omit='src/shell_commands/grammar/*','/opt/*' -m nose2 test
           coverage report --fail-under=95
           
         
