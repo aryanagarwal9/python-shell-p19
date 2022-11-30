@@ -16,7 +16,7 @@ from src.applications.unsafe_decorator import UnsafeDecorator
 from src.errors import ApplicationNotSupportedError
 
 
-class TestCat(unittest.TestCase):
+class TestApplicationFactory(unittest.TestCase):
 
     def setUp(self) -> None:
         self.app_types = {'pwd': Pwd,

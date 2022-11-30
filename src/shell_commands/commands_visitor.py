@@ -14,6 +14,7 @@ from src.shell_commands.grammar.CommandParserGrammar import \
     CommandParserGrammar
 from src.shell_commands.grammar.CommandParserGrammarVisitor import \
     CommandParserGrammarVisitor
+from src.shell_commands.parser_error_listener import ParserErrorListener
 
 
 class CommandsVisitor(CommandParserGrammarVisitor):
@@ -23,10 +24,13 @@ class CommandsVisitor(CommandParserGrammarVisitor):
         lexer = CommandLexerGrammar(input_stream)
         stream = CommonTokenStream(lexer)
         parser = CommandParserGrammar(stream)
+
+        parser.removeErrorListeners()
+        parser.addErrorListener(ParserErrorListener.INSTANCE)
+
         tree = parser.cmdline()
         command = tree.accept(cls())
-        # lexer.removeErrorListeners()
-        # parser.removeErrorListeners()
+
         return command
 
     def visitCmdline(self, ctx: CommandParserGrammar.CmdlineContext):

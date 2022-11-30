@@ -13,6 +13,7 @@ class TestFind(unittest.TestCase):
     def setUp(self) -> None:
         self.out = deque()
         self.directory = 'resources'
+        self.original_directory = os.getcwd()
         os.mkdir('resources')
         os.chdir(self.directory)
 
@@ -32,7 +33,7 @@ class TestFind(unittest.TestCase):
                     file.write('I am a file')
 
     def tearDown(self) -> None:
-        os.chdir('..')
+        os.chdir(self.original_directory)
         shutil.rmtree(self.directory)
 
     @parameterized.expand([
