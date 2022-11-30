@@ -9,6 +9,7 @@ from src.shell_commands.commands_visitor import CommandsVisitor
 def eval(cmdline, out):
     CommandsVisitor().converter(cmdline).eval(None, out)
 
+
 def run_non_interactive_mode(args_num):
     if args_num != 2:
         raise ArgumentError("Wrong number of command line arguments")
@@ -19,6 +20,7 @@ def run_non_interactive_mode(args_num):
     while len(out) > 0:
         print(out.popleft(), end="")
 
+
 def run_interactive_mode():
     while True:
         print(os.getcwd() + "> ", end="")
@@ -28,12 +30,14 @@ def run_interactive_mode():
         while len(out) > 0:
             print(out.popleft(), end="")
 
+
 def run():
     args_num = len(sys.argv) - 1
     if args_num > 0:
         run_non_interactive_mode(args_num)
     else:
         run_interactive_mode()
+
 
 if __name__ == "__main__":
     run()

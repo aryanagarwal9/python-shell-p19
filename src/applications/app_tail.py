@@ -65,7 +65,8 @@ class Tail(Application):
         out.extend(
             self.get_tail(num_lines=num_lines, stdin=stdin, src='stdin'))
 
-    def handle_num_of_lines_and_file(self, args: List[str], out: deque) -> None:
+    def handle_num_of_lines_and_file(self, args: List[str],
+                                     out: deque) -> None:
         """If file and num_lines is given then read from file and
         output the specified number of lines
         """

@@ -6,6 +6,7 @@ from src.applications.application import Application
 from src.errors import ArgumentError
 from src.utils import get_lines
 
+
 class Grep(Application):
     def __init__(self):
         self.flags = {'-v': False}
