@@ -91,7 +91,3 @@ class TestHead(unittest.TestCase):
         app = Head()
         self.assertRaises(ArgumentError, app.exec, args=['1', '2', '3', '4'],
                           stdin=None, out=self.out)
-
-    def test_get_head_without_src(self):
-        app = Head()
-        self.assertRaises(SourceError, app.get_head, src=None)

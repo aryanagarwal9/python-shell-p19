@@ -111,3 +111,8 @@ class TestHead(unittest.TestCase):
         app = Cut()
         self.assertRaises(ArgumentError, app.exec, args=args, stdin=None,
                           out=self.out)
+
+    def test_get_cut_str(self):
+        app = Cut()
+        self.assertRaises(ArgumentError, app.get_cut_str, line='foo',
+                          byte_order='1,,2')
