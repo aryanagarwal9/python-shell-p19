@@ -1,5 +1,7 @@
 import unittest
 
+from parameterized import parameterized
+
 from src.applications.app_cat import Cat
 from src.applications.app_cd import Cd
 from src.applications.app_echo import Echo
@@ -12,7 +14,7 @@ from src.applications.app_tail import Tail
 from src.applications.application_factory import ApplicationFactory
 from src.applications.unsafe_decorator import UnsafeDecorator
 from src.errors import ApplicationNotSupportedError
-from parameterized import parameterized
+
 
 class TestCat(unittest.TestCase):
 
