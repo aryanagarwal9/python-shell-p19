@@ -95,8 +95,7 @@ class TestCommandVisitor(unittest.TestCase):
         cmdline = 'echo "Hello `cat test1.txt`"'
         shell_command = CommandsVisitor.converter(cmdline)
         expected_output = Call('echo',
-                               [
-                                   'Hello This is a testing file for command visitor '],
+                               ['Hello This is a testing file for command visitor '],
                                None, None)
         self.assertEqual(shell_command, expected_output)
 
