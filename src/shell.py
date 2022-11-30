@@ -2,7 +2,7 @@ import os
 import sys
 from collections import deque
 
-from src.errors import ArgumentError
+from src.errors import ArgumentError, FlagError
 from src.shell_commands.commands_visitor import CommandsVisitor
 
 
@@ -14,7 +14,7 @@ def run_non_interactive_mode(args_num):
     if args_num != 2:
         raise ArgumentError("Wrong number of command line arguments")
     if sys.argv[1] != "-c":
-        raise ArgumentError(f"Unexpected command line argument {sys.argv[1]}")
+        raise FlagError(f"Invalid Flag: {sys.argv[1]}")
     out = deque()
     eval(sys.argv[2], out)
     while len(out) > 0:
