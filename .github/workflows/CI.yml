@@ -17,7 +17,7 @@ jobs:
 
     steps:
 
-      - name: Checkout P19 repo
+      - name: Checkout repo
         uses: actions/checkout@v3
 
       - name: Set up Python 3.8
